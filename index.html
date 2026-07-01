@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WC 2026 — Game Theory Bracket · Jun 30</title>
+<title>WC 2026 — Game Theory Bracket · Jul 1</title>
 <style>
   :root {
     --bg:#0d0d14; --card:#161622; --card2:#1e1e2e; --border:#2a2a3e;
@@ -110,6 +110,7 @@
   .match-card.high { border-color:rgba(239,68,68,.5); }
   .match-card.resolved { border-color:rgba(16,185,129,.4); }
   .match-card.upset-card { border-color:rgba(239,68,68,.7); background:linear-gradient(135deg,rgba(239,68,68,.05) 0%,var(--card) 100%); }
+  .match-card.star-card { border-color:rgba(245,158,11,.5); background:linear-gradient(135deg,rgba(245,158,11,.05) 0%,var(--card) 100%); }
   .match-card-header { padding:8px 12px; background:var(--card2); font-size:11px; color:var(--txt2); display:flex; justify-content:space-between; align-items:center; }
   .match-card-body { padding:12px; }
   .match-vs { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
@@ -151,13 +152,13 @@
       <div class="header-sub">by HeavyMetalProduct · Analyst-Grade Bracket Intelligence</div>
     </div>
     <div class="header-meta">
-      <div class="header-date">JUNE 30, 2026</div>
-      <div>R32 Day 3 · Pre-MDN · v16</div>
-      <div>Polymarket · eloratings.net · PELE Model · CBS/ESPN/NBC/FOX Sports</div>
+      <div class="header-date">JULY 1, 2026</div>
+      <div>R32 Day 4 · Pre-MDN · v17</div>
+      <div>Polymarket · defirate.com · eloratings.net · PELE Model</div>
     </div>
   </div>
   <div class="legend">
-    <div class="legend-item"><span class="pill pill-purple">27%</span> Tournament win % (Polymarket)</div>
+    <div class="legend-item"><span class="pill pill-purple">33%</span> Tournament win % (Polymarket)</div>
     <div class="legend-item"><span class="pill pill-green">win 91%</span> Match win % (PELE / Elo)</div>
     <div class="legend-item"><span class="pill pdi-m">PDI 5.6</span> Path Difficulty Index · ≤4.9 easy · 5–6.9 amber · ≥7 red</div>
     <div class="legend-item">■ Bar = match win probability</div>
@@ -167,8 +168,8 @@
 
 <div class="tabs">
   <div class="tab active" onclick="showTab('bracket',this)">Bracket</div>
-  <div class="tab" onclick="showTab('today',this)">📅 Today · Jun 30</div>
-  <div class="tab" onclick="showTab('insights',this)">Insights · Jun 29</div>
+  <div class="tab" onclick="showTab('today',this)">📅 Today · Jul 1</div>
+  <div class="tab" onclick="showTab('insights',this)">Insights · Jun 30</div>
   <div class="tab" onclick="showTab('methodology',this)">Methodology</div>
 </div>
 
@@ -176,16 +177,16 @@
 
 <!-- ===== BRACKET ===== -->
 <div id="bracket" class="tab-panel active">
-  <div class="alert alert-r">🚨 DOUBLE UPSET Jun 29: Paraguay KO'd Germany 4-3 PKs · Morocco KO'd Netherlands 3-2 PKs · Both title contenders ELIMINATED</div>
-  <div class="alert alert-g">✅ Brazil 2-1 Japan · France now faces PARAGUAY (not Germany) in R16 M89 · France PDI drops 7.2 → 5.6 · France ↑ 27%</div>
-  <div class="alert alert-a">🔴 TODAY: Ivory Coast–Norway 1pm ET · France–Sweden 5pm ET · Mexico–Ecuador 9pm ET · All FOX</div>
+  <div class="alert alert-g">🇫🇷 Mbappé 2 goals → France 3-0 Sweden · France surges to 33% (↑ +6%) · 🇳🇴 Haaland 86' winner → Norway 2-1 IvC · Brazil vs Norway R16 CONFIRMED</div>
+  <div class="alert alert-g">🇲🇽 Mexico 4W · 0 goals conceded · 2-0 Ecuador · 40yr drought over · R16 M92 vs England · Mexico PDI 7.1 red 🔴</div>
+  <div class="alert alert-a">🔴 TODAY: England–DR Congo 12pm ET Atlanta · Belgium–Senegal 4pm ET Seattle · USA–Bosnia 8pm ET Santa Clara</div>
 
   <div class="bracket-layout">
   <!-- ========== SF1 SIDE ========== -->
   <div class="bracket-col">
     <div class="round-label">SF1 SIDE — R32 · Pairs A–D → SF1 M101</div>
 
-    <div class="pair-lbl">Pair A: M74 + M77 → R16 M89 (France vs Paraguay — was Germany)</div>
+    <div class="pair-lbl">Pair A: M74 + M77 → R16 M89 ✅ France vs Paraguay LOCKED</div>
     <div class="match-pair upset">
       <div class="match-header">
         <span>M74 · Jun 29 · Gillette Stadium, Foxborough</span>
@@ -207,34 +208,34 @@
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:100%;background:var(--green);"></div><div class="win-pct">THROUGH</div></div>
       </div>
-      <div class="match-note nw">1-1 AET. Enciso header (1st half) · Havertz 52'. Tah missed decisive PK — blasted over. Gill (PAR) saved key attempts. Jose Canale scored winner. Germany's WC exit.</div>
+      <div class="match-note nw">1-1 AET. Enciso · Havertz 52'. Tah missed decisive PK (blazed over). Canale scored winner. Germany eliminated.</div>
     </div>
 
-    <div class="match-pair today">
+    <div class="match-pair resolved">
       <div class="match-header">
-        <span>M77 · TODAY Jun 30 · MetLife Stadium, NJ · 5pm ET · FOX</span>
-        <span class="match-badge badge-today">🔴 5pm ET</span>
+        <span>M77 · Jun 30 · MetLife Stadium, NJ</span>
+        <span class="match-badge badge-done">✅ FINAL</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇫🇷</span>
         <div class="team-info">
-          <div class="team-name">France (I1) ✅</div>
-          <div class="team-pills"><span class="pill pill-purple">27%</span><span class="pill pill-green">win 91%</span><span class="pill pdi-m">PDI 5.6 ↓</span></div>
+          <div class="team-name">France ✅ → R16 M89</div>
+          <div class="team-pills"><span class="pill pill-purple">33%</span><span class="score-badge">WON 3-0</span><span class="pill pdi-m">PDI 5.6</span></div>
         </div>
-        <div class="win-bar-wrap"><div class="win-bar" style="width:91%;background:#2563eb;"></div><div class="win-pct">91%</div></div>
+        <div class="win-bar-wrap"><div class="win-bar" style="width:100%;background:#2563eb;"></div><div class="win-pct">THROUGH</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇸🇪</span>
         <div class="team-info">
-          <div class="team-name">Sweden (3rd) ✅</div>
-          <div class="team-pills"><span class="pill pill-green">win 9%</span></div>
+          <div class="team-name">Sweden — eliminated</div>
+          <div class="team-pills"><span class="pill pill-outline">out</span></div>
         </div>
-        <div class="win-bar-wrap"><div class="win-bar" style="width:9%;background:#64748b;"></div><div class="win-pct">9%</div></div>
+        <div class="win-bar-wrap"><div class="win-bar" style="width:0%;"></div><div class="win-pct">OUT</div></div>
       </div>
-      <div class="match-note ng">🎁 Germany gone → France faces Paraguay R16 (not Germany). PDI 7.2 → 5.6. France ↑ 27%. Win = massive path clearance.</div>
+      <div class="match-note ng">Mbappé 45' (Dembélé), Barcola 53' (Olise), Mbappé 74' (Olise). Mbappé = 6 WC goals, equals tournament record. France odds surge 27%→33%.</div>
     </div>
 
-    <div class="pair-lbl">Pair B: M73 + M75 → R16 M90 (Morocco confirmed — upset win)</div>
+    <div class="pair-lbl">Pair B: M73 + M75 → R16 M90 ✅ Morocco vs Canada LOCKED</div>
     <div class="match-pair resolved">
       <div class="match-header">
         <span>M73 · Jun 28 · SoFi Stadium, LA</span>
@@ -243,7 +244,7 @@
       <div class="match-team">
         <span class="team-flag">🇨🇦</span>
         <div class="team-info">
-          <div class="team-name">Canada (B2) ✅ → R16 M90</div>
+          <div class="team-name">Canada ✅ → R16 M90</div>
           <div class="team-pills"><span class="score-badge">WON 1-0</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:100%;background:var(--green);"></div><div class="win-pct">THROUGH</div></div>
@@ -256,7 +257,7 @@
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:0%;"></div><div class="win-pct">OUT</div></div>
       </div>
-      <div class="match-note ng">Eustáquio 90+2'. Canada's first WC knockout win. Now faces Morocco R16.</div>
+      <div class="match-note ng">Eustáquio 90+2'. Canada's first WC knockout win.</div>
     </div>
 
     <div class="match-pair upset">
@@ -275,24 +276,24 @@
       <div class="match-team">
         <span class="team-flag">🇲🇦</span>
         <div class="team-info">
-          <div class="team-name">Morocco ✅ → R16 M90 vs Canada</div>
-          <div class="team-pills"><span class="pill pill-purple">3%</span><span class="score-badge">WON PKs 3-2</span></div>
+          <div class="team-name">Morocco ✅ → R16 M90</div>
+          <div class="team-pills"><span class="pill pill-purple">2.4%</span><span class="score-badge">WON PKs 3-2</span></div>
         </div>
-        <div class="win-bar-wrap"><div class="win-bar" style="width:100%;background:var(--green);"></div><div class="win-pct">THROUGH</div></div>
+        <div class="win-bar-wrap"><div class="win-bar" style="width:100%;background:#15803d;"></div><div class="win-pct">THROUGH</div></div>
       </div>
-      <div class="match-note nw">1-1 AET. Gakpo 72' · Issa Diop (MAR). Bounou saved Summerville. Saibari scored winner. Netherlands' penalty curse strikes again.</div>
+      <div class="match-note nw">1-1 AET. Gakpo 72' · Issa Diop. Bounou saved Summerville. Penalty curse returns for Netherlands.</div>
     </div>
 
-    <div class="pair-lbl">Pair C: M83 + M84 → R16 M93</div>
+    <div class="pair-lbl">Pair C: M83 + M84 → R16 M93 · Jul 2</div>
     <div class="match-pair warn">
       <div class="match-header">
         <span>M83 · Jul 2 · Toronto</span>
-        <span class="match-badge badge-death">🔴 K2 BRUTAL</span>
+        <span class="match-badge badge-death">🔴 K2 GAUNTLET</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇵🇹</span>
         <div class="team-info">
-          <div class="team-name">Portugal (K2) ✅</div>
+          <div class="team-name">Portugal (K2)</div>
           <div class="team-pills"><span class="pill pill-purple">6%</span><span class="pill pill-green">win 67%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:67%;background:#64748b;"></div><div class="win-pct">67%</div></div>
@@ -300,47 +301,47 @@
       <div class="match-team">
         <span class="team-flag">🇭🇷</span>
         <div class="team-info">
-          <div class="team-name">Croatia (L2) ✅</div>
+          <div class="team-name">Croatia (L2)</div>
           <div class="team-pills"><span class="pill pdi-h">PDI 7.8</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:33%;background:#64748b;"></div><div class="win-pct">33%</div></div>
       </div>
-      <div class="match-note nw">Win → R16 vs Spain. PDI 7.8. Portugal paid the K2 penalty.</div>
+      <div class="match-note nw">Win → R16 M93 vs Spain. K2 penalty: brutal path.</div>
     </div>
 
     <div class="match-pair">
       <div class="match-header">
         <span>M84 · Jul 2 · SoFi, LA</span>
-        <span class="match-badge badge-conf">✅ H1 vs J2</span>
+        <span class="match-badge badge-conf">H1 vs J2</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇪🇸</span>
         <div class="team-info">
-          <div class="team-name">Spain (H1) ✅</div>
-          <div class="team-pills"><span class="pill pill-purple">11%</span><span class="pill pill-green">win 86%</span></div>
+          <div class="team-name">Spain (H1)</div>
+          <div class="team-pills"><span class="pill pill-purple">10%</span><span class="pill pill-green">win 86%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:86%;background:#dc2626;"></div><div class="win-pct">86%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇦🇹</span>
         <div class="team-info">
-          <div class="team-name">Austria (J2) ✅</div>
+          <div class="team-name">Austria (J2)</div>
           <div class="team-pills"><span class="pill pdi-m">PDI 6.0</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:14%;background:#64748b;"></div><div class="win-pct">14%</div></div>
       </div>
     </div>
 
-    <div class="pair-lbl">Pair D: M81 + M82 → R16 M94</div>
-    <div class="match-pair">
+    <div class="pair-lbl">Pair D: M81 + M82 → R16 M94 · ⚡ BOTH TODAY</div>
+    <div class="match-pair today">
       <div class="match-header">
-        <span>M81 · Jul 1 · Santa Clara</span>
-        <span class="match-badge badge-conf">✅ D1</span>
+        <span>M81 · TODAY Jul 1 · Levi's Stadium, Santa Clara · 8pm ET</span>
+        <span class="match-badge badge-today">🔴 8pm ET · Home soil</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇺🇸</span>
         <div class="team-info">
-          <div class="team-name">USA (D1) ✅</div>
+          <div class="team-name">USA (D1)</div>
           <div class="team-pills"><span class="pill pill-purple">1.2%</span><span class="pill pill-green">win 84%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:84%;background:#3b82f6;"></div><div class="win-pct">84%</div></div>
@@ -348,22 +349,23 @@
       <div class="match-team">
         <span class="team-flag">🇧🇦</span>
         <div class="team-info">
-          <div class="team-name">Bosnia (3rd) ✅</div>
+          <div class="team-name">Bosnia (3rd)</div>
           <div class="team-pills"><span class="pill pdi-m">PDI 5.8</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:16%;background:#64748b;"></div><div class="win-pct">16%</div></div>
       </div>
+      <div class="match-note ng">USA at Levi's Stadium — massive home advantage. Win → R16 M94 vs Belgium/Senegal winner.</div>
     </div>
 
-    <div class="match-pair">
+    <div class="match-pair today">
       <div class="match-header">
-        <span>M82 · Jul 1 · Seattle</span>
-        <span class="match-badge badge-conf">✅ G1</span>
+        <span>M82 · TODAY Jul 1 · Lumen Field, Seattle · 4pm ET</span>
+        <span class="match-badge badge-today">🔴 4pm ET</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇧🇪</span>
         <div class="team-info">
-          <div class="team-name">Belgium (G1) ✅</div>
+          <div class="team-name">Belgium (G1)</div>
           <div class="team-pills"><span class="pill pill-purple">1.5%</span><span class="pill pill-green">win 81%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:81%;background:#f59e0b;"></div><div class="win-pct">81%</div></div>
@@ -371,25 +373,26 @@
       <div class="match-team">
         <span class="team-flag">🇸🇳</span>
         <div class="team-info">
-          <div class="team-name">Senegal (3rd) ✅</div>
+          <div class="team-name">Senegal (3rd)</div>
           <div class="team-pills"><span class="pill pdi-m">PDI 5.3</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:19%;background:#64748b;"></div><div class="win-pct">19%</div></div>
       </div>
+      <div class="match-note ng">Belgium 81%. Win → R16 M94 vs USA/Bosnia winner. De Bruyne potentially in last major tournament.</div>
     </div>
 
     <!-- R16 SF1 -->
-    <div class="round-label">Round of 16 — M89 · M90 · M93 · M94 · Jul 4–7</div>
+    <div class="round-label">Round of 16 — M89 · M90 · M93 · M94</div>
     <div class="match-pair gt">
       <div class="match-header">
-        <span>M89 · Jul 4/5</span>
-        <span class="match-badge badge-gt">⚙️ FRANCE GIFT PATH</span>
+        <span>M89 · R16 · Jul 4/5 · Philadelphia</span>
+        <span class="match-badge badge-conf">✅ BOTH CONFIRMED</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇫🇷</span>
         <div class="team-info">
-          <div class="team-name">France (proj.) ✅ if beat Sweden</div>
-          <div class="team-pills"><span class="pill pill-purple">27%</span><span class="pill pill-green">win 94%</span></div>
+          <div class="team-name">France ✅ confirmed</div>
+          <div class="team-pills"><span class="pill pill-purple">33%</span><span class="pill pill-green">win 94%</span><span class="pill pdi-m">PDI 5.6</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:94%;background:#2563eb;"></div><div class="win-pct">94%</div></div>
       </div>
@@ -397,23 +400,23 @@
         <span class="team-flag">🇵🇾</span>
         <div class="team-info">
           <div class="team-name">Paraguay ✅ confirmed</div>
-          <div class="team-pills"><span class="pill pdi-m">PDI 5.6</span></div>
+          <div class="team-pills"><span class="pill pill-outline">win 6%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:6%;background:#64748b;"></div><div class="win-pct">6%</div></div>
       </div>
-      <div class="match-note ng">Germany eliminated → France faces Paraguay (Elo ~1700) not Germany (1880). PDI 7.2 → 5.6. Massive gift for France.</div>
+      <div class="match-note ng">France 94% favourite. Germany gone — France faces Paraguay (Elo ~1700) not Germany (1880). France PDI 7.2 → 5.6. Path is open.</div>
     </div>
 
     <div class="match-pair">
       <div class="match-header">
-        <span>M90 · Jul 5/6</span>
-        <span class="match-badge badge-conf">✅ Morocco confirmed</span>
+        <span>M90 · R16 · Jul 5/6</span>
+        <span class="match-badge badge-conf">✅ BOTH CONFIRMED</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇲🇦</span>
         <div class="team-info">
           <div class="team-name">Morocco ✅ confirmed</div>
-          <div class="team-pills"><span class="pill pill-purple">3%</span><span class="pill pill-green">win 53%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">2.4%</span><span class="pill pill-green">win 53%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:53%;background:#15803d;"></div><div class="win-pct">53%</div></div>
       </div>
@@ -425,26 +428,26 @@
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:47%;background:#dc2626;"></div><div class="win-pct">47%</div></div>
       </div>
-      <div class="match-note ng">Netherlands eliminated → Morocco vs Canada, both having shocked bigger sides. 53/47 split — a genuine toss-up.</div>
+      <div class="match-note ng">53/47 toss-up. Both teams shocked European giants. Winner → QF M97 vs France (proj.).</div>
     </div>
 
     <div class="match-pair warn">
       <div class="match-header">
-        <span>M93 · Jul 6/7</span>
+        <span>M93 · R16 · Jul 6/7</span>
         <span class="match-badge badge-death">🔴 K2 GAUNTLET</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇪🇸</span>
         <div class="team-info">
-          <div class="team-name">Spain (H1) proj.</div>
-          <div class="team-pills"><span class="pill pill-purple">11%</span><span class="pill pill-green">win 67%</span></div>
+          <div class="team-name">Spain (proj.)</div>
+          <div class="team-pills"><span class="pill pill-purple">10%</span><span class="pill pill-green">win 67%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:67%;background:#dc2626;"></div><div class="win-pct">67%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇵🇹</span>
         <div class="team-info">
-          <div class="team-name">Portugal (K2) proj.</div>
+          <div class="team-name">Portugal (K2 proj.)</div>
           <div class="team-pills"><span class="pill pill-purple">6%</span><span class="pill pill-blue">win 33%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:33%;background:#64748b;"></div><div class="win-pct">33%</div></div>
@@ -452,11 +455,14 @@
     </div>
 
     <div class="match-pair">
-      <div class="match-header"><span>M94 · Jul 6/7</span></div>
+      <div class="match-header">
+        <span>M94 · R16 · Jul 6/7</span>
+        <span class="match-badge badge-conf">Both TBD Today</span>
+      </div>
       <div class="match-team">
         <span class="team-flag">🇺🇸</span>
         <div class="team-info">
-          <div class="team-name">USA (D1) proj.</div>
+          <div class="team-name">USA (proj. if beat Bosnia)</div>
           <div class="team-pills"><span class="pill pill-purple">1.2%</span><span class="pill pill-green">win 54%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:54%;background:#3b82f6;"></div><div class="win-pct">54%</div></div>
@@ -464,11 +470,12 @@
       <div class="match-team">
         <span class="team-flag">🇧🇪</span>
         <div class="team-info">
-          <div class="team-name">Belgium (G1) proj.</div>
+          <div class="team-name">Belgium (proj. if beat Senegal)</div>
           <div class="team-pills"><span class="pill pill-purple">1.5%</span><span class="pill pill-outline">win 46%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:46%;background:#f59e0b;"></div><div class="win-pct">46%</div></div>
       </div>
+      <div class="match-note na">Both M81 and M82 resolve today. USA vs Belgium R16 is the projected matchup.</div>
     </div>
 
     <!-- QF SF1 -->
@@ -482,7 +489,7 @@
         <span class="team-flag">🇫🇷</span>
         <div class="team-info">
           <div class="team-name">France (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">27%</span><span class="pill pill-green">win 78%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">33%</span><span class="pill pill-green">win 78%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:78%;background:#2563eb;"></div><div class="win-pct">78%</div></div>
       </div>
@@ -494,7 +501,7 @@
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:22%;background:#15803d;"></div><div class="win-pct">22%</div></div>
       </div>
-      <div class="match-note ng">Was France vs Netherlands (39% Ned). Now France vs Morocco/Canada. Massive path clearance for France.</div>
+      <div class="match-note ng">Was France vs Netherlands (39% Ned). Now Morocco/Canada at ~22%. France's path keeps clearing.</div>
     </div>
 
     <div class="match-pair">
@@ -503,7 +510,7 @@
         <span class="team-flag">🇪🇸</span>
         <div class="team-info">
           <div class="team-name">Spain (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">11%</span><span class="pill pill-green">win 64%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">10%</span><span class="pill pill-green">win 64%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:64%;background:#dc2626;"></div><div class="win-pct">64%</div></div>
       </div>
@@ -528,7 +535,7 @@
         <span class="team-flag">🇫🇷</span>
         <div class="team-info">
           <div class="team-name">France (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">27%</span><span class="pill pill-green">win 62%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">33%</span><span class="pill pill-green">win 62%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:62%;background:#2563eb;"></div><div class="win-pct">62%</div></div>
       </div>
@@ -536,11 +543,11 @@
         <span class="team-flag">🇪🇸</span>
         <div class="team-info">
           <div class="team-name">Spain (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">11%</span><span class="pill pill-outline">win 38%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">10%</span><span class="pill pill-outline">win 38%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:38%;background:#dc2626;"></div><div class="win-pct">38%</div></div>
       </div>
-      <div class="match-note ng">France advantage growing: PDI dropped, bracket cleared. Spain still dangerous but 11% market reflects pressure.</div>
+      <div class="match-note ng">France at 33% — gap over Spain is now 23 points. Mbappé in WC final form. SF1 is France's to lose.</div>
     </div>
   </div>
 
@@ -554,7 +561,7 @@
   <div class="bracket-col">
     <div class="round-label">SF2 SIDE — R32 · Pairs E–H → SF2 M102</div>
 
-    <div class="pair-lbl">Pair E: M76 + M78 → R16 M91 (Brazil advancing · Norway paradox today)</div>
+    <div class="pair-lbl">Pair E: M76 + M78 → R16 M91 ✅ Brazil vs Norway LOCKED 🔀</div>
     <div class="match-pair resolved">
       <div class="match-header">
         <span>M76 · Jun 29 · NRG Stadium, Houston</span>
@@ -563,8 +570,8 @@
       <div class="match-team">
         <span class="team-flag">🇧🇷</span>
         <div class="team-info">
-          <div class="team-name">Brazil (C1) ✅ → R16 M91</div>
-          <div class="team-pills"><span class="pill pill-purple">8%</span><span class="score-badge">WON 2-1</span></div>
+          <div class="team-name">Brazil ✅ → R16 M91</div>
+          <div class="team-pills"><span class="pill pill-purple">6.7%</span><span class="score-badge">WON 2-1</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:100%;background:var(--green);"></div><div class="win-pct">THROUGH</div></div>
       </div>
@@ -576,116 +583,116 @@
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:0%;"></div><div class="win-pct">OUT</div></div>
       </div>
-      <div class="match-note ng">2-1. Brazil's stoppage-time winner. Japan upset bid fell just short. Brazil faces Norway/Ivory Coast R16.</div>
+      <div class="match-note ng">Casemiro · Gabriel Martinelli. 2-1 comeback win. Brazil now faces HAALAND and Norway R16.</div>
     </div>
 
-    <div class="match-pair today para">
+    <div class="match-pair resolved para">
       <div class="match-header">
-        <span>M78 · TODAY Jun 30 · AT&T Stadium, Dallas · 1pm ET · FOX</span>
-        <span class="match-badge badge-para">🔀 PARADOX · 1pm ET</span>
+        <span>M78 · Jun 30 · AT&T Stadium, Dallas</span>
+        <span class="match-badge badge-done">✅ FINAL · Paradox Resolved</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇨🇮</span>
         <div class="team-info">
-          <div class="team-name">Ivory Coast (E2) ✅</div>
-          <div class="team-pills"><span class="pill pill-green">win 44%</span></div>
+          <div class="team-name">Ivory Coast — eliminated</div>
+          <div class="team-pills"><span class="pill pill-outline">out</span></div>
         </div>
-        <div class="win-bar-wrap"><div class="win-bar" style="width:44%;background:#64748b;"></div><div class="win-pct">44%</div></div>
+        <div class="win-bar-wrap"><div class="win-bar" style="width:0%;"></div><div class="win-pct">OUT</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇳🇴</span>
         <div class="team-info">
-          <div class="team-name">Norway (I2) ✅</div>
-          <div class="team-pills"><span class="pill pill-purple">2%</span><span class="pill pill-green">win 56%</span><span class="pill pdi-h">PDI 7.3</span></div>
+          <div class="team-name">Norway ✅ → R16 M91 vs Brazil</div>
+          <div class="team-pills"><span class="pill pill-purple">1.8%</span><span class="score-badge">WON 2-1</span><span class="pill pdi-h">PDI 7.3</span></div>
         </div>
-        <div class="win-bar-wrap"><div class="win-bar" style="width:56%;background:#dc2626;"></div><div class="win-pct">56%</div></div>
+        <div class="win-bar-wrap"><div class="win-bar" style="width:100%;background:#dc2626;"></div><div class="win-pct">THROUGH</div></div>
       </div>
-      <div class="match-note np">🔀 Norway paradox R32 resolution. Winner → R16 M91 vs Brazil. Norway 56% favourite. Market: Norway 66.5% to reach SF.</div>
+      <div class="match-note np">🔀 Paradox confirmed. Nusa 39' · Haaland 86' (winner) / Diallo 74'. Norway's first WC knockout win in history. Faces Brazil R16.</div>
     </div>
 
-    <div class="pair-lbl">Pair F: M79 + M80 → R16 M92</div>
-    <div class="match-pair">
+    <div class="pair-lbl">Pair F: M79 + M80 → R16 M92 · Mexico confirmed · England today</div>
+    <div class="match-pair resolved">
       <div class="match-header">
-        <span>M79 · TODAY Jun 30 · Estadio Azteca · 9pm ET · FOX</span>
-        <span class="match-badge badge-today">🔴 9pm ET</span>
+        <span>M79 · Jun 30 · Estadio Azteca, Mexico City</span>
+        <span class="match-badge badge-done">✅ FINAL</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇲🇽</span>
         <div class="team-info">
-          <div class="team-name">Mexico (A1) ✅</div>
-          <div class="team-pills"><span class="pill pill-purple">1.8%</span><span class="pill pill-green">win 78%</span></div>
+          <div class="team-name">Mexico ✅ → R16 M92 · 4W · 0 GA</div>
+          <div class="team-pills"><span class="pill pill-purple">2.7%</span><span class="score-badge">WON 2-0</span><span class="pill pdi-h">PDI 7.1</span></div>
         </div>
-        <div class="win-bar-wrap"><div class="win-bar" style="width:78%;background:var(--accent2);"></div><div class="win-pct">78%</div></div>
+        <div class="win-bar-wrap"><div class="win-bar" style="width:100%;background:var(--accent2);"></div><div class="win-pct">THROUGH</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇪🇨</span>
         <div class="team-info">
-          <div class="team-name">Ecuador (3rd) ✅</div>
-          <div class="team-pills"><span class="pill pdi-e">PDI 4.9</span></div>
+          <div class="team-name">Ecuador — eliminated</div>
+          <div class="team-pills"><span class="pill pill-outline">out</span></div>
         </div>
-        <div class="win-bar-wrap"><div class="win-bar" style="width:22%;background:#64748b;"></div><div class="win-pct">22%</div></div>
+        <div class="win-bar-wrap"><div class="win-bar" style="width:0%;"></div><div class="win-pct">OUT</div></div>
       </div>
-      <div class="match-note ng">Mexico at Azteca — home advantage massive. Win → R16 M92 vs England.</div>
+      <div class="match-note ng">Quiñones 22' · Jiménez 31'. Both goals first half. El Tri: 4W, 12G, 0 conceded. 40-year knockout drought over.</div>
     </div>
 
-    <div class="match-pair gt">
+    <div class="match-pair today">
       <div class="match-header">
-        <span>M80 · Jul 1 · Atlanta</span>
-        <span class="match-badge badge-conf">🎁 GIFT DRAW</span>
+        <span>M80 · TODAY Jul 1 · Mercedes-Benz Stadium, Atlanta · 12pm ET</span>
+        <span class="match-badge badge-today">🔴 12pm ET</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
         <div class="team-info">
-          <div class="team-name">England (L1) ✅</div>
-          <div class="team-pills"><span class="pill pill-purple">13%</span><span class="pill pill-green">win 92%</span></div>
+          <div class="team-name">England (L1)</div>
+          <div class="team-pills"><span class="pill pill-purple">9.4%</span><span class="pill pill-green">win 92%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:92%;background:#1e40af;"></div><div class="win-pct">92%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇨🇩</span>
         <div class="team-info">
-          <div class="team-name">DR Congo (K3, 3rd) ✅</div>
-          <div class="team-pills"><span class="pill pdi-m">PDI 5.9</span></div>
+          <div class="team-name">DR Congo (K3, 3rd)</div>
+          <div class="team-pills"><span class="pill pdi-m">PDI 5.8</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:8%;background:#ef4444;"></div><div class="win-pct">8%</div></div>
       </div>
-      <div class="match-note ng">🎁 England 92%. Easiest R32 draw. Win → R16 M92 vs Mexico. QF vs Brazil if both advance.</div>
+      <div class="match-note nw">England 92% fav. Win → R16 M92 vs Mexico. Tuchel vs El Tri would be highest-profile R16 matchup. England odds dropped 13%→9.4% — path reflects Mexico quality.</div>
     </div>
 
-    <div class="pair-lbl">Pair G: M86 + M88 → R16 M95 (Argentina's easiest path)</div>
+    <div class="pair-lbl">Pair G: M86 + M88 → R16 M95 · Jul 3</div>
     <div class="match-pair gt">
       <div class="match-header">
         <span>M86 · Jul 3 · Kansas City</span>
-        <span class="match-badge badge-gt">⚙️ PDI 4.4 EASIEST</span>
+        <span class="match-badge badge-gt">⚙️ EASIEST R32 PDI 4.4</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇦🇷</span>
         <div class="team-info">
-          <div class="team-name">Argentina (J1) ✅</div>
-          <div class="team-pills"><span class="pill pill-purple">20%</span><span class="pill pill-green">win 97%</span><span class="pill pdi-e">PDI 4.4</span></div>
+          <div class="team-name">Argentina (J1)</div>
+          <div class="team-pills"><span class="pill pill-purple">19%</span><span class="pill pill-green">win 97%</span><span class="pill pdi-e">PDI 4.4</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:97%;background:#1d4ed8;"></div><div class="win-pct">97%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇨🇻</span>
         <div class="team-info">
-          <div class="team-name">Cape Verde (H2) ✅</div>
+          <div class="team-name">Cape Verde (H2)</div>
           <div class="team-pills"><span class="pill pdi-e">Elo ~1630</span></div>
         </div>
-        <div class="win-bar-wrap"><div class="win-bar" style="width:3%;background:#ef4444;"></div><div class="win-pct">3%</div></div>
+        <div class="win-bar-wrap"><div class="win-bar" style="width:3%;background:#64748b;"></div><div class="win-pct">3%</div></div>
       </div>
-      <div class="match-note ng">Argentina 20%, PDI 4.4. Softest path in the tournament. Messi on 5 group goals.</div>
+      <div class="match-note ng">Argentina 19%, PDI 4.4 — softest path in tournament. Messi on form.</div>
     </div>
 
     <div class="match-pair">
       <div class="match-header">
         <span>M88 · Jul 3 · Arlington</span>
-        <span class="match-badge badge-conf">✅ G2</span>
+        <span class="match-badge badge-conf">D2 vs G2</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇦🇺</span>
         <div class="team-info">
-          <div class="team-name">Australia (D2) ✅</div>
+          <div class="team-name">Australia (D2)</div>
           <div class="team-pills"><span class="pill pill-green">win 48%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:48%;background:var(--accent2);"></div><div class="win-pct">48%</div></div>
@@ -693,24 +700,24 @@
       <div class="match-team">
         <span class="team-flag">🇪🇬</span>
         <div class="team-info">
-          <div class="team-name">Egypt (G2) ✅</div>
+          <div class="team-name">Egypt (G2)</div>
           <div class="team-pills"><span class="pill pdi-m">PDI 5.1</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:52%;background:#64748b;"></div><div class="win-pct">52%</div></div>
       </div>
-      <div class="match-note nw">Winner faces Argentina R16 (M95) — 93% Argentina regardless.</div>
+      <div class="match-note nw">Winner faces Argentina R16. 93% Argentina win regardless of opponent.</div>
     </div>
 
-    <div class="pair-lbl">Pair H: M85 + M87 → R16 M96 (Colombia optimal path)</div>
+    <div class="pair-lbl">Pair H: M85 + M87 → R16 M96 · Jul 2–3</div>
     <div class="match-pair">
       <div class="match-header">
         <span>M85 · Jul 2 · Vancouver</span>
-        <span class="match-badge badge-conf">✅ B1</span>
+        <span class="match-badge badge-conf">B1 vs 3rd</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇨🇭</span>
         <div class="team-info">
-          <div class="team-name">Switzerland (B1) ✅</div>
+          <div class="team-name">Switzerland (B1)</div>
           <div class="team-pills"><span class="pill pill-purple">0.8%</span><span class="pill pill-green">win 58%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:58%;background:var(--accent2);"></div><div class="win-pct">58%</div></div>
@@ -718,7 +725,7 @@
       <div class="match-team">
         <span class="team-flag">🇩🇿</span>
         <div class="team-info">
-          <div class="team-name">Algeria (J3, 3rd) ✅</div>
+          <div class="team-name">Algeria (J3, 3rd)</div>
           <div class="team-pills"><span class="pill pdi-m">PDI 5.4</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:42%;background:#64748b;"></div><div class="win-pct">42%</div></div>
@@ -728,109 +735,113 @@
     <div class="match-pair gt">
       <div class="match-header">
         <span>M87 · Jul 3 · Kansas City</span>
-        <span class="match-badge badge-gt">⚙️ K1 OPTIMAL</span>
+        <span class="match-badge badge-gt">⚙️ K1 OPTIMAL PATH</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇨🇴</span>
         <div class="team-info">
-          <div class="team-name">Colombia (K1) ✅</div>
-          <div class="team-pills"><span class="pill pill-purple">2.5%</span><span class="pill pill-green">win 74%</span></div>
+          <div class="team-name">Colombia (K1)</div>
+          <div class="team-pills"><span class="pill pill-purple">2.8%</span><span class="pill pill-green">win 74%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:74%;background:var(--amber);"></div><div class="win-pct">74%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇬🇭</span>
         <div class="team-info">
-          <div class="team-name">Ghana (L3, 3rd) ✅</div>
+          <div class="team-name">Ghana (L3, 3rd)</div>
           <div class="team-pills"><span class="pill pdi-m">PDI 6.0</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:26%;background:#64748b;"></div><div class="win-pct">26%</div></div>
       </div>
-      <div class="match-note ng">Colombia K1 gets Ghana R32 then Swiss R16. Far better than Portugal's K2 fate (Spain R16).</div>
+      <div class="match-note ng">K1 Colombia faces Ghana R32, Switzerland R16. Far better than K2 Portugal (Spain R16).</div>
     </div>
 
     <!-- R16 SF2 -->
-    <div class="round-label">Round of 16 — M91 · M92 · M95 · M96 · Jul 5–7</div>
+    <div class="round-label">Round of 16 — M91 · M92 · M95 · M96</div>
     <div class="match-pair para">
       <div class="match-header">
-        <span>M91 · Jul 5/6</span>
-        <span class="match-badge badge-para">🔀 PARADOX</span>
+        <span>M91 · R16 · Jul 5/6</span>
+        <span class="match-badge badge-conf">✅ BOTH CONFIRMED 🔀</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇧🇷</span>
         <div class="team-info">
           <div class="team-name">Brazil ✅ confirmed</div>
-          <div class="team-pills"><span class="pill pill-purple">8%</span><span class="pill pill-green">win 61%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">6.7%</span><span class="pill pill-green">win 61%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:61%;background:#15803d;"></div><div class="win-pct">61%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇳🇴</span>
         <div class="team-info">
-          <div class="team-name">Norway / Ivory Coast (today)</div>
-          <div class="team-pills"><span class="pill pdi-h">PDI 7.3 if Norway</span></div>
+          <div class="team-name">Norway ✅ confirmed · Haaland 6 goals</div>
+          <div class="team-pills"><span class="pill pill-purple">1.8%</span><span class="pill pdi-h">PDI 7.3</span><span class="pill pill-blue">win 39%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:39%;background:#dc2626;"></div><div class="win-pct">39%</div></div>
       </div>
-      <div class="match-note np">Norway/IvC winner determined today 1pm ET. Norway market: 66.5% to SF from here.</div>
+      <div class="match-note np">🔀 Paradox confirmed. Norway faces Brazil (as intended — SF2 soft side). Haaland vs Marquinhos + Gabriel. Market: Brazil 61%. Norway 39% — live upset risk.</div>
     </div>
 
-    <div class="match-pair">
-      <div class="match-header"><span>M92 · Jul 6/7</span></div>
+    <div class="match-pair warn">
+      <div class="match-header">
+        <span>M92 · R16 · Jul 6/7</span>
+        <span class="match-badge badge-death">🔴 EL TRI GAUNTLET</span>
+      </div>
       <div class="match-team">
         <span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
         <div class="team-info">
-          <div class="team-name">England (L1) proj.</div>
-          <div class="team-pills"><span class="pill pill-purple">13%</span><span class="pill pill-green">win 71%</span></div>
+          <div class="team-name">England (proj. if beat DR Congo)</div>
+          <div class="team-pills"><span class="pill pill-purple">9.4%</span><span class="pill pill-green">win 71%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:71%;background:#1e40af;"></div><div class="win-pct">71%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇲🇽</span>
         <div class="team-info">
-          <div class="team-name">Mexico (A1) proj.</div>
-          <div class="team-pills"><span class="pill pill-purple">1.8%</span><span class="pill pill-blue">win 29%</span></div>
+          <div class="team-name">Mexico ✅ confirmed · Unbeaten 4W 0GA</div>
+          <div class="team-pills"><span class="pill pill-purple">2.7%</span><span class="pill pill-blue">win 29%</span><span class="pill pdi-h">PDI 7.1</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:29%;background:var(--accent2);"></div><div class="win-pct">29%</div></div>
       </div>
+      <div class="match-note nw">England heavily favored (71%) but Mexico is in historic form — 4W, 12G, 0 conceded. Mexico PDI 7.1 red. This is the R16 match of the round.</div>
     </div>
 
     <div class="match-pair gt">
       <div class="match-header">
-        <span>M95 · Jul 5/6</span>
+        <span>M95 · R16 · Jul 5/6</span>
         <span class="match-badge badge-gt">⚙️ ARGENTINA GIFT</span>
       </div>
       <div class="match-team">
         <span class="team-flag">🇦🇷</span>
         <div class="team-info">
-          <div class="team-name">Argentina (J1) proj.</div>
-          <div class="team-pills"><span class="pill pill-purple">20%</span><span class="pill pill-green">win 93%</span></div>
+          <div class="team-name">Argentina (proj.)</div>
+          <div class="team-pills"><span class="pill pill-purple">19%</span><span class="pill pill-green">win 93%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:93%;background:#1d4ed8;"></div><div class="win-pct">93%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🏴</span>
         <div class="team-info">
-          <div class="team-name">Aus / Egypt winner</div>
+          <div class="team-name">Australia / Egypt winner</div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:7%;background:#64748b;"></div><div class="win-pct">7%</div></div>
       </div>
     </div>
 
     <div class="match-pair">
-      <div class="match-header"><span>M96 · Jul 6/7</span></div>
+      <div class="match-header"><span>M96 · R16 · Jul 6/7</span></div>
       <div class="match-team">
         <span class="team-flag">🇨🇴</span>
         <div class="team-info">
-          <div class="team-name">Colombia (K1) proj.</div>
-          <div class="team-pills"><span class="pill pill-purple">2.5%</span><span class="pill pill-green">win 66%</span></div>
+          <div class="team-name">Colombia (proj.)</div>
+          <div class="team-pills"><span class="pill pill-purple">2.8%</span><span class="pill pill-green">win 66%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:66%;background:var(--amber);"></div><div class="win-pct">66%</div></div>
       </div>
       <div class="match-team">
         <span class="team-flag">🇨🇭</span>
         <div class="team-info">
-          <div class="team-name">Switzerland (B1) proj.</div>
+          <div class="team-name">Switzerland (proj.)</div>
           <div class="team-pills"><span class="pill pill-blue">win 34%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:34%;background:var(--accent2);"></div><div class="win-pct">34%</div></div>
@@ -839,13 +850,16 @@
 
     <!-- QF SF2 -->
     <div class="round-label">Quarterfinal — M99 · M100 · Jul 9–12</div>
-    <div class="match-pair">
-      <div class="match-header"><span>M99 · Jul 11/12</span></div>
+    <div class="match-pair warn">
+      <div class="match-header">
+        <span>M99 · Jul 11/12</span>
+        <span class="match-badge badge-death">🔴 CLASH OF TITANS</span>
+      </div>
       <div class="match-team">
         <span class="team-flag">🇧🇷</span>
         <div class="team-info">
           <div class="team-name">Brazil (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">8%</span><span class="pill pill-green">win 62%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">6.7%</span><span class="pill pill-green">win 62%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:62%;background:#15803d;"></div><div class="win-pct">62%</div></div>
       </div>
@@ -865,7 +879,7 @@
         <span class="team-flag">🇦🇷</span>
         <div class="team-info">
           <div class="team-name">Argentina (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">20%</span><span class="pill pill-green">win 71%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">19%</span><span class="pill pill-green">win 71%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:71%;background:#1d4ed8;"></div><div class="win-pct">71%</div></div>
       </div>
@@ -873,7 +887,7 @@
         <span class="team-flag">🇨🇴</span>
         <div class="team-info">
           <div class="team-name">Colombia (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">2.5%</span><span class="pill pill-blue">win 29%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">2.8%</span><span class="pill pill-blue">win 29%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:29%;background:var(--amber);"></div><div class="win-pct">29%</div></div>
       </div>
@@ -891,7 +905,7 @@
         <span class="team-flag">🇦🇷</span>
         <div class="team-info">
           <div class="team-name">Argentina (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">20%</span><span class="pill pill-green">win 57%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">19%</span><span class="pill pill-green">win 57%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:57%;background:#1d4ed8;"></div><div class="win-pct">57%</div></div>
       </div>
@@ -899,11 +913,11 @@
         <span class="team-flag">🇧🇷</span>
         <div class="team-info">
           <div class="team-name">Brazil (proj.)</div>
-          <div class="team-pills"><span class="pill pill-purple">8%</span><span class="pill pill-outline">win 43%</span></div>
+          <div class="team-pills"><span class="pill pill-purple">6.7%</span><span class="pill pill-outline">win 43%</span></div>
         </div>
         <div class="win-bar-wrap"><div class="win-bar" style="width:43%;background:#15803d;"></div><div class="win-pct">43%</div></div>
       </div>
-      <div class="match-note na">Projected SF2: Argentina vs Brazil. Winner → MetLife Final Jul 19.</div>
+      <div class="match-note na">Argentina vs Brazil projected SF2. Winner → MetLife Final Jul 19.</div>
     </div>
   </div>
   </div>
@@ -917,13 +931,13 @@
       <div class="final-section">
         <div class="final-trophy">🏆</div>
         <div class="final-team">🇫🇷 France</div>
-        <div class="final-pct">27%</div>
+        <div class="final-pct">33%</div>
         <div class="final-detail">
-          Tournament win: 27.0% (Polymarket Jun 30)<br>
-          Path PDI: 5.6/10 ↓↓ (was 7.2 — Germany eliminated!)<br>
-          vs 🇦🇷 Argentina (20%) projected<br>
-          Route: Sweden R32 → Paraguay R16 → Morocco/Canada QF → Spain SF<br>
-          ↑ +4% overnight — biggest single-day market move of the tournament
+          Tournament win: 33.0% (Polymarket Jul 1) · ↑ +6% in 48 hrs<br>
+          Path PDI: 5.6/10 (was 7.2 — Germany + Netherlands both gone)<br>
+          Route: Sweden R32 3-0 ✅ → Paraguay R16 → Morocco/Canada QF → Spain SF<br>
+          Mbappé: 6 WC goals (tournament record level) · 4W · 13 GF · 2 GA<br>
+          vs 🇦🇷 Argentina 19% projected final
         </div>
       </div>
     </div>
@@ -933,93 +947,94 @@
 
 <!-- ===== TODAY ===== -->
 <div id="today" class="tab-panel">
-  <div class="section-title">📅 Today — Monday, June 30, 2026 · 3 R32 Matches · All FOX</div>
-  <p style="font-size:12px;color:var(--txt2);margin-bottom:16px;">Day 3 of R32. Norway paradox resolution (1pm ET), France's clear path to confirm (5pm ET), Mexico at the Azteca (9pm ET).</p>
+  <div class="section-title">📅 Today — Wednesday, July 1, 2026 · 3 R32 Matches</div>
+  <p style="font-size:12px;color:var(--txt2);margin-bottom:16px;">All SF1-side lower half and SF2-side M92 upper. USA plays at home. England faces a tune-up before Mexico. R16 M94 gets both its teams confirmed today.</p>
 
-  <div class="section-title" style="font-size:12px;color:#ef4444;">1:00 PM ET — M78 Norway Paradox 🔀</div>
+  <div class="section-title" style="font-size:12px;color:#ef4444;">12:00 PM ET — M80 England vs DR Congo</div>
   <div class="today-grid" style="margin-bottom:16px;">
     <div class="match-card high">
       <div class="match-card-header">
-        <span>M78 · R32 · E2 vs I2 <span class="pill pill-red" style="font-size:9px;">PARADOX</span></span>
-        <span style="color:#fca5a5;">🔀 1pm ET · AT&T Stadium · Dallas · FOX</span>
+        <span>M80 · R32 · L1 vs K3</span>
+        <span style="color:#fca5a5;">🔴 12pm ET · Mercedes-Benz Stadium · Atlanta</span>
       </div>
       <div class="match-card-body">
         <div class="match-vs">
-          <div class="team-vs"><span class="flag">🇨🇮</span><div class="name">Ivory Coast</div><div class="pct">E2 ✅ · Elo 1720</div></div>
+          <div class="team-vs"><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><div class="name">England</div><div class="pct">L1 · 9.4% · Elo 1895</div></div>
           <div class="vs-divider">vs</div>
-          <div class="team-vs"><span class="flag">🇳🇴</span><div class="name">Norway</div><div class="pct">I2 ✅ · 2% · Elo 1746</div></div>
+          <div class="team-vs"><span class="flag">🇨🇩</span><div class="name">DR Congo</div><div class="pct">K3, 3rd · Elo ~1600</div></div>
         </div>
         <div class="odds-row">
-          <span class="pill pill-green">Norway 56%</span>
-          <span class="pill pill-amber">Ivory Coast 44%</span>
+          <span class="pill pill-green">England 92%</span>
+          <span class="pill pill-outline">DR Congo 8%</span>
         </div>
-        <p style="font-size:11px;color:var(--txt2);margin-bottom:8px;">📍 AT&T Stadium, Arlington TX</p>
-        <div class="gt-card">
-          <div class="gt-title">🔀 Norway Paradox Resolution</div>
-          <strong>Either winner →</strong> R16 M91 vs Brazil ✅ (confirmed). Norway 66.5% market odds to reach SF even facing Brazil R16. The paradox (Norway better off as I2 landing in SF2) was confirmed — this is now just: who beats Brazil?
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-title" style="font-size:12px;color:#ef4444;">5:00 PM ET — M77 France vs Sweden 🇫🇷</div>
-  <div class="today-grid" style="margin-bottom:16px;">
-    <div class="match-card high">
-      <div class="match-card-header">
-        <span>M77 · R32 · I1 vs 3rd <span class="pill pill-green" style="font-size:9px;">HUGE GT IMPACT</span></span>
-        <span style="color:#fca5a5;">🔴 5pm ET · MetLife Stadium · NJ · FOX</span>
-      </div>
-      <div class="match-card-body">
-        <div class="match-vs">
-          <div class="team-vs"><span class="flag">🇫🇷</span><div class="name">France</div><div class="pct">I1 ✅ · 27% · Elo 1939</div></div>
-          <div class="vs-divider">vs</div>
-          <div class="team-vs"><span class="flag">🇸🇪</span><div class="name">Sweden</div><div class="pct">3rd ✅ · Elo 1760</div></div>
-        </div>
-        <div class="odds-row">
-          <span class="pill pill-green">France 91%</span>
-          <span class="pill pill-outline">Sweden 9%</span>
-        </div>
-        <p style="font-size:11px;color:var(--txt2);margin-bottom:8px;">📍 MetLife Stadium, East Rutherford NJ</p>
-        <div class="gt-card">
-          <div class="gt-title">⚙️ GT Impact — CRITICAL PATH</div>
-          <strong>France win →</strong> R16 M89 vs Paraguay (Elo ~1700). Was Germany (1880). PDI dropped 7.2 → 5.6. France tournament odds 23% → 27% overnight on Germany news alone. This match confirms it.<br><br>
-          <strong>Sweden shock →</strong> Sweden faces Paraguay in R16 instead. Would be a seismic tournament reset.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-title" style="font-size:12px;color:#ef4444;">9:00 PM ET — M79 Mexico vs Ecuador 🇲🇽</div>
-  <div class="today-grid" style="margin-bottom:16px;">
-    <div class="match-card high">
-      <div class="match-card-header">
-        <span>M79 · R32 · A1 vs 3rd <span class="pill pill-amber" style="font-size:9px;">RELEVANT</span></span>
-        <span style="color:#fca5a5;">🔴 9pm ET · Estadio Azteca · Mexico City · FOX</span>
-      </div>
-      <div class="match-card-body">
-        <div class="match-vs">
-          <div class="team-vs"><span class="flag">🇲🇽</span><div class="name">Mexico</div><div class="pct">A1 ✅ · 1.8% · Elo 1800</div></div>
-          <div class="vs-divider">vs</div>
-          <div class="team-vs"><span class="flag">🇪🇨</span><div class="name">Ecuador</div><div class="pct">3rd ✅ · Elo ~1700</div></div>
-        </div>
-        <div class="odds-row">
-          <span class="pill pill-green">Mexico 78%</span>
-          <span class="pill pill-outline">Ecuador 22%</span>
-        </div>
-        <p style="font-size:11px;color:var(--txt2);margin-bottom:8px;">📍 Estadio Azteca, Mexico City</p>
+        <p style="font-size:11px;color:var(--txt2);margin-bottom:8px;">📍 Mercedes-Benz Stadium, Atlanta GA</p>
         <div class="gt-card">
           <div class="gt-title">⚙️ GT Impact</div>
-          <strong>Mexico win →</strong> R16 M92 vs England (71% England). High atmosphere at the Azteca — Mexico home advantage is real.<br><br>
-          <strong>Ecuador upset →</strong> same R16 slot vs England. Ecuador Elo ~1700 competitive.
+          <strong>England win →</strong> R16 M92 vs Mexico ✅ (confirmed). England 71% vs Mexico 29% projected — but Mexico is 4W 0GA and in historic form. Tuchel's biggest test of the tournament.<br><br>
+          <strong>England odds dropped 13% → 9.4%</strong> — market reflecting the Mexico R16 threat even before the match.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title" style="font-size:12px;color:#ef4444;">4:00 PM ET — M82 Belgium vs Senegal</div>
+  <div class="today-grid" style="margin-bottom:16px;">
+    <div class="match-card high">
+      <div class="match-card-header">
+        <span>M82 · R32 · G1 vs 3rd</span>
+        <span style="color:#fca5a5;">🔴 4pm ET · Lumen Field · Seattle</span>
+      </div>
+      <div class="match-card-body">
+        <div class="match-vs">
+          <div class="team-vs"><span class="flag">🇧🇪</span><div class="name">Belgium</div><div class="pct">G1 · 1.5% · Elo 1850</div></div>
+          <div class="vs-divider">vs</div>
+          <div class="team-vs"><span class="flag">🇸🇳</span><div class="name">Senegal</div><div class="pct">3rd · Elo ~1720</div></div>
+        </div>
+        <div class="odds-row">
+          <span class="pill pill-green">Belgium 81%</span>
+          <span class="pill pill-outline">Senegal 19%</span>
+        </div>
+        <p style="font-size:11px;color:var(--txt2);margin-bottom:8px;">📍 Lumen Field, Seattle WA</p>
+        <div class="gt-card">
+          <div class="gt-title">⚙️ GT Impact</div>
+          <strong>Belgium win →</strong> R16 M94 vs USA (if USA beat Bosnia). De Bruyne's likely last World Cup — Belgium are a fading power but still dangerous. 81% to advance.<br><br>
+          <strong>Senegal upset →</strong> faces USA/Bosnia in R16 instead. Senegal Elo ~1720 — not impossible.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title" style="font-size:12px;color:#ef4444;">8:00 PM ET — M81 USA vs Bosnia ⭐ HOME GAME</div>
+  <div class="today-grid" style="margin-bottom:16px;">
+    <div class="match-card star-card">
+      <div class="match-card-header">
+        <span>M81 · R32 · D1 vs 3rd <span class="pill pill-amber" style="font-size:9px;">HOME CROWD</span></span>
+        <span style="color:#fde68a;">🌟 8pm ET · Levi's Stadium · Santa Clara</span>
+      </div>
+      <div class="match-card-body">
+        <div class="match-vs">
+          <div class="team-vs"><span class="flag">🇺🇸</span><div class="name">USA</div><div class="pct">D1 · 1.2% · Elo 1790</div></div>
+          <div class="vs-divider">vs</div>
+          <div class="team-vs"><span class="flag">🇧🇦</span><div class="name">Bosnia</div><div class="pct">3rd · Elo ~1710</div></div>
+        </div>
+        <div class="odds-row">
+          <span class="pill pill-green">USA 84%</span>
+          <span class="pill pill-outline">Bosnia 16%</span>
+        </div>
+        <p style="font-size:11px;color:var(--txt2);margin-bottom:8px;">📍 Levi's Stadium, Santa Clara CA</p>
+        <div class="gt-card">
+          <div class="gt-title">⚙️ GT Impact — HOME ADVANTAGE</div>
+          <strong>USA win →</strong> R16 M94 vs Belgium/Senegal winner. Practically a home game. Pulisic, McKennie, Reyna — this squad is peaking at the right time. 84% and playing at home.<br><br>
+          <strong>R16 M94 then:</strong> USA vs Belgium projected. 54/46 coin-flip. Both confirmed tonight.
         </div>
       </div>
     </div>
     <div class="match-card">
-      <div class="match-card-header"><span>📅 R32 Remaining Schedule</span></div>
+      <div class="match-card-header"><span>📅 R32 Remaining After Today</span></div>
       <div class="match-card-body" style="font-size:12px;color:var(--txt2);line-height:2.0;">
-        <div><strong style="color:var(--txt)">Jul 1</strong> · England–DR Congo Atlanta · Belgium–Senegal Seattle · USA–Bosnia Santa Clara</div>
-        <div><strong style="color:var(--txt)">Jul 2</strong> · Spain–Austria SoFi · Switzerland–Algeria Vancouver · Portugal–Croatia Toronto</div>
-        <div><strong style="color:var(--txt)">Jul 3</strong> · Australia–Egypt Arlington · Argentina–Cape Verde KC · Colombia–Ghana KC</div>
+        <div><strong style="color:var(--txt)">Jul 2</strong> · Spain–Austria SoFi LA · Switzerland–Algeria Vancouver · Portugal–Croatia Toronto</div>
+        <div><strong style="color:var(--txt)">Jul 3</strong> · Argentina–Cape Verde Kansas City · Australia–Egypt Arlington · Colombia–Ghana Kansas City</div>
+        <div><strong style="color:var(--txt)">R32 complete</strong> after Jul 3 · R16 begins Jul 4</div>
       </div>
     </div>
   </div>
@@ -1027,69 +1042,69 @@
 
 <!-- ===== INSIGHTS ===== -->
 <div id="insights" class="tab-panel">
-  <div class="section-title">📊 Jun 29 Recap — 2 Historic Upsets</div>
-  <p style="font-size:12px;color:var(--txt2);margin-bottom:16px;">June 29 will be remembered as the day two European giants — Germany and Netherlands — exited on penalties. Plus Brazil survived a scare.</p>
+  <div class="section-title">📊 Jun 30 Recap — France Dominates · Norway Haaland Winner · Mexico Flawless</div>
+  <p style="font-size:12px;color:var(--txt2);margin-bottom:16px;">June 30 was France's statement day. Mbappé tied the tournament record. Norway advanced on Haaland's late winner — France odds surged to 33%.</p>
   <div class="today-grid">
+    <div class="match-card star-card">
+      <div class="match-card-header"><span>M77 · MetLife, NJ · 5pm ET</span><span style="color:#fde68a;">⭐ RESULT OF THE DAY</span></div>
+      <div class="match-card-body">
+        <div class="match-vs">
+          <div class="team-vs"><span class="flag">🇫🇷</span><div class="name">France</div><div class="pct" style="color:#6ee7b7;">WON 3-0 ✅</div></div>
+          <div class="vs-divider"><span class="score-final win">3 – 0</span></div>
+          <div class="team-vs"><span class="flag">🇸🇪</span><div class="name">Sweden</div><div class="pct" style="color:#fca5a5;">Eliminated</div></div>
+        </div>
+        <div class="gt-card" style="margin-top:8px;">
+          <div class="gt-title">⚙️ Goals + GT Impact</div>
+          Mbappé 45' (assist Dembélé) · Barcola 53' (assist Olise) · Mbappé 74' (assist Olise)<br><br>
+          <strong style="color:#fde68a;">Mbappé now on 6 WC goals — equals Messi tournament record.</strong> France 4W, 13G, 2A. This was the most dominant display of R32. France → Paraguay R16, PDI 5.6. Tournament odds surged 27%→33%.
+        </div>
+      </div>
+    </div>
+
     <div class="match-card resolved">
-      <div class="match-card-header"><span>M76 · Houston · 1pm ET</span><span style="color:#6ee7b7;">✅ FINAL</span></div>
+      <div class="match-card-header"><span>M78 · AT&T Stadium, Dallas · 1pm ET</span><span style="color:#6ee7b7;">🔀 PARADOX FINAL</span></div>
       <div class="match-card-body">
         <div class="match-vs">
-          <div class="team-vs"><span class="flag">🇧🇷</span><div class="name">Brazil</div><div class="pct" style="color:#6ee7b7;">WON ✅</div></div>
-          <div class="vs-divider"><span class="score-final win">2 – 1</span></div>
-          <div class="team-vs"><span class="flag">🇯🇵</span><div class="name">Japan</div><div class="pct" style="color:#fca5a5;">Eliminated</div></div>
+          <div class="team-vs"><span class="flag">🇨🇮</span><div class="name">Ivory Coast</div><div class="pct" style="color:#fca5a5;">Eliminated</div></div>
+          <div class="vs-divider"><span class="score-final win">1 – 2</span></div>
+          <div class="team-vs"><span class="flag">🇳🇴</span><div class="name">Norway</div><div class="pct" style="color:#6ee7b7;">WON 2-1 ✅</div></div>
         </div>
         <div class="gt-card" style="margin-top:8px;">
-          <div class="gt-title">⚙️ GT Impact</div>
-          Brazil survive Japan's upset bid (had beaten Brazil 3-2 in October). Stoppage-time winner. Brazil → R16 M91 vs Norway/Ivory Coast. Brazil ↑ 8% (from 7%). Path PDI 6.6 unchanged.
+          <div class="gt-title">⚙️ Goals + GT Impact</div>
+          Nusa 39' (curling effort, Norway) · Diallo 74' (stunning solo, IvC) · Haaland 86' (tapped in, Bobb assist via Berge cross)<br><br>
+          <strong style="color:#c4b5fd;">Norway paradox confirmed.</strong> Norway's first WC knockout win in history. Now faces Brazil R16 M91 — Haaland vs Marquinhos + Gabriel Magalhães. Market: Brazil 61%, Norway 39%.
         </div>
       </div>
     </div>
 
-    <div class="match-card upset-card">
-      <div class="match-card-header"><span>M74 · Foxborough · 4:30pm ET</span><span style="color:#fca5a5;">🚨 BIGGEST UPSET</span></div>
+    <div class="match-card resolved">
+      <div class="match-card-header"><span>M79 · Estadio Azteca, Mexico City · 9pm ET</span><span style="color:#6ee7b7;">✅ DOMINANT</span></div>
       <div class="match-card-body">
         <div class="match-vs">
-          <div class="team-vs"><span class="flag">🇩🇪</span><div class="name">Germany</div><div class="pct" style="color:#fca5a5;">ELIMINATED 💀</div></div>
-          <div class="vs-divider"><span class="score-final loss">1 – 1 (PKs)</span></div>
-          <div class="team-vs"><span class="flag">🇵🇾</span><div class="name">Paraguay</div><div class="pct" style="color:#6ee7b7;">WON PKs 4-3 ✅</div></div>
+          <div class="team-vs"><span class="flag">🇲🇽</span><div class="name">Mexico</div><div class="pct" style="color:#6ee7b7;">WON 2-0 ✅</div></div>
+          <div class="vs-divider"><span class="score-final win">2 – 0</span></div>
+          <div class="team-vs"><span class="flag">🇪🇨</span><div class="name">Ecuador</div><div class="pct" style="color:#fca5a5;">Eliminated</div></div>
         </div>
         <div class="gt-card" style="margin-top:8px;">
-          <div class="gt-title">🥅 Goals & PKs</div>
-          Enciso header (PAR, 1H) · Havertz 52' (GER). German goal disallowed in ET 102' (Waldemar Anton pushed keeper). PKs: GER missed 3/6, last Tah blazed over. Canale scored winner.<br><br>
-          <strong style="color:#fca5a5;">GT CONSEQUENCE:</strong> France now faces Paraguay R16 (not Germany). France PDI 7.2 → 5.6. France ↑ to 27%.
-        </div>
-      </div>
-    </div>
-
-    <div class="match-card upset-card">
-      <div class="match-card-header"><span>M75 · Monterrey · 9pm ET</span><span style="color:#fca5a5;">🚨 UPSET</span></div>
-      <div class="match-card-body">
-        <div class="match-vs">
-          <div class="team-vs"><span class="flag">🇳🇱</span><div class="name">Netherlands</div><div class="pct" style="color:#fca5a5;">ELIMINATED 💀</div></div>
-          <div class="vs-divider"><span class="score-final loss">1 – 1 (PKs)</span></div>
-          <div class="team-vs"><span class="flag">🇲🇦</span><div class="name">Morocco</div><div class="pct" style="color:#6ee7b7;">WON PKs 3-2 ✅</div></div>
-        </div>
-        <div class="gt-card" style="margin-top:8px;">
-          <div class="gt-title">🥅 Goals & PKs</div>
-          Gakpo 72' (NED) · Issa Diop (MAR). PKs: Bounou saved Summerville. Saibari scored winner. 3 Dutch misses total (Kluivert, Quinten Timber, Summerville). Netherlands' penalty curse returns.<br><br>
-          <strong style="color:#6ee7b7;">GT CONSEQUENCE:</strong> Morocco → R16 M90 vs Canada. Morocco ↑ to 3% market odds. Canada/Morocco now a genuine 53/47 toss-up.
+          <div class="gt-title">⚙️ Goals + GT Impact</div>
+          Quiñones 22' (cut inside, top corner) · Jiménez 31' (give-and-go, rifled finish)<br><br>
+          <strong style="color:#6ee7b7;">Mexico: 4W, 12G, 0 GA — perfect record ends 40-year knockout drought.</strong> El Tri playing R16 vs England as a legitimate threat. Mexico PDI 7.1 red — path gets brutal from here, but they're in historic form. Kalshi has them at 5.1% (vs Polymarket's 2.7% — big market gap).
         </div>
       </div>
     </div>
 
     <div class="match-card">
-      <div class="match-card-header"><span>📈 Model Changes · Jun 29</span></div>
+      <div class="match-card-header"><span>📈 Model Changes · Jun 30</span></div>
       <div class="match-card-body">
         <table class="gt-table" style="margin-top:4px;">
           <thead><tr><th>Team</th><th>Δ</th><th>New %</th><th>Reason</th></tr></thead>
           <tbody>
-            <tr><td>🇫🇷 France</td><td style="color:#6ee7b7;">↑ +4.0%</td><td>27%</td><td>Germany OUT → faces Paraguay R16. PDI 7.2 → 5.6. Biggest single-day WC odds move.</td></tr>
-            <tr><td>🇧🇷 Brazil</td><td style="color:#6ee7b7;">↑ +1.0%</td><td>8%</td><td>Advanced 2-1 Japan. Path on track.</td></tr>
-            <tr><td>🇲🇦 Morocco</td><td style="color:#6ee7b7;">↑ +2.5%</td><td>3%</td><td>Netherlands shocked. Morocco R16 vs Canada — 53% favourite.</td></tr>
-            <tr><td>🇦🇷 Argentina</td><td style="color:#fca5a5;">↓ −1.0%</td><td>20%</td><td>Slight market rebalancing as France surged.</td></tr>
-            <tr><td>🇩🇪 Germany</td><td style="color:#fca5a5;">↓ −6.0%</td><td>0%</td><td>ELIMINATED. Paraguay PKs 4-3.</td></tr>
-            <tr><td>🇳🇱 Netherlands</td><td style="color:#fca5a5;">↓ −5.0%</td><td>0%</td><td>ELIMINATED. Morocco PKs 3-2.</td></tr>
-            <tr><td>🇵🇾 Paraguay</td><td style="color:#6ee7b7;">↑ new</td><td>0.8%</td><td>Upset Germany. Now faces France R16. Long-shot but real.</td></tr>
+            <tr><td>🇫🇷 France</td><td style="color:#6ee7b7;">↑ +6.0%</td><td>33%</td><td>3-0 Sweden. Mbappé record. Path to Final wide open. Biggest move of tournament.</td></tr>
+            <tr><td>🇲🇽 Mexico</td><td style="color:#6ee7b7;">↑ +1.2%</td><td>2.7%/5.1%</td><td>4W, 0 conceded. 40-year drought over. Kalshi 5.1% vs Polymarket 2.7% — wide spread.</td></tr>
+            <tr><td>🇳🇴 Norway</td><td style="color:#fca5a5;">↓ −0.2%</td><td>1.8%</td><td>Advanced but faces Brazil R16. Market pricing in difficulty of Haaland's path.</td></tr>
+            <tr><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td style="color:#fca5a5;">↓ −3.6%</td><td>9.4%</td><td>Market rebalancing ahead of Mexico R16 threat. Odd-looking drop before the DR Congo match.</td></tr>
+            <tr><td>🇦🇷 Argentina</td><td style="color:#fca5a5;">↓ −1.0%</td><td>19.2%</td><td>Slight rebalance as France surged. Path unchanged.</td></tr>
+            <tr><td>🇲🇦 Morocco</td><td style="color:#fca5a5;">↓ −0.6%</td><td>2.4%</td><td>Canada R16 confirmed. Market adjusting — Morocco faces France QF if they advance.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1103,7 +1118,7 @@
   <table class="method-table">
     <thead><tr><th>Layer</th><th>What it shows</th><th>Source</th><th>Display</th></tr></thead>
     <tbody>
-      <tr><td>Tournament Win %</td><td>Probability team wins WC 2026</td><td>Polymarket (Jun 30, 2026)</td><td>Purple pill</td></tr>
+      <tr><td>Tournament Win %</td><td>Probability team wins WC 2026</td><td>Polymarket / defirate.com aggregated (Jul 1, 2026)</td><td>Purple pill</td></tr>
       <tr><td>Match Win %</td><td>Probability team wins this match</td><td>Nate Silver PELE model / ESPN DTAI Elo</td><td>Coloured pill + bar</td></tr>
       <tr><td>Path Difficulty (PDI)</td><td>Avg Elo of projected opponents R32→SF, scaled 1–10</td><td>eloratings.net</td><td>Green / amber / red pill</td></tr>
     </tbody>
@@ -1112,35 +1127,37 @@
   <div style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:monospace;font-size:12px;margin-bottom:16px;">
     PDI = (avg_opponent_Elo_R32_through_SF − 1600) / 35 · clamped [1.0, 10.0]<br><br>
     ≤ 4.9 = green (easy) · 5.0–6.9 = amber · ≥ 7.0 = red (gauntlet)<br><br>
-    France PDI update Jun 30: Sweden(1760) + Paraguay(1700) + Morocco(1800) + Spain(1920) = avg 1795 → PDI 5.6 amber (was 7.2 red)
+    France PDI: Sweden(1760) + Paraguay(1700) + Morocco(1800) + Spain(1920) = avg 1795 → PDI 5.6 amber (was 7.2 red — Germany + Netherlands eliminated)<br>
+    Norway PDI: IvC(1720) + Brazil(1905) + England(1895) + Argentina(1900) = avg 1855 → PDI 7.3 red<br>
+    Mexico PDI: Ecuador(1700) + England(1895) + Brazil(1905) + Argentina(1900) = avg 1850 → PDI 7.1 red
   </div>
   <div class="section-title">3. Verified Bracket Chain (FIFA Annex C)</div>
   <table class="method-table">
     <thead><tr><th>R16 Match</th><th>Fed by R32</th><th>→ QF</th><th>→ SF</th><th>Status</th></tr></thead>
     <tbody>
-      <tr style="color:#fca5a5;"><td>M89</td><td>W(M74)=Paraguay ✅ + W(M77) France/Sweden</td><td>M97</td><td>SF1 M101</td><td>Paraguay confirmed · France TODAY</td></tr>
-      <tr style="color:#fca5a5;"><td>M90</td><td>W(M73)=Canada ✅ + W(M75)=Morocco ✅</td><td>M97</td><td>SF1 M101</td><td>BOTH CONFIRMED · 53/47</td></tr>
+      <tr style="color:#6ee7b7;"><td>M89</td><td>W(M74)=Paraguay ✅ + W(M77)=France ✅</td><td>M97</td><td>SF1 M101</td><td>LOCKED ✅</td></tr>
+      <tr style="color:#6ee7b7;"><td>M90</td><td>W(M73)=Canada ✅ + W(M75)=Morocco ✅</td><td>M97</td><td>SF1 M101</td><td>LOCKED ✅</td></tr>
       <tr><td>M93</td><td>W(M83) Portugal/Croatia + W(M84) Spain/Austria</td><td>M98</td><td>SF1 M101</td><td>Jul 2</td></tr>
-      <tr><td>M94</td><td>W(M81) USA/Bosnia + W(M82) Belgium/Senegal</td><td>M98</td><td>SF1 M101</td><td>Jul 1</td></tr>
-      <tr><td>M91</td><td>W(M76)=Brazil ✅ + W(M78) Ivory Coast/Norway</td><td>M99</td><td>SF2 M102</td><td>Brazil confirmed · M78 TODAY</td></tr>
-      <tr><td>M92</td><td>W(M79) Mexico/Ecuador + W(M80) England/DR Congo</td><td>M99</td><td>SF2 M102</td><td>M79 TODAY · M80 Jul 1</td></tr>
+      <tr><td>M94</td><td>W(M81) USA/Bosnia + W(M82) Belgium/Senegal</td><td>M98</td><td>SF1 M101</td><td>TODAY ⚡</td></tr>
+      <tr style="color:#6ee7b7;"><td>M91</td><td>W(M76)=Brazil ✅ + W(M78)=Norway ✅</td><td>M99</td><td>SF2 M102</td><td>LOCKED ✅</td></tr>
+      <tr><td>M92</td><td>W(M79)=Mexico ✅ + W(M80) England/DR Congo</td><td>M99</td><td>SF2 M102</td><td>M80 TODAY ⚡</td></tr>
       <tr><td>M95</td><td>W(M86) Argentina/Cape Verde + W(M88) Australia/Egypt</td><td>M100</td><td>SF2 M102</td><td>Jul 3</td></tr>
       <tr><td>M96</td><td>W(M85) Switzerland/Algeria + W(M87) Colombia/Ghana</td><td>M100</td><td>SF2 M102</td><td>Jul 2–3</td></tr>
     </tbody>
   </table>
-  <div class="section-title">4. Sources &amp; Caveats</div>
+  <div class="section-title">4. Sources &amp; Tournament Odds</div>
   <div style="font-size:12px;color:var(--txt2);line-height:1.8;">
-    <strong>Tournament odds:</strong> Polymarket Jun 30, 2026: France 27% · Argentina 20% · England 13% · Spain 11% · Brazil 8% · Portugal 6% · Morocco 3% · Colombia 2.5% · Norway 2% · Paraguay 0.8%.<br>
-    <strong>Eliminated:</strong> Germany, Netherlands, South Africa, Japan.<br>
+    <strong>Tournament odds (Polymarket, Jul 1):</strong> France 33% ↑ · Argentina 19.2% · Spain 10.4% · England 9.4% ↓ · Brazil 6.7% · Portugal 5.9% · Mexico 2.7% (Kalshi 5.1%) · Colombia 2.8% · Morocco 2.4% · Norway 1.8%.<br>
+    <strong>Eliminated:</strong> Germany, Netherlands, South Africa, Japan, Ivory Coast, Ecuador, Sweden.<br>
     <strong>Match probabilities:</strong> PELE model + ESPN DTAI Elo (eloratings.net baseline Jun 24, 2026).<br>
-    <strong>Caveats:</strong> R16+ projections probabilistic. PDI recalculated after each elimination.
+    <strong>Caveats:</strong> Mexico shows large Kalshi/Polymarket spread (5.1% vs 2.7%) — likely US market vs global bias. PDI recalculated after each elimination.
   </div>
 </div>
 
 </div>
 <footer>
-  ⚽ WC 2026 — Game Theory Bracket · v16 · Jun 30, 2026 · by HeavyMetalProduct<br>
-  Sources: Polymarket · NBC News · Olympics.com · FOX Sports · eloratings.net
+  ⚽ WC 2026 — Game Theory Bracket · v17 · Jul 1, 2026 · by HeavyMetalProduct<br>
+  Sources: defirate.com · Polymarket · ESPN · FIFA · eloratings.net · NBC Sports
 </footer>
 <script>
 function showTab(id,el){
