@@ -7,23 +7,21 @@
 <style>
   :root {
     --bg:#0f0f13; --card:#1a1a24; --card2:#22222e; --border:#2e2e3e;
-    --txt:#e8e8f0; --txt2:#9090a8; --txt3:#6060780;
+    --txt:#e8e8f0; --txt2:#9090a8;
     --accent:#7c3aed; --accent2:#a855f7;
     --green:#16a34a; --amber:#d97706; --red:#dc2626;
     --win:#1d4ed8; --draw:#374151; --lose:#7f1d1d;
-    --elim:#3f3f50;
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--txt); font-family:'Segoe UI',system-ui,sans-serif; font-size:13px; }
 
   /* HEADER */
-  .header { background:linear-gradient(135deg,#1e1040 0%,#0f0f13 60%); border-bottom:2px solid var(--accent); padding:16px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+  .header { background:linear-gradient(135deg,#1e1040 0%,#0f0f13 60%); border-bottom:2px solid var(--accent); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
   .header-left h1 { font-size:20px; font-weight:800; color:#fff; letter-spacing:-.3px; }
   .header-left h1 span { color:var(--accent2); }
   .header-left .byline { font-size:11px; color:var(--txt2); margin-top:2px; }
-  .header-right { text-align:right; }
-  .header-right .hdate { font-size:22px; font-weight:800; color:var(--accent2); }
-  .header-right .hmeta { font-size:10px; color:var(--txt2); }
+  .header-right .hdate { font-size:22px; font-weight:800; color:var(--accent2); text-align:right; }
+  .header-right .hmeta { font-size:10px; color:var(--txt2); text-align:right; }
 
   /* TABS */
   .tabs { display:flex; background:var(--card2); border-bottom:1px solid var(--border); overflow-x:auto; }
@@ -32,28 +30,53 @@
   .tab.active { color:var(--accent2); border-bottom-color:var(--accent2); }
 
   /* CONTENT */
-  .tab-content { display:none; padding:16px; max-width:1400px; margin:0 auto; }
+  .tab-content { display:none; padding:16px; max-width:1300px; margin:0 auto; }
   .tab-content.active { display:block; }
 
-  /* BRACKET LAYOUT */
-  .bracket-wrap { display:grid; grid-template-columns:1fr 80px 1fr; gap:8px; align-items:start; }
-  .bracket-side { display:flex; flex-direction:column; gap:8px; }
-  .bracket-center { display:flex; flex-direction:column; align-items:center; gap:8px; padding-top:4px; }
+  /* EVAL BANNER */
+  .eval-banner { background:var(--card2); border:1px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:14px; }
+  .eval-banner-header { font-size:10px; font-weight:700; color:var(--txt2); text-transform:uppercase; letter-spacing:.7px; margin-bottom:8px; display:flex; align-items:center; gap:6px; cursor:pointer; }
+  .eval-grid { display:flex; flex-wrap:wrap; gap:6px; }
+  .eval-chip { font-size:10px; padding:3px 8px; border-radius:6px; display:flex; align-items:center; gap:4px; }
+  .eval-ok { background:rgba(22,163,74,.15); border:1px solid rgba(22,163,74,.3); color:#4ade80; }
+  .eval-warn { background:rgba(217,119,6,.15); border:1px solid rgba(217,119,6,.3); color:#fbbf24; }
+  .eval-err { background:rgba(220,38,38,.15); border:1px solid rgba(220,38,38,.3); color:#f87171; }
 
-  /* SECTION HEADERS */
-  .section-label { font-size:10px; font-weight:700; color:var(--txt2); text-transform:uppercase; letter-spacing:.8px; padding:4px 0; }
-  .round-header { font-size:11px; font-weight:700; color:var(--accent2); text-align:center; padding:6px; background:var(--card2); border-radius:6px; border:1px solid var(--border); margin-bottom:4px; }
+  /* ODDS TICKER */
+  .odds-ticker { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+  .odds-chip { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 10px; font-size:11px; display:flex; align-items:center; gap:5px; }
+  .odds-chip .pct { font-weight:700; color:var(--accent2); }
+  .delta-up { color:#4ade80; font-size:10px; }
+  .delta-down { color:#f87171; font-size:10px; }
+  .delta-elim { color:var(--txt2); font-size:10px; }
+
+  /* QF PREVIEW */
+  .qf-preview { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:14px; }
+  .qf-preview h3 { font-size:13px; font-weight:700; color:var(--accent2); margin-bottom:10px; }
+  .qf-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  @media(max-width:600px){ .qf-grid { grid-template-columns:1fr; } }
+  .qf-card { background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:9px 11px; }
+  .qf-card.locked { border-color:#2a4a2a; }
+  .qf-card.today { border-color:var(--accent); }
+  .qf-id { font-size:9px; color:var(--txt2); text-transform:uppercase; font-weight:700; margin-bottom:3px; }
+  .qf-teams { font-size:13px; font-weight:700; }
+  .qf-meta { font-size:10px; color:var(--txt2); margin-top:2px; }
+
+  /* BRACKET LAYOUT — R16 only */
+  .bracket-wrap { display:grid; grid-template-columns:1fr 90px 1fr; gap:10px; align-items:start; }
+  @media(max-width:900px){ .bracket-wrap { grid-template-columns:1fr; } }
+  .bracket-side { display:flex; flex-direction:column; gap:8px; }
 
   /* MATCH PAIR CARD */
   .match-pair { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; transition:border-color .15s; }
   .match-pair:hover { border-color:var(--accent); }
-  .match-pair.resolved { border-color:#2a4a2a; }
+  .match-pair.resolved { border-color:#243324; }
   .match-pair.today-match { border-color:var(--accent); box-shadow:0 0 12px rgba(124,58,237,.25); }
-  .match-pair.eliminated { opacity:.5; }
+  .match-pair.pending { border-color:#2a2a40; opacity:.85; }
   .match-header { padding:5px 10px; background:var(--card2); font-size:10px; color:var(--txt2); display:flex; justify-content:space-between; align-items:center; }
   .match-team { padding:7px 10px; display:flex; align-items:center; gap:8px; }
-  .match-team.winner { background:rgba(22,163,74,.08); }
-  .match-team.eliminated-team { opacity:.45; text-decoration:line-through; }
+  .match-team.winner { background:rgba(22,163,74,.07); }
+  .match-team.elim { opacity:.4; }
   .team-flag { font-size:18px; flex-shrink:0; }
   .team-info { flex:1; min-width:0; }
   .team-name { font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -64,143 +87,113 @@
   .pill-amber { background:rgba(217,119,6,.2); color:#fbbf24; border:1px solid rgba(217,119,6,.3); }
   .pill-red { background:rgba(220,38,38,.2); color:#f87171; border:1px solid rgba(220,38,38,.3); }
   .pill-outline { background:transparent; border:1px solid var(--border); color:var(--txt2); }
-  .pill-elim { background:rgba(63,63,80,.3); color:var(--txt2); border:1px solid var(--border); }
-  .win-bar-wrap { width:58px; flex-shrink:0; text-align:right; }
+  .win-bar-wrap { width:54px; flex-shrink:0; text-align:right; }
   .win-bar { height:4px; border-radius:2px; margin-bottom:2px; }
   .win-pct { font-size:10px; color:var(--txt2); }
-  .score-badge { font-size:10px; font-weight:800; background:rgba(22,163,74,.2); color:#4ade80; padding:2px 7px; border-radius:6px; border:1px solid rgba(22,163,74,.3); white-space:nowrap; }
+  .score-badge { font-size:10px; font-weight:800; background:rgba(22,163,74,.2); color:#4ade80; padding:2px 7px; border-radius:5px; border:1px solid rgba(22,163,74,.3); }
+  .upset-badge { font-size:10px; font-weight:800; background:rgba(168,85,247,.2); color:#c084fc; padding:2px 7px; border-radius:5px; border:1px solid rgba(168,85,247,.3); }
   .match-divider { height:1px; background:var(--border); }
   .match-note { padding:4px 10px; font-size:10px; color:var(--txt2); background:var(--card2); }
+  .match-arrow { font-size:10px; color:var(--accent2); margin-left:4px; }
 
-  /* SECTION GROUP */
-  .bracket-group { display:flex; flex-direction:column; gap:6px; }
-  .group-label { font-size:9px; color:var(--txt2); text-transform:uppercase; letter-spacing:.6px; padding:2px 0; }
+  /* CENTER COLUMN */
+  .bracket-center { display:flex; flex-direction:column; gap:8px; align-items:center; padding-top:2px; }
+  .center-block { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:8px 10px; width:100%; text-align:center; }
+  .center-block.final { border-color:var(--accent); background:linear-gradient(135deg,#2d1657,#1a1a24); }
+  .cb-label { font-size:9px; color:var(--txt2); text-transform:uppercase; letter-spacing:.5px; }
+  .cb-teams { font-size:11px; font-weight:700; margin-top:3px; color:var(--txt); }
+  .cb-meta { font-size:9px; color:var(--txt2); margin-top:2px; }
 
-  /* QF/SF/FINAL CENTER */
-  .center-match { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:8px 10px; width:100%; text-align:center; }
-  .center-match .cm-label { font-size:9px; color:var(--txt2); text-transform:uppercase; }
-  .center-match .cm-teams { font-size:11px; font-weight:700; color:var(--txt); margin-top:3px; }
-  .center-match .cm-meta { font-size:9px; color:var(--txt2); margin-top:2px; }
-  .center-match.qf-locked { border-color:#2a4a2a; }
-  .center-match.qf-tbd { border-color:var(--border); opacity:.8; }
+  .round-tag { font-size:10px; font-weight:700; color:var(--txt2); text-transform:uppercase; letter-spacing:.6px; padding:3px 0; margin-bottom:2px; border-bottom:1px solid var(--border); padding-bottom:5px; }
+
+  .section-title { font-size:15px; font-weight:800; color:var(--txt); margin:16px 0 10px; border-left:3px solid var(--accent); padding-left:10px; }
+  .divider { height:1px; background:var(--border); margin:12px 0; }
 
   /* TODAY TAB */
   .today-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   @media(max-width:800px){ .today-grid { grid-template-columns:1fr; } }
   .today-card { background:var(--card); border:1px solid var(--accent); border-radius:12px; overflow:hidden; box-shadow:0 0 16px rgba(124,58,237,.2); }
-  .today-card-header { background:linear-gradient(135deg,#2d1657,#1a1a24); padding:12px 16px; }
+  .tc-header { background:linear-gradient(135deg,#2d1657,#1a1a24); padding:12px 16px; }
   .tc-match-id { font-size:10px; color:var(--accent2); font-weight:700; text-transform:uppercase; }
-  .tc-title { font-size:18px; font-weight:800; margin-top:4px; }
-  .tc-meta { font-size:11px; color:var(--txt2); margin-top:4px; }
+  .tc-title { font-size:17px; font-weight:800; margin-top:4px; }
+  .tc-meta { font-size:11px; color:var(--txt2); margin-top:3px; }
   .tc-time { font-size:13px; font-weight:700; color:#fbbf24; margin-top:2px; }
-  .today-card-body { padding:14px 16px; }
+  .tc-body { padding:14px 16px; }
   .tc-teams { display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center; margin-bottom:12px; }
-  .tc-team { }
-  .tc-team-name { font-size:15px; font-weight:800; }
-  .tc-team-flag { font-size:24px; }
+  .tc-team-name { font-size:14px; font-weight:800; }
+  .tc-team-flag { font-size:22px; }
   .tc-team-odds { font-size:11px; color:var(--txt2); margin-top:2px; }
-  .tc-vs { font-size:14px; font-weight:900; color:var(--txt2); text-align:center; }
-  .tc-bar-section { margin-bottom:12px; }
-  .tc-bar-label { font-size:10px; color:var(--txt2); margin-bottom:4px; }
+  .tc-vs { font-size:13px; font-weight:900; color:var(--txt2); text-align:center; }
   .tc-bar-outer { background:var(--border); border-radius:4px; height:8px; overflow:hidden; display:flex; }
   .tc-bar-a { background:var(--win); height:100%; }
   .tc-bar-d { background:var(--draw); height:100%; }
   .tc-bar-b { background:var(--lose); height:100%; }
   .tc-bar-legend { display:flex; justify-content:space-between; font-size:10px; color:var(--txt2); margin-top:3px; }
 
-  /* NEWS SECTION */
-  .news-section { border-top:1px solid var(--border); padding-top:12px; margin-top:12px; }
-  .news-title { font-size:11px; font-weight:700; color:var(--accent2); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
-  .news-item { display:flex; gap:8px; margin-bottom:8px; align-items:flex-start; }
-  .news-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:4px; }
-  .news-dot-green { background:#4ade80; }
-  .news-dot-amber { background:#fbbf24; }
-  .news-dot-red { background:#f87171; }
-  .news-dot-blue { background:#60a5fa; }
+  /* NEWS */
+  .news-section { border-top:1px solid var(--border); padding-top:11px; margin-top:11px; }
+  .news-title { font-size:11px; font-weight:700; color:var(--accent2); text-transform:uppercase; letter-spacing:.5px; margin-bottom:7px; }
+  .news-item { display:flex; gap:8px; margin-bottom:7px; align-items:flex-start; }
+  .nd { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+  .nd-green { background:#4ade80; } .nd-amber { background:#fbbf24; } .nd-red { background:#f87171; } .nd-blue { background:#60a5fa; }
   .news-text { font-size:11px; color:var(--txt); line-height:1.5; }
-  .news-text strong { color:var(--txt); }
-  .news-badge { display:inline-block; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px; margin-left:4px; }
-  .badge-available { background:rgba(22,163,74,.25); color:#4ade80; }
-  .badge-doubt { background:rgba(217,119,6,.25); color:#fbbf24; }
-  .badge-out { background:rgba(220,38,38,.25); color:#f87171; }
-  .badge-suspended { background:rgba(220,38,38,.35); color:#f87171; border:1px solid rgba(220,38,38,.5); }
-  .badge-watch { background:rgba(217,119,6,.2); color:#fbbf24; }
-  .badge-fit { background:rgba(22,163,74,.2); color:#4ade80; }
+  .nb { display:inline-block; font-size:9px; font-weight:700; padding:1px 5px; border-radius:4px; margin-left:3px; }
+  .nb-ok { background:rgba(22,163,74,.25); color:#4ade80; }
+  .nb-doubt { background:rgba(217,119,6,.25); color:#fbbf24; }
+  .nb-out { background:rgba(220,38,38,.25); color:#f87171; }
+  .nb-susp { background:rgba(220,38,38,.35); color:#f87171; border:1px solid rgba(220,38,38,.5); }
+  .nb-watch { background:rgba(217,119,6,.2); color:#fbbf24; }
+  .nb-fit { background:rgba(22,163,74,.2); color:#4ade80; }
+  .nb-tbd { background:rgba(124,58,237,.2); color:var(--accent2); }
 
   .stakes-badge { display:inline-block; font-size:9px; font-weight:800; padding:2px 7px; border-radius:4px; text-transform:uppercase; }
-  .stakes-high { background:rgba(220,38,38,.2); color:#f87171; border:1px solid rgba(220,38,38,.3); }
   .stakes-fire { background:rgba(220,38,38,.35); color:#ff6b6b; border:1px solid rgba(220,38,38,.5); }
-  .stakes-med { background:rgba(217,119,6,.2); color:#fbbf24; border:1px solid rgba(217,119,6,.3); }
+  .stakes-high { background:rgba(220,38,38,.2); color:#f87171; border:1px solid rgba(220,38,38,.3); }
 
-  /* WHAT-IF */
-  .whatif-section { border-top:1px solid var(--border); padding-top:10px; margin-top:10px; }
+  .whatif-section { border-top:1px solid var(--border); padding-top:9px; margin-top:9px; }
   .whatif-title { font-size:10px; font-weight:700; color:var(--txt2); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
   .whatif-row { font-size:11px; color:var(--txt); margin-bottom:5px; line-height:1.4; }
   .whatif-row span { color:var(--txt2); }
 
-  /* INSIGHTS TAB */
-  .insights-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; }
-  .insight-card { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .ic-header { padding:8px 12px; background:var(--card2); display:flex; justify-content:space-between; align-items:center; }
-  .ic-match { font-size:11px; font-weight:700; color:var(--txt2); }
+  /* POST MATCH */
+  .pm-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(275px,1fr)); gap:10px; margin-top:12px; }
+  .pm-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:11px 13px; }
+  .pm-title { font-size:12px; font-weight:700; margin-bottom:8px; }
+
+  /* INSIGHTS */
+  .insights-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(295px,1fr)); gap:10px; }
+  .ic { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .ic-hdr { padding:8px 12px; background:var(--card2); display:flex; justify-content:space-between; align-items:center; }
+  .ic-match { font-size:10px; font-weight:700; color:var(--txt2); }
   .ic-score { font-size:14px; font-weight:800; }
   .ic-score.win { color:#4ade80; }
-  .ic-score.upset { color:#f87171; }
+  .ic-score.upset { color:#c084fc; }
   .ic-body { padding:10px 12px; }
-  .ic-teams { font-size:13px; font-weight:700; margin-bottom:6px; }
-  .ic-scorers { font-size:11px; color:var(--txt2); margin-bottom:8px; line-height:1.5; }
-  .ic-impact { font-size:11px; color:var(--txt); line-height:1.5; }
-  .impact-label { font-size:9px; font-weight:700; padding:1px 5px; border-radius:3px; text-transform:uppercase; margin-right:4px; }
-  .impact-positive { background:rgba(22,163,74,.2); color:#4ade80; }
-  .impact-shock { background:rgba(168,85,247,.2); color:#c084fc; }
-  .impact-neutral { background:rgba(96,96,120,.2); color:var(--txt2); }
-  .impact-negative { background:rgba(220,38,38,.15); color:#f87171; }
+  .ic-teams { font-size:13px; font-weight:700; margin-bottom:5px; }
+  .ic-scorers { font-size:11px; color:var(--txt2); margin-bottom:7px; line-height:1.5; }
+  .ic-impact { font-size:11px; line-height:1.5; }
+  .imp { font-size:9px; font-weight:700; padding:1px 5px; border-radius:3px; text-transform:uppercase; margin-right:4px; }
+  .imp-pos { background:rgba(22,163,74,.2); color:#4ade80; }
+  .imp-shock { background:rgba(168,85,247,.2); color:#c084fc; }
+  .imp-neg { background:rgba(220,38,38,.15); color:#f87171; }
+  .imp-neutral { background:rgba(96,96,120,.2); color:var(--txt2); }
 
-  /* MODEL CHANGES TABLE */
-  .changes-table { width:100%; border-collapse:collapse; font-size:11px; margin-top:8px; }
-  .changes-table th { padding:6px 8px; text-align:left; font-size:10px; color:var(--txt2); text-transform:uppercase; border-bottom:1px solid var(--border); }
-  .changes-table td { padding:6px 8px; border-bottom:1px solid rgba(46,46,62,.5); }
-  .change-up { color:#4ade80; font-weight:700; }
-  .change-down { color:#f87171; font-weight:700; }
-  .change-elim { color:var(--txt2); }
-
-  /* POST-MATCH NOTES */
-  .post-match-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; margin-top:12px; }
-  .pm-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px; }
-  .pm-card-title { font-size:12px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+  /* MODEL TABLE */
+  .ch-table { width:100%; border-collapse:collapse; font-size:11px; }
+  .ch-table th { padding:6px 8px; text-align:left; font-size:10px; color:var(--txt2); text-transform:uppercase; border-bottom:1px solid var(--border); }
+  .ch-table td { padding:6px 8px; border-bottom:1px solid rgba(46,46,62,.5); }
+  .chg-up { color:#4ade80; font-weight:700; }
+  .chg-dn { color:#f87171; font-weight:700; }
+  .chg-elim { color:var(--txt2); }
 
   /* METHODOLOGY */
-  .method-section { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:12px; }
-  .method-section h3 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:8px; }
-  .method-section p { font-size:12px; color:var(--txt2); line-height:1.6; margin-bottom:6px; }
-  .method-section code { background:var(--card2); padding:2px 5px; border-radius:3px; font-size:11px; color:#fbbf24; }
-  .chain-table { width:100%; border-collapse:collapse; font-size:11px; }
-  .chain-table th { padding:5px 8px; text-align:left; color:var(--txt2); border-bottom:1px solid var(--border); font-size:10px; }
-  .chain-table td { padding:5px 8px; border-bottom:1px solid rgba(46,46,62,.4); }
-
-  /* ODDS TICKER */
-  .odds-ticker { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
-  .odds-chip { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:4px 12px; font-size:11px; display:flex; align-items:center; gap:6px; }
-  .odds-chip .flag { font-size:14px; }
-  .odds-chip .pct { font-weight:700; color:var(--accent2); }
-  .odds-chip .delta { font-size:10px; }
-  .delta-up { color:#4ade80; }
-  .delta-down { color:#f87171; }
-  .delta-elim { color:var(--txt2); }
-
-  /* QF PREVIEW */
-  .qf-preview { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; margin-bottom:16px; }
-  .qf-preview h3 { font-size:13px; font-weight:700; color:var(--accent2); margin-bottom:10px; }
-  .qf-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-  .qf-match { background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:8px 10px; }
-  .qf-match-id { font-size:9px; color:var(--txt2); text-transform:uppercase; font-weight:700; }
-  .qf-match-teams { font-size:12px; font-weight:700; margin-top:3px; }
-  .qf-match-meta { font-size:10px; color:var(--txt2); margin-top:2px; }
-  .qf-match.locked { border-color:#2a4a2a; }
-  .qf-match.tbd { opacity:.7; }
-
-  .section-title { font-size:15px; font-weight:800; color:var(--txt); margin:16px 0 10px; border-left:3px solid var(--accent); padding-left:10px; }
-  .divider { height:1px; background:var(--border); margin:16px 0; }
+  .ms { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:10px; }
+  .ms h3 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:7px; }
+  .ms p { font-size:12px; color:var(--txt2); line-height:1.6; margin-bottom:5px; }
+  .ms code { background:var(--card2); padding:2px 5px; border-radius:3px; font-size:11px; color:#fbbf24; }
+  .ct { width:100%; border-collapse:collapse; font-size:11px; }
+  .ct th { padding:5px 8px; text-align:left; color:var(--txt2); border-bottom:1px solid var(--border); font-size:10px; }
+  .ct td { padding:5px 8px; border-bottom:1px solid rgba(46,46,62,.4); }
 </style>
 </head>
 <body>
@@ -208,122 +201,102 @@
 <div class="header">
   <div class="header-left">
     <h1>⚽ WC 2026 — <span>Game Theory Bracket</span></h1>
-    <div class="byline">by HeavyMetalProduct · v20 · Updated: Pre-kickoff · R16 Day 3</div>
+    <div class="byline">by HeavyMetalProduct · v20 · R16 Day 3 · Pre-kickoff</div>
   </div>
   <div class="header-right">
     <div class="hdate">July 6, 2026</div>
-    <div class="hmeta">R16 · Day 3 of 4 · 8 teams remain QF-bound · v20</div>
+    <div class="hmeta">Round of 16 · Day 3 of 4 · 8 QF berths filling up · v20</div>
   </div>
 </div>
 
 <div class="tabs">
-  <div class="tab active" onclick="showTab('bracket')">🏆 Bracket</div>
-  <div class="tab" onclick="showTab('today')">📅 Today · R16 Day 3 · Jul 6</div>
-  <div class="tab" onclick="showTab('insights')">🔍 Insights · Jul 4–5</div>
-  <div class="tab" onclick="showTab('methodology')">📐 Methodology</div>
+  <div class="tab active" onclick="showTab('bracket',this)">🏆 Bracket</div>
+  <div class="tab" onclick="showTab('today',this)">📅 Today · R16 Day 3 · Jul 6</div>
+  <div class="tab" onclick="showTab('insights',this)">🔍 Insights · Jul 4–5</div>
+  <div class="tab" onclick="showTab('methodology',this)">📐 Methodology</div>
 </div>
 
-<!-- ============================================================ BRACKET TAB -->
+<!-- ======================================================= BRACKET TAB -->
 <div id="tab-bracket" class="tab-content active">
 
-  <div class="odds-ticker">
-    <div class="odds-chip"><span class="flag">🇫🇷</span> France <span class="pct">34.9%</span><span class="delta delta-down">▼1.0</span></div>
-    <div class="odds-chip"><span class="flag">🇦🇷</span> Argentina <span class="pct">16.8%</span><span class="delta delta-down">▼0.2</span></div>
-    <div class="odds-chip"><span class="flag">🇪🇸</span> Spain <span class="pct">12.4%</span><span class="delta delta-up">▲0.1</span></div>
-    <div class="odds-chip"><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> England <span class="pct">7.2%</span><span class="delta delta-up">▲0.3</span></div>
-    <div class="odds-chip"><span class="flag">🇵🇹</span> Portugal <span class="pct">6.3%</span><span class="delta delta-up">▲</span></div>
-    <div class="odds-chip"><span class="flag">🇨🇴</span> Colombia <span class="pct">3.1%</span><span class="delta"></span></div>
-    <div class="odds-chip"><span class="flag">🇺🇸</span> USA <span class="pct">2.6%</span><span class="delta"></span></div>
-    <div class="odds-chip"><span class="flag">🇲🇦</span> Morocco <span class="pct">2.5%</span><span class="delta delta-up">▲0.9</span></div>
-    <div class="odds-chip"><span class="flag">🇳🇴</span> Norway <span class="pct">1.6%</span><span class="delta delta-up">▲</span></div>
-    <div class="odds-chip"><span class="flag">🇧🇪</span> Belgium <span class="pct">1.3%</span><span class="delta"></span></div>
-    <div class="odds-chip"><span class="flag">🇨🇭</span> Switzerland <span class="pct">0.8%</span><span class="delta"></span></div>
-    <div class="odds-chip"><span class="flag">🇧🇷</span> Brazil <span class="pct">0%</span><span class="delta delta-elim">ELIM</span></div>
-    <div class="odds-chip"><span class="flag">🇲🇽</span> Mexico <span class="pct">0%</span><span class="delta delta-elim">ELIM</span></div>
+  <!-- EVAL PANEL -->
+  <div class="eval-banner">
+    <div class="eval-banner-header">🔎 Data Integrity Check — v20 · Jul 6, 2026</div>
+    <div class="eval-grid">
+      <div class="eval-chip eval-ok">✅ Bracket chain — FIFA Annex C verified</div>
+      <div class="eval-chip eval-ok">✅ Kickoff times — FOX Sports sourced</div>
+      <div class="eval-chip eval-ok">✅ Odds — Polymarket/defirate.com Jul 6</div>
+      <div class="eval-chip eval-ok">✅ R16 results — ESPN/BBC confirmed</div>
+      <div class="eval-chip eval-ok">✅ Balogun — Article 27 suspension lifted, AVAILABLE</div>
+      <div class="eval-chip eval-ok">✅ Quansah RED — suspended QF vs Norway</div>
+      <div class="eval-chip eval-warn">⚠️ Saibari (Morocco) — hamstring, decision pending QF Jul 9</div>
+      <div class="eval-chip eval-warn">⚠️ Riad CB (Morocco) — knee doubt, missed Canada match</div>
+      <div class="eval-chip eval-warn">⚠️ Nico Williams (Spain) — adductor, expected out today</div>
+      <div class="eval-chip eval-ok">✅ R32 results — all 16 confirmed, removed from bracket view</div>
+    </div>
   </div>
 
-  <!-- QF Preview -->
+  <!-- ODDS TICKER -->
+  <div class="odds-ticker">
+    <div class="odds-chip">🇫🇷 France <span class="pct">34.9%</span><span class="delta-down"> ▼1.0</span></div>
+    <div class="odds-chip">🇦🇷 Argentina <span class="pct">16.8%</span><span class="delta-down"> ▼0.2</span></div>
+    <div class="odds-chip">🇪🇸 Spain <span class="pct">12.4%</span><span class="delta-up"> ▲0.1</span></div>
+    <div class="odds-chip">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="pct">7.2%</span><span class="delta-up"> ▲0.3</span></div>
+    <div class="odds-chip">🇵🇹 Portugal <span class="pct">6.3%</span><span class="delta-up"> ▲</span></div>
+    <div class="odds-chip">🇨🇴 Colombia <span class="pct">3.1%</span></div>
+    <div class="odds-chip">🇺🇸 USA <span class="pct">2.6%</span></div>
+    <div class="odds-chip">🇲🇦 Morocco <span class="pct">2.5%</span><span class="delta-up"> ▲0.9</span></div>
+    <div class="odds-chip">🇳🇴 Norway <span class="pct">1.6%</span><span class="delta-up"> ▲</span></div>
+    <div class="odds-chip">🇧🇪 Belgium <span class="pct">1.3%</span></div>
+    <div class="odds-chip">🇨🇭 Switzerland <span class="pct">0.8%</span></div>
+    <div class="odds-chip">🇧🇷 Brazil <span class="pct">0%</span><span class="delta-elim"> ELIM</span></div>
+    <div class="odds-chip">🇲🇽 Mexico <span class="pct">0%</span><span class="delta-elim"> ELIM</span></div>
+  </div>
+
+  <!-- QF FORMING -->
   <div class="qf-preview">
     <h3>⚡ Quarterfinal Picture</h3>
     <div class="qf-grid">
-      <div class="qf-match locked">
-        <div class="qf-match-id">M97 · QF · SF1</div>
-        <div class="qf-match-teams">🇫🇷 France vs 🇲🇦 Morocco</div>
-        <div class="qf-match-meta">Jul 9 · 4pm ET · Gillette Stadium, Foxborough</div>
+      <div class="qf-card locked">
+        <div class="qf-id">M97 · QF · SF1 · LOCKED ✅</div>
+        <div class="qf-teams">🇫🇷 France vs 🇲🇦 Morocco</div>
+        <div class="qf-meta">Jul 9 · 4pm ET · Gillette Stadium, Foxborough · ⚠️ Saibari doubt</div>
       </div>
-      <div class="qf-match tbd">
-        <div class="qf-match-id">M98 · QF · SF1</div>
-        <div class="qf-match-teams">W(M93) vs W(M94)</div>
-        <div class="qf-match-meta">Jul 10 · 3pm ET · SoFi Stadium, LA — Today's winners</div>
+      <div class="qf-card today">
+        <div class="qf-id">M98 · QF · SF1 · TODAY's winners</div>
+        <div class="qf-teams">W(M93 Spain/Portugal) vs W(M94 USA/Belgium)</div>
+        <div class="qf-meta">Jul 10 · 3pm ET · SoFi Stadium, LA</div>
       </div>
-      <div class="qf-match locked">
-        <div class="qf-match-id">M99 · QF · SF2</div>
-        <div class="qf-match-teams">🇳🇴 Norway vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div>
-        <div class="qf-match-meta">Jul 11 · 5pm ET · Hard Rock Stadium, Miami</div>
+      <div class="qf-card locked">
+        <div class="qf-id">M99 · QF · SF2 · LOCKED ✅</div>
+        <div class="qf-teams">🇳🇴 Norway vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div>
+        <div class="qf-meta">Jul 11 · 5pm ET · Hard Rock Stadium, Miami · Quansah SUSP</div>
       </div>
-      <div class="qf-match tbd">
-        <div class="qf-match-id">M100 · QF · SF2</div>
-        <div class="qf-match-teams">W(M95) vs W(M96)</div>
-        <div class="qf-match-meta">Jul 11 · 9pm ET · Arrowhead, KC — Tomorrow's winners</div>
+      <div class="qf-card">
+        <div class="qf-id">M100 · QF · SF2 · Jul 7's winners</div>
+        <div class="qf-teams">W(M95 Arg/Egy) vs W(M96 Sui/Col)</div>
+        <div class="qf-meta">Jul 11 · 9pm ET · Arrowhead Stadium, KC</div>
       </div>
     </div>
   </div>
 
+  <!-- BRACKET: R16 ONLY -->
   <div class="bracket-wrap">
 
-    <!-- SF1 LEFT SIDE -->
+    <!-- LEFT: SF1 SIDE -->
     <div class="bracket-side">
-      <div class="round-header">SF1 Side — M89, M90, M93, M94</div>
+      <div class="round-tag">SF1 Side · R16</div>
 
-      <!-- PAIR A: M74+M77 → M89 -->
-      <div class="bracket-group">
-        <div class="group-label">Pair A → R16 M89</div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M74 · Jun 29 ✅</span><span class="score-badge">3–0</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇫🇷</span>
-            <div class="team-info"><div class="team-name">France</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">34.9%</span>
-                <span class="pill pill-amber">PDI 5.6</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:100%"></div><div class="win-pct">72%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇸🇪</span>
-            <div class="team-info"><div class="team-name">Sweden</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Mbappé ×2, Barcola · France advances</div>
-        </div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M77 · Jun 30 ✅</span><span class="score-badge">2–1</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇳🇴</span>
-            <div class="team-info"><div class="team-name">Norway</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">1.6%</span>
-                <span class="pill pill-red">PDI 7.3</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:55%"></div><div class="win-pct">52%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇨🇮</span>
-            <div class="team-info"><div class="team-name">Ivory Coast</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Haaland 86' · Norway advances</div>
-        </div>
-      </div>
-
-      <!-- R16 M89 -->
+      <!-- M89: France → QF M97 -->
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M89 · Jul 4 ✅</span><span class="score-badge">1–0</span></div>
+        <div class="match-header">
+          <span>R16 M89 · Jul 4 ✅ → QF M97</span>
+          <span class="score-badge">1–0</span>
+        </div>
         <div class="match-team winner">
           <span class="team-flag">🇫🇷</span>
-          <div class="team-info"><div class="team-name">France</div>
+          <div class="team-info">
+            <div class="team-name">France</div>
             <div class="team-pills">
               <span class="pill pill-purple">34.9%</span>
               <span class="pill pill-amber">PDI 5.6</span>
@@ -332,64 +305,23 @@
           <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:100%"></div><div class="win-pct">72%</div></div>
         </div>
         <div class="match-divider"></div>
-        <div class="match-team">
+        <div class="match-team elim">
           <span class="team-flag">🇵🇾</span>
-          <div class="team-info"><div class="team-name">Paraguay</div><div class="team-pills"><span class="pill pill-outline">Elim R16</span></div></div>
+          <div class="team-info"><div class="team-name">Paraguay</div><div class="team-pills"><span class="pill pill-outline">Eliminated</span></div></div>
         </div>
-        <div class="match-note">Mbappé pen 69' · France → QF M97</div>
+        <div class="match-note">Mbappé pen 69' (Doue fouled, VAR) · France → QF M97 vs Morocco Jul 9</div>
       </div>
 
-      <div class="divider"></div>
-
-      <!-- PAIR B: M73+M75 → M90 -->
-      <div class="bracket-group">
-        <div class="group-label">Pair B → R16 M90</div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M73 · Jun 28 ✅</span><span class="score-badge">3–2</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇲🇦</span>
-            <div class="team-info"><div class="team-name">Morocco</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">2.5%</span>
-                <span class="pill pill-amber">PDI 5.8</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:45%"></div><div class="win-pct">42%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇳🇱</span>
-            <div class="team-info"><div class="team-name">Netherlands</div><div class="team-pills"><span class="pill pill-outline">Elim PKs</span></div></div>
-          </div>
-          <div class="match-note">Morocco PKs 3–2 · Netherlands eliminated</div>
-        </div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M75 · Jun 29 ✅</span><span class="score-badge">2–0</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇨🇭</span>
-            <div class="team-info"><div class="team-name">Switzerland</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">0.8%</span>
-                <span class="pill pill-green">PDI 4.1</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:58%"></div><div class="win-pct">55%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇩🇿</span>
-            <div class="team-info"><div class="team-name">Algeria</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Embolo, Ndoye · Switzerland advances</div>
-        </div>
-      </div>
-
-      <!-- R16 M90 -->
+      <!-- M90: Morocco → QF M97 -->
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M90 · Jul 4 ✅</span><span class="score-badge">3–0</span></div>
+        <div class="match-header">
+          <span>R16 M90 · Jul 4 ✅ → QF M97</span>
+          <span class="score-badge">3–0</span>
+        </div>
         <div class="match-team winner">
           <span class="team-flag">🇲🇦</span>
-          <div class="team-info"><div class="team-name">Morocco</div>
+          <div class="team-info">
+            <div class="team-name">Morocco <span style="font-size:9px;color:#fbbf24">⚠️ Saibari doubt</span></div>
             <div class="team-pills">
               <span class="pill pill-purple">2.5%</span>
               <span class="pill pill-amber">PDI 5.8</span>
@@ -398,64 +330,25 @@
           <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:42%"></div><div class="win-pct">40%</div></div>
         </div>
         <div class="match-divider"></div>
-        <div class="match-team">
+        <div class="match-team elim">
           <span class="team-flag">🇨🇦</span>
-          <div class="team-info"><div class="team-name">Canada</div><div class="team-pills"><span class="pill pill-outline">Elim R16</span></div></div>
+          <div class="team-info"><div class="team-name">Canada</div><div class="team-pills"><span class="pill pill-outline">Eliminated</span></div></div>
         </div>
-        <div class="match-note">Morocco dominant · → QF M97 vs France</div>
+        <div class="match-note">Ounahi ×2, Rahimi 90+' · Saibari off 22' (hamstring) · → QF M97 vs France</div>
       </div>
 
       <div class="divider"></div>
 
-      <!-- PAIR C: M83+M84 → M93 -->
-      <div class="bracket-group">
-        <div class="group-label">Pair C → R16 M93 🔥 TODAY</div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M83 · Jul 2 ✅</span><span class="score-badge">3–0</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇪🇸</span>
-            <div class="team-info"><div class="team-name">Spain</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">12.4%</span>
-                <span class="pill pill-amber">PDI 6.7</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:70%"></div><div class="win-pct">67%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇦🇹</span>
-            <div class="team-info"><div class="team-name">Austria</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Oyarzabal ×2, Porro · Spain advances</div>
-        </div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M84 · Jul 2 ✅</span><span class="score-badge">2–1</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇵🇹</span>
-            <div class="team-info"><div class="team-name">Portugal</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">6.3%</span>
-                <span class="pill pill-red">PDI 7.6</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:60%"></div><div class="win-pct">58%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇭🇷</span>
-            <div class="team-info"><div class="team-name">Croatia</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Perisic, Ronaldo pen, Ramos 90+' · Portugal advances</div>
-        </div>
-      </div>
-
-      <!-- R16 M93 TODAY -->
+      <!-- M93: Spain vs Portugal TODAY -->
       <div class="match-pair today-match">
-        <div class="match-header"><span>R16 M93 · Jul 6 🔴 LIVE TODAY</span><span style="color:#fbbf24;font-weight:700">3pm ET · FOX</span></div>
+        <div class="match-header">
+          <span>R16 M93 · Jul 6 🔴 TODAY → QF M98</span>
+          <span style="color:#fbbf24;font-weight:700">3pm ET · FOX</span>
+        </div>
         <div class="match-team">
           <span class="team-flag">🇪🇸</span>
-          <div class="team-info"><div class="team-name">Spain</div>
+          <div class="team-info">
+            <div class="team-name">Spain <span style="font-size:9px;color:#fbbf24">⚠️ Nico Williams out</span></div>
             <div class="team-pills">
               <span class="pill pill-purple">12.4%</span>
               <span class="pill pill-amber">PDI 6.7</span>
@@ -466,7 +359,8 @@
         <div class="match-divider"></div>
         <div class="match-team">
           <span class="team-flag">🇵🇹</span>
-          <div class="team-info"><div class="team-name">Portugal</div>
+          <div class="team-info">
+            <div class="team-name">Portugal</div>
             <div class="team-pills">
               <span class="pill pill-purple">6.3%</span>
               <span class="pill pill-red">PDI 7.6</span>
@@ -474,60 +368,19 @@
           </div>
           <div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:35%"></div><div class="win-pct">32%</div></div>
         </div>
-        <div class="match-note">AT&T Stadium, Arlington TX · Winner → QF M98 Jul 10 SoFi, LA</div>
+        <div class="match-note">AT&T Stadium, Arlington TX · Winner → QF M98 Jul 10 SoFi LA</div>
       </div>
 
-      <div class="divider"></div>
-
-      <!-- PAIR D: M81+M82 → M94 -->
-      <div class="bracket-group">
-        <div class="group-label">Pair D → R16 M94 · TODAY</div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M81 · Jul 1 ✅</span><span class="score-badge">2–0</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇺🇸</span>
-            <div class="team-info"><div class="team-name">USA</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">2.6%</span>
-                <span class="pill pill-red">PDI 7.3</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:62%"></div><div class="win-pct">60%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇧🇦</span>
-            <div class="team-info"><div class="team-name">Bosnia</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">USA 10 men · Balogun red card suspended (Art.27) → AVAILABLE vs Belgium</div>
-        </div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M82 · Jul 1 ✅</span><span class="score-badge">3–2 AET</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇧🇪</span>
-            <div class="team-info"><div class="team-name">Belgium</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">1.3%</span>
-                <span class="pill pill-amber">PDI 5.2</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:45%"></div><div class="win-pct">43%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇸🇳</span>
-            <div class="team-info"><div class="team-name">Senegal</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Tielemans pen 124'44" — latest WC goal ever · Belgium advances</div>
-        </div>
-      </div>
-
-      <!-- R16 M94 TODAY -->
+      <!-- M94: USA vs Belgium TODAY -->
       <div class="match-pair today-match">
-        <div class="match-header"><span>R16 M94 · Jul 6 🔴 LIVE TODAY</span><span style="color:#fbbf24;font-weight:700">8pm ET · FOX</span></div>
+        <div class="match-header">
+          <span>R16 M94 · Jul 6 🔴 TODAY → QF M98</span>
+          <span style="color:#fbbf24;font-weight:700">8pm ET · FOX</span>
+        </div>
         <div class="match-team">
           <span class="team-flag">🇺🇸</span>
-          <div class="team-info"><div class="team-name">USA</div>
+          <div class="team-info">
+            <div class="team-name">USA <span style="font-size:9px;color:#4ade80">✅ Balogun available</span></div>
             <div class="team-pills">
               <span class="pill pill-purple">2.6%</span>
               <span class="pill pill-red">PDI 7.3</span>
@@ -538,7 +391,8 @@
         <div class="match-divider"></div>
         <div class="match-team">
           <span class="team-flag">🇧🇪</span>
-          <div class="team-info"><div class="team-name">Belgium</div>
+          <div class="team-info">
+            <div class="team-name">Belgium</div>
             <div class="team-pills">
               <span class="pill pill-purple">1.3%</span>
               <span class="pill pill-amber">PDI 5.2</span>
@@ -546,80 +400,64 @@
           </div>
           <div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:38%"></div><div class="win-pct">36%</div></div>
         </div>
-        <div class="match-note">Lumen Field, Seattle · Winner → QF M98 Jul 10 SoFi, LA</div>
+        <div class="match-note">Lumen Field, Seattle · Winner → QF M98 Jul 10 SoFi LA</div>
       </div>
     </div>
 
-    <!-- CENTER: SF/FINAL -->
+    <!-- CENTER: QF→SF→FINAL -->
     <div class="bracket-center">
-      <div class="section-label" style="text-align:center">Finals</div>
-      <div class="center-match">
-        <div class="cm-label">Final · M104</div>
-        <div class="cm-teams">TBD vs TBD</div>
-        <div class="cm-meta">Jul 19 · MetLife, NJ</div>
+      <div style="height:8px"></div>
+      <div class="center-block final">
+        <div class="cb-label">Final · M104</div>
+        <div class="cb-teams">TBD vs TBD</div>
+        <div class="cb-meta">Jul 19 · MetLife, NJ</div>
       </div>
-      <div class="center-match">
-        <div class="cm-label">SF1 · M101</div>
-        <div class="cm-teams">TBD vs TBD</div>
-        <div class="cm-meta">Jul 14 · AT&T, Arlington</div>
+      <div class="center-block">
+        <div class="cb-label">SF1 · M101</div>
+        <div class="cb-teams">TBD vs TBD</div>
+        <div class="cb-meta">Jul 14 · AT&T, Arlington</div>
       </div>
-      <div class="center-match">
-        <div class="cm-label">SF2 · M102</div>
-        <div class="cm-teams">TBD vs TBD</div>
-        <div class="cm-meta">Jul 15 · Atlanta</div>
+      <div class="center-block">
+        <div class="cb-label">SF2 · M102</div>
+        <div class="cb-teams">TBD vs TBD</div>
+        <div class="cb-meta">Jul 15 · Atlanta</div>
+      </div>
+      <div class="center-block" style="border-color:#2a4a2a">
+        <div class="cb-label">QF M97 ✅ Locked</div>
+        <div class="cb-teams">🇫🇷 vs 🇲🇦</div>
+        <div class="cb-meta">Jul 9 · Foxborough</div>
+      </div>
+      <div class="center-block" style="border-color:var(--accent)">
+        <div class="cb-label">QF M98 · Today's winners</div>
+        <div class="cb-teams">M93 winner vs M94 winner</div>
+        <div class="cb-meta">Jul 10 · SoFi, LA</div>
+      </div>
+      <div class="center-block" style="border-color:#2a4a2a">
+        <div class="cb-label">QF M99 ✅ Locked</div>
+        <div class="cb-teams">🇳🇴 vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        <div class="cb-meta">Jul 11 · Miami</div>
+      </div>
+      <div class="center-block">
+        <div class="cb-label">QF M100 · Jul 7's winners</div>
+        <div class="cb-teams">M95 winner vs M96 winner</div>
+        <div class="cb-meta">Jul 11 · Arrowhead, KC</div>
       </div>
     </div>
 
-    <!-- SF2 RIGHT SIDE -->
+    <!-- RIGHT: SF2 SIDE -->
     <div class="bracket-side">
-      <div class="round-header">SF2 Side — M91, M92, M95, M96</div>
+      <div class="round-tag">SF2 Side · R16</div>
 
-      <!-- PAIR E: M76+M78 → M91 -->
-      <div class="bracket-group">
-        <div class="group-label">Pair E → R16 M91</div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M76 · Jun 29 ✅</span><span class="score-badge">2–1</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇧🇷</span>
-            <div class="team-info"><div class="team-name">Brazil</div>
-              <div class="team-pills">
-                <span class="pill pill-elim">0% ELIMINATED</span>
-              </div>
-            </div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇯🇵</span>
-            <div class="team-info"><div class="team-name">Japan</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Brazil advances from R32</div>
-        </div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M78 · Jun 30 ✅</span><span class="score-badge">2–1</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇳🇴</span>
-            <div class="team-info"><div class="team-name">Norway</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">1.6%</span>
-                <span class="pill pill-red">PDI 7.3</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:38%"></div><div class="win-pct">36%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇸🇦</span>
-            <div class="team-info"><div class="team-name">Saudi Arabia</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- R16 M91 -->
+      <!-- M91: Norway 2-1 Brazil UPSET -->
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M91 · Jul 5 ✅ UPSET 🚨</span><span class="score-badge">2–1</span></div>
+        <div class="match-header">
+          <span>R16 M91 · Jul 5 ✅ → QF M99</span>
+          <span class="upset-badge">2–1 UPSET 🚨</span>
+        </div>
         <div class="match-team winner">
           <span class="team-flag">🇳🇴</span>
-          <div class="team-info"><div class="team-name">Norway</div>
+          <div class="team-info">
+            <div class="team-name">Norway</div>
             <div class="team-pills">
               <span class="pill pill-purple">1.6%</span>
               <span class="pill pill-red">PDI 7.3</span>
@@ -628,61 +466,23 @@
           <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:38%"></div><div class="win-pct">36%</div></div>
         </div>
         <div class="match-divider"></div>
-        <div class="match-team eliminated-team">
+        <div class="match-team elim">
           <span class="team-flag">🇧🇷</span>
-          <div class="team-info"><div class="team-name">Brazil</div><div class="team-pills"><span class="pill pill-elim">ELIMINATED</span></div></div>
+          <div class="team-info"><div class="team-name">Brazil</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div>
         </div>
-        <div class="match-note">🔥 HAALAND BRACE — Norway's first ever WC QF. Biggest upset of tournament.</div>
+        <div class="match-note">HAALAND BRACE · Norway's first ever WC QF · Biggest upset of tournament</div>
       </div>
 
-      <div class="divider"></div>
-
-      <!-- PAIR F: M79+M80 → M92 -->
-      <div class="bracket-group">
-        <div class="group-label">Pair F → R16 M92</div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M79 · Jul 1 ✅</span><span class="score-badge">2–1</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇲🇽</span>
-            <div class="team-info"><div class="team-name">Mexico</div>
-              <div class="team-pills">
-                <span class="pill pill-elim">0% ELIMINATED</span>
-              </div>
-            </div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
-            <div class="team-info"><div class="team-name">Scotland</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-        </div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M80 · Jul 1 ✅</span><span class="score-badge">2–1</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
-            <div class="team-info"><div class="team-name">England</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">7.2%</span>
-                <span class="pill pill-amber">PDI 5.4</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:68%"></div><div class="win-pct">65%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇨🇩</span>
-            <div class="team-info"><div class="team-name">DR Congo</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Kane ×2 · England advances</div>
-        </div>
-      </div>
-
-      <!-- R16 M92 -->
+      <!-- M92: England 3-2 Mexico -->
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M92 · Jul 5 ✅</span><span class="score-badge">3–2</span></div>
+        <div class="match-header">
+          <span>R16 M92 · Jul 5 ✅ → QF M99</span>
+          <span class="score-badge">3–2</span>
+        </div>
         <div class="match-team winner">
           <span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
-          <div class="team-info"><div class="team-name">England</div>
+          <div class="team-info">
+            <div class="team-name">England <span style="font-size:9px;color:#f87171">⛔ Quansah SUSP</span></div>
             <div class="team-pills">
               <span class="pill pill-purple">7.2%</span>
               <span class="pill pill-amber">PDI 5.4</span>
@@ -691,64 +491,25 @@
           <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:68%"></div><div class="win-pct">65%</div></div>
         </div>
         <div class="match-divider"></div>
-        <div class="match-team eliminated-team">
+        <div class="match-team elim">
           <span class="team-flag">🇲🇽</span>
-          <div class="team-info"><div class="team-name">Mexico</div><div class="team-pills"><span class="pill pill-elim">ELIMINATED</span></div></div>
+          <div class="team-info"><div class="team-name">Mexico</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div>
         </div>
-        <div class="match-note">Bellingham ×2, Kane pen · Quansah RED CARD 54' · 10 men 36 mins. England first WC win at Azteca.</div>
+        <div class="match-note">Bellingham ×2, Kane pen · Quansah red card 54' (VAR) · 10 men 36 mins · First WC win at Azteca</div>
       </div>
 
       <div class="divider"></div>
 
-      <!-- PAIR G: M86+M88 → M95 -->
-      <div class="bracket-group">
-        <div class="group-label">Pair G → R16 M95 · Jul 7</div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M86 · Jul 3 ✅</span><span class="score-badge">3–2 AET</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇦🇷</span>
-            <div class="team-info"><div class="team-name">Argentina</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">16.8%</span>
-                <span class="pill pill-green">PDI 4.4</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:82%"></div><div class="win-pct">79%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇨🇻</span>
-            <div class="team-info"><div class="team-name">Cape Verde</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Messi 7 goals in 4 games. Borges OG saves Argentina in ET.</div>
+      <!-- M95: Argentina vs Egypt Jul 7 -->
+      <div class="match-pair pending">
+        <div class="match-header">
+          <span>R16 M95 · Jul 7 🔜 → QF M100</span>
+          <span style="color:#fbbf24;font-weight:700">12pm ET</span>
         </div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M88 · Jul 3 ✅</span><span class="score-badge">W</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇪🇬</span>
-            <div class="team-info"><div class="team-name">Egypt</div>
-              <div class="team-pills">
-                <span class="pill pill-outline">~0.4%</span>
-                <span class="pill pill-green">PDI 3.8</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:28%"></div><div class="win-pct">26%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇦🇺</span>
-            <div class="team-info"><div class="team-name">Australia</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Egypt advances · Salah confirmed to start vs Argentina</div>
-        </div>
-      </div>
-
-      <!-- R16 M95 -->
-      <div class="match-pair">
-        <div class="match-header"><span>R16 M95 · Jul 7 🔜</span><span style="color:#fbbf24;font-weight:700">12pm ET</span></div>
         <div class="match-team">
           <span class="team-flag">🇦🇷</span>
-          <div class="team-info"><div class="team-name">Argentina</div>
+          <div class="team-info">
+            <div class="team-name">Argentina</div>
             <div class="team-pills">
               <span class="pill pill-purple">16.8%</span>
               <span class="pill pill-green">PDI 4.4</span>
@@ -759,66 +520,27 @@
         <div class="match-divider"></div>
         <div class="match-team">
           <span class="team-flag">🇪🇬</span>
-          <div class="team-info"><div class="team-name">Egypt</div>
+          <div class="team-info">
+            <div class="team-name">Egypt</div>
             <div class="team-pills">
               <span class="pill pill-outline">~0.4%</span>
             </div>
           </div>
           <div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:14%"></div><div class="win-pct">13%</div></div>
         </div>
-        <div class="match-note">Mercedes-Benz Stadium, Atlanta · Salah starts confirmed</div>
+        <div class="match-note">Mercedes-Benz Stadium, Atlanta · Salah confirmed to start (fitness cleared)</div>
       </div>
 
-      <div class="divider"></div>
-
-      <!-- PAIR H: M85+M87 → M96 -->
-      <div class="bracket-group">
-        <div class="group-label">Pair H → R16 M96 · Jul 7</div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M85 · Jul 2 ✅</span><span class="score-badge">2–0</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇨🇭</span>
-            <div class="team-info"><div class="team-name">Switzerland</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">0.8%</span>
-                <span class="pill pill-green">PDI 4.1</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:55%"></div><div class="win-pct">53%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇿🇦</span>
-            <div class="team-info"><div class="team-name">South Africa</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
+      <!-- M96: Switzerland vs Colombia Jul 7 -->
+      <div class="match-pair pending">
+        <div class="match-header">
+          <span>R16 M96 · Jul 7 🔜 → QF M100</span>
+          <span style="color:#fbbf24;font-weight:700">4pm ET</span>
         </div>
-        <div class="match-pair resolved">
-          <div class="match-header"><span>M87 · Jul 3 ✅</span><span class="score-badge">W</span></div>
-          <div class="match-team winner">
-            <span class="team-flag">🇨🇴</span>
-            <div class="team-info"><div class="team-name">Colombia</div>
-              <div class="team-pills">
-                <span class="pill pill-purple">3.1%</span>
-                <span class="pill pill-amber">PDI 5.2</span>
-              </div>
-            </div>
-            <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:52%"></div><div class="win-pct">50%</div></div>
-          </div>
-          <div class="match-divider"></div>
-          <div class="match-team">
-            <span class="team-flag">🇬🇭</span>
-            <div class="team-info"><div class="team-name">Ghana</div><div class="team-pills"><span class="pill pill-outline">Elim R32</span></div></div>
-          </div>
-          <div class="match-note">Colombia advances</div>
-        </div>
-      </div>
-
-      <!-- R16 M96 -->
-      <div class="match-pair">
-        <div class="match-header"><span>R16 M96 · Jul 7 🔜</span><span style="color:#fbbf24;font-weight:700">4pm ET</span></div>
         <div class="match-team">
           <span class="team-flag">🇨🇭</span>
-          <div class="team-info"><div class="team-name">Switzerland</div>
+          <div class="team-info">
+            <div class="team-name">Switzerland</div>
             <div class="team-pills">
               <span class="pill pill-purple">0.8%</span>
               <span class="pill pill-green">PDI 4.1</span>
@@ -829,7 +551,8 @@
         <div class="match-divider"></div>
         <div class="match-team">
           <span class="team-flag">🇨🇴</span>
-          <div class="team-info"><div class="team-name">Colombia</div>
+          <div class="team-info">
+            <div class="team-name">Colombia</div>
             <div class="team-pills">
               <span class="pill pill-purple">3.1%</span>
               <span class="pill pill-amber">PDI 5.2</span>
@@ -839,43 +562,43 @@
         </div>
         <div class="match-note">BC Place, Vancouver · Winner → QF M100 vs Argentina/Egypt</div>
       </div>
-
     </div>
-  </div>
+
+  </div><!-- end bracket-wrap -->
 </div>
 
-<!-- ============================================================ TODAY TAB -->
+<!-- ======================================================= TODAY TAB -->
 <div id="tab-today" class="tab-content">
 
   <div class="section-title">Today · R16 Day 3 · July 6, 2026</div>
-  <p style="font-size:12px;color:var(--txt2);margin-bottom:16px;">Both matches on FOX. Combined stakes: QF M98 at SoFi Stadium LA on July 10 goes to the winners.</p>
+  <p style="font-size:12px;color:var(--txt2);margin-bottom:16px">Both on FOX. Winners meet in QF M98 · Jul 10 · SoFi Stadium, LA.</p>
 
   <div class="today-grid">
 
     <!-- M93: Spain vs Portugal -->
     <div class="today-card">
-      <div class="today-card-header">
-        <div class="tc-match-id">R16 · M93 · SF1 Side · <span class="stakes-badge stakes-fire">🔥 IBERIAN DERBY</span></div>
+      <div class="tc-header">
+        <div class="tc-match-id">R16 · M93 · SF1 · <span class="stakes-badge stakes-fire">🔥 IBERIAN DERBY</span></div>
         <div class="tc-title">🇪🇸 Spain vs Portugal 🇵🇹</div>
         <div class="tc-meta">AT&T Stadium · Arlington, TX · FOX</div>
         <div class="tc-time">⏰ 3:00 PM ET</div>
       </div>
-      <div class="today-card-body">
+      <div class="tc-body">
         <div class="tc-teams">
-          <div class="tc-team">
+          <div>
             <div class="tc-team-flag">🇪🇸</div>
             <div class="tc-team-name">Spain</div>
-            <div class="tc-team-odds">Win: 52% · Tournament: 12.4%</div>
+            <div class="tc-team-odds">Win 52% · 12.4%</div>
           </div>
           <div class="tc-vs">vs</div>
-          <div class="tc-team" style="text-align:right">
+          <div style="text-align:right">
             <div class="tc-team-flag">🇵🇹</div>
             <div class="tc-team-name">Portugal</div>
-            <div class="tc-team-odds">Win: 32% · Tournament: 6.3%</div>
+            <div class="tc-team-odds">Win 32% · 6.3%</div>
           </div>
         </div>
-        <div class="tc-bar-section">
-          <div class="tc-bar-label">Match outcome probability</div>
+        <div style="margin-bottom:12px">
+          <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Match outcome probability</div>
           <div class="tc-bar-outer">
             <div class="tc-bar-a" style="width:52%"></div>
             <div class="tc-bar-d" style="width:16%"></div>
@@ -884,80 +607,79 @@
           <div class="tc-bar-legend"><span>Spain 52%</span><span>Draw 16%</span><span>Portugal 32%</span></div>
         </div>
 
-        <!-- Team News -->
         <div class="news-section">
           <div class="news-title">🇪🇸 Spain — Team News</div>
           <div class="news-item">
-            <div class="news-dot news-dot-red"></div>
-            <div class="news-text"><strong>Nico Williams</strong> — adductor injury from Uruguay group stage tackle. "One of the worst days of my life." Did not start vs Austria, today's status uncertain. <span class="news-badge badge-out">LIKELY OUT</span></div>
+            <div class="nd nd-red"></div>
+            <div class="news-text"><strong>Nico Williams</strong> — moderate-grade adductor (right), suffered vs Uruguay. Missed Austria match, expected out today. Williams: <em>"One of the worst days of my life."</em> Recovery slightly ahead of schedule — not ruled out of later rounds.<span class="nb nb-out">LIKELY OUT</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-amber"></div>
-            <div class="news-text"><strong>Yéremy Pino</strong> — doubtful, minor fitness concern. <span class="news-badge badge-doubt">DOUBT</span></div>
+            <div class="nd nd-amber"></div>
+            <div class="news-text"><strong>Yéremy Pino</strong> — minor fitness concern, doubtful.<span class="nb nb-doubt">DOUBT</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-amber"></div>
-            <div class="news-text"><strong>Víctor Muñoz</strong> — doubtful. <span class="news-badge badge-doubt">DOUBT</span></div>
+            <div class="nd nd-amber"></div>
+            <div class="news-text"><strong>Víctor Muñoz</strong> — doubtful.<span class="nb nb-doubt">DOUBT</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-green"></div>
-            <div class="news-text"><strong>Lamine Yamal</strong> — fit and available. Likely to be Spain's main attacking threat with Nico Williams out. <span class="news-badge badge-available">AVAILABLE</span></div>
+            <div class="nd nd-green"></div>
+            <div class="news-text"><strong>Lamine Yamal</strong> — fit. Spain's main attacking threat with Nico Williams out.<span class="nb nb-fit">FIT</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-green"></div>
-            <div class="news-text"><strong>Mikel Oyarzabal</strong> — in excellent form, scored ×2 vs Austria, stepped up as Spain's go-to finisher. <span class="news-badge badge-fit">IN FORM</span></div>
+            <div class="nd nd-green"></div>
+            <div class="news-text"><strong>Mikel Oyarzabal</strong> — ×2 vs Austria, stepped up as first-choice finisher.<span class="nb nb-fit">IN FORM</span></div>
           </div>
         </div>
 
         <div class="news-section">
           <div class="news-title">🇵🇹 Portugal — Team News</div>
           <div class="news-item">
-            <div class="news-dot news-dot-green"></div>
-            <div class="news-text"><strong>Cristiano Ronaldo</strong> — fit and scoring. Converted penalty vs Croatia. At 41, motivated for a deep run. <span class="news-badge badge-fit">FIT</span></div>
+            <div class="nd nd-green"></div>
+            <div class="news-text"><strong>Cristiano Ronaldo</strong> — fit, scored pen vs Croatia. Motivated at 41.<span class="nb nb-fit">FIT</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-green"></div>
-            <div class="news-text"><strong>Gonçalo Ramos</strong> — scored 90+' winner vs Croatia. Full confidence going into this match. <span class="news-badge badge-fit">IN FORM</span></div>
+            <div class="nd nd-green"></div>
+            <div class="news-text"><strong>Gonçalo Ramos</strong> — scored 90+' winner vs Croatia, full confidence.<span class="nb nb-fit">IN FORM</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-blue"></div>
-            <div class="news-text">Full squad available, no injury concerns reported. Portugal riding high on last-gasp Croatia win.</div>
+            <div class="nd nd-blue"></div>
+            <div class="news-text">Full squad available. No injury concerns reported. Portugal riding high momentum.</div>
           </div>
         </div>
 
         <div class="whatif-section">
           <div class="whatif-title">⚡ What This Means</div>
-          <div class="whatif-row"><strong>Spain wins →</strong> <span>PDI 6.7 amber. Faces USA or Belgium in QF M98 (Jul 10, SoFi, LA). SF1 path: France or Morocco in SF.</span></div>
-          <div class="whatif-row"><strong>Portugal wins →</strong> <span>PDI 7.6 RED continues. Also faces USA/Belgium in QF. Ronaldo's last real shot at a World Cup.</span></div>
-          <div class="whatif-row"><strong>GT note →</strong> <span>Both have same QF opponent (winner of M94 today). Path diverges at SF only. Winner gets a home-ish crowd boost in LA.</span></div>
+          <div class="whatif-row"><strong>Spain wins →</strong> <span>PDI 6.7 amber. QF M98 vs USA/Belgium (Jul 10, SoFi LA). Path to SF1 vs France or Morocco.</span></div>
+          <div class="whatif-row"><strong>Portugal wins →</strong> <span>PDI 7.6 RED. Same QF M98 path. Ronaldo generation's best shot at a WC trophy.</span></div>
+          <div class="whatif-row"><strong>GT note →</strong> <span>Both face identical QF opponent. Diverge only at SF. Home crowd tilt in LA for the Iberian winner.</span></div>
         </div>
       </div>
     </div>
 
     <!-- M94: USA vs Belgium -->
     <div class="today-card">
-      <div class="today-card-header">
-        <div class="tc-match-id">R16 · M94 · SF1 Side · <span class="stakes-badge stakes-high">HIGH STAKES</span></div>
+      <div class="tc-header">
+        <div class="tc-match-id">R16 · M94 · SF1 · <span class="stakes-badge stakes-high">HIGH STAKES</span></div>
         <div class="tc-title">🇺🇸 USA vs Belgium 🇧🇪</div>
         <div class="tc-meta">Lumen Field · Seattle, WA · FOX</div>
         <div class="tc-time">⏰ 8:00 PM ET</div>
       </div>
-      <div class="today-card-body">
+      <div class="tc-body">
         <div class="tc-teams">
-          <div class="tc-team">
+          <div>
             <div class="tc-team-flag">🇺🇸</div>
             <div class="tc-team-name">USA</div>
-            <div class="tc-team-odds">Win: 50% · Tournament: 2.6%</div>
+            <div class="tc-team-odds">Win 50% · 2.6%</div>
           </div>
           <div class="tc-vs">vs</div>
-          <div class="tc-team" style="text-align:right">
+          <div style="text-align:right">
             <div class="tc-team-flag">🇧🇪</div>
             <div class="tc-team-name">Belgium</div>
-            <div class="tc-team-odds">Win: 36% · Tournament: 1.3%</div>
+            <div class="tc-team-odds">Win 36% · 1.3%</div>
           </div>
         </div>
-        <div class="tc-bar-section">
-          <div class="tc-bar-label">Match outcome probability</div>
+        <div style="margin-bottom:12px">
+          <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Match outcome probability</div>
           <div class="tc-bar-outer">
             <div class="tc-bar-a" style="width:50%"></div>
             <div class="tc-bar-d" style="width:14%"></div>
@@ -966,318 +688,235 @@
           <div class="tc-bar-legend"><span>USA 50%</span><span>Draw 14%</span><span>Belgium 36%</span></div>
         </div>
 
-        <!-- Team News -->
         <div class="news-section">
           <div class="news-title">🇺🇸 USA — Team News</div>
           <div class="news-item">
-            <div class="news-dot news-dot-green"></div>
-            <div class="news-text"><strong>Folarin Balogun</strong> — red card ban SUSPENDED by FIFA under Article 27 (1-year probationary). <strong>Available vs Belgium.</strong> Massive development for USA attack. <span class="news-badge badge-available">AVAILABLE ✅</span></div>
+            <div class="nd nd-green"></div>
+            <div class="news-text"><strong>Folarin Balogun</strong> — red card ban SUSPENDED by FIFA Article 27 (1-year probationary). <strong>Available vs Belgium.</strong> Massive boost for USA attack.<span class="nb nb-ok">AVAILABLE ✅</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-green"></div>
-            <div class="news-text">Home crowd advantage in Seattle — partisan crowd, similar energy to group stages. USA have not lost at Lumen Field in recent memory.</div>
-          </div>
-          <div class="news-item">
-            <div class="news-dot news-dot-blue"></div>
-            <div class="news-text">Full squad available beyond Balogun reinstatement. USA came through Bosnia with 10 men, so fitness should be fine after 4 days rest.</div>
+            <div class="nd nd-green"></div>
+            <div class="news-text">Seattle home crowd advantage. USA have a strong record at Lumen Field. Full squad fit after Bosnia match.</div>
           </div>
         </div>
 
         <div class="news-section">
           <div class="news-title">🇧🇪 Belgium — Team News</div>
           <div class="news-item">
-            <div class="news-dot news-dot-green"></div>
-            <div class="news-text"><strong>Kevin De Bruyne</strong> — fit and available. The creative engine. <span class="news-badge badge-fit">FIT</span></div>
+            <div class="nd nd-green"></div>
+            <div class="news-text"><strong>Kevin De Bruyne</strong> — fit and available.<span class="nb nb-fit">FIT</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-green"></div>
-            <div class="news-text"><strong>Youri Tielemans</strong> — scored the tournament's latest goal ever (pen 124'44" vs Senegal). Clutch performer in big moments. <span class="news-badge badge-fit">FIT + FORM</span></div>
+            <div class="nd nd-green"></div>
+            <div class="news-text"><strong>Youri Tielemans</strong> — scored pen 124'44" vs Senegal (tournament's latest ever goal). Tournament's most clutch player.<span class="nb nb-fit">FIT + FORM</span></div>
           </div>
           <div class="news-item">
-            <div class="news-dot news-dot-amber"></div>
-            <div class="news-text">Belgium came through AET vs Senegal — slight fatigue concern vs a fresh-legged USA team. Extra 30 minutes on the legs.</div>
+            <div class="nd nd-amber"></div>
+            <div class="news-text">Belgium played AET vs Senegal — slight fatigue vs fresh USA legs. Extra 30 minutes of tournament load.<span class="nb nb-watch">FATIGUE</span></div>
           </div>
         </div>
 
         <div class="whatif-section">
           <div class="whatif-title">⚡ What This Means</div>
-          <div class="whatif-row"><strong>USA wins →</strong> <span>PDI 7.3 RED path. Faces Spain or Portugal in QF M98 (Jul 10, SoFi, LA). Home continent advantage continues.</span></div>
-          <div class="whatif-row"><strong>Belgium wins →</strong> <span>De Bruyne generation's last real shot. QF vs Spain/Portugal in LA — elite opponent incoming.</span></div>
-          <div class="whatif-row"><strong>GT note →</strong> <span>Both M93 and M94 winners meet in QF. Winner of Iberian derby vs winner of this match. SF1 is a gauntlet regardless.</span></div>
+          <div class="whatif-row"><strong>USA wins →</strong> <span>PDI 7.3 RED. QF M98 vs Spain/Portugal (Jul 10, SoFi LA). Home continent run continues.</span></div>
+          <div class="whatif-row"><strong>Belgium wins →</strong> <span>De Bruyne generation's last shot. QF vs Spain/Portugal — elite opposition.</span></div>
+          <div class="whatif-row"><strong>GT note →</strong> <span>M93 and M94 winners meet in QF M98. Iberian derby winner + this winner = blockbuster LA quarter-final.</span></div>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- POST-MATCH NOTES: Winning teams fitness/suspension impact -->
-  <div class="section-title" style="margin-top:24px">🩺 Post-R16 Fitness & Suspension Watch</div>
-  <p style="font-size:12px;color:var(--txt2);margin-bottom:12px;">Impact of recent matches on QF-bound teams</p>
+  <!-- POST-MATCH FITNESS / SUSPENSIONS -->
+  <div class="section-title" style="margin-top:22px">🩺 Post-R16 Fitness & Suspension Watch</div>
+  <p style="font-size:12px;color:var(--txt2);margin-bottom:10px">QF-bound teams — injury/card impact ahead</p>
 
-  <div class="post-match-grid">
-
+  <div class="pm-grid">
     <div class="pm-card">
-      <div class="pm-card-title">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England → QF M99 vs Norway (Jul 11)</div>
-      <div class="news-item">
-        <div class="news-dot news-dot-red"></div>
-        <div class="news-text"><strong>Jarell Quansah — SUSPENDED.</strong> Red card (54', VAR dangerous challenge on Gallardo) vs Mexico. Serves automatic 1-match ban for QF. Tuchel must find backup CB pairing alongside Stones. <span class="news-badge badge-suspended">SUSPENDED</span></div>
-      </div>
-      <div class="news-item">
-        <div class="news-dot news-dot-amber"></div>
-        <div class="news-text">England played 36+ minutes with 10 men vs Mexico. Some fitness concerns, especially for defenders who covered extra ground.</div>
-      </div>
-      <div class="news-item">
-        <div class="news-dot news-dot-green"></div>
-        <div class="news-text"><strong>Bellingham (×2), Kane (pen)</strong> — all fit, no issues reported. England looked dangerous even down a man.</div>
-      </div>
+      <div class="pm-title">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England → QF M99 vs Norway (Jul 11)</div>
+      <div class="news-item"><div class="nd nd-red"></div><div class="news-text"><strong>Jarell Quansah — SUSPENDED.</strong> Red card 54' (VAR, dangerous challenge on Gallardo vs Mexico). Automatic 1-match ban. Tuchel must reorganise CB for Norway QF.<span class="nb nb-susp">SUSPENDED</span></div></div>
+      <div class="news-item"><div class="nd nd-amber"></div><div class="news-text">England played 36+ mins with 10 men. Defenders covered extra ground — monitor training load before Jul 11.</div></div>
+      <div class="news-item"><div class="nd nd-green"></div><div class="news-text">Bellingham, Kane fit. England clinical even down a man.</div></div>
     </div>
-
     <div class="pm-card">
-      <div class="pm-card-title">🇳🇴 Norway → QF M99 vs England (Jul 11)</div>
-      <div class="news-item">
-        <div class="news-dot news-dot-green"></div>
-        <div class="news-text"><strong>Erling Haaland — BRACE vs Brazil.</strong> No injury or card concerns reported. He is the story of this tournament. <span class="news-badge badge-fit">FULLY FIT</span></div>
-      </div>
-      <div class="news-item">
-        <div class="news-dot news-dot-blue"></div>
-        <div class="news-text">Norway's first ever World Cup QF. Team riding historic momentum. No suspension issues flagged.</div>
-      </div>
-      <div class="news-item">
-        <div class="news-dot news-dot-blue"></div>
-        <div class="news-text">Full 90 minutes vs Brazil — Haaland pressed high relentlessly. Fitness is fine; Norway play at Hard Rock Stadium, Miami (Jul 11) — heat could be a factor.</div>
-      </div>
+      <div class="pm-title">🇳🇴 Norway → QF M99 vs England (Jul 11)</div>
+      <div class="news-item"><div class="nd nd-green"></div><div class="news-text"><strong>Erling Haaland — BRACE vs Brazil.</strong> No injury or suspension concerns. Leading the tournament in impact.<span class="nb nb-fit">FULLY FIT</span></div></div>
+      <div class="news-item"><div class="nd nd-blue"></div><div class="news-text">Norway's first ever WC QF. Team is riding historic momentum. Miami heat (Jul 11) is a minor factor to monitor.</div></div>
     </div>
-
     <div class="pm-card">
-      <div class="pm-card-title">🇫🇷 France → QF M97 vs Morocco (Jul 9)</div>
-      <div class="news-item">
-        <div class="news-dot news-dot-amber"></div>
-        <div class="news-text"><strong>Kylian Mbappé — fatigue watch.</strong> Paraguay game was played in stifling heat. 7 WC goals in tournament. Mbappé covered enormous distance. Short turnaround to Jul 9 Foxborough. <span class="news-badge badge-watch">FATIGUE WATCH</span></div>
-      </div>
-      <div class="news-item">
-        <div class="news-dot news-dot-blue"></div>
-        <div class="news-text">France 1-0 Paraguay was a physical, hard-fought match in oppressive conditions. Staff likely to manage Mbappé's minutes in training.</div>
-      </div>
-      <div class="news-item">
-        <div class="news-dot news-dot-green"></div>
-        <div class="news-text">No cards, no injuries beyond fatigue. France's depth (Barcola, Doue) provides rotation options if needed.</div>
-      </div>
+      <div class="pm-title">🇫🇷 France → QF M97 vs Morocco (Jul 9)</div>
+      <div class="news-item"><div class="nd nd-amber"></div><div class="news-text"><strong>Kylian Mbappé — fatigue watch.</strong> Paraguay was played in stifling heat. 7 WC goals. Short turnaround to Jul 9 Foxborough.<span class="nb nb-watch">FATIGUE WATCH</span></div></div>
+      <div class="news-item"><div class="nd nd-green"></div><div class="news-text">No cards, no injuries. Depth (Barcola, Doue) allows rotation options if Mbappé needs managing.</div></div>
     </div>
-
     <div class="pm-card">
-      <div class="pm-card-title">🇲🇦 Morocco → QF M97 vs France (Jul 9)</div>
-      <div class="news-item">
-        <div class="news-dot news-dot-red"></div>
-        <div class="news-text"><strong>Ezzalzouli</strong> — lost pre-tournament to knee injury. Has been absent the entire WC. <span class="news-badge badge-out">OUT (tournament)</span></div>
-      </div>
-      <div class="news-item">
-        <div class="news-dot news-dot-red"></div>
-        <div class="news-text"><strong>Aguerd</strong> — also injured before tournament started. Morocco have managed without him but depth at CB is thinner than ideal. <span class="news-badge badge-out">OUT (tournament)</span></div>
-      </div>
-      <div class="news-item">
-        <div class="news-dot news-dot-green"></div>
-        <div class="news-text">3-0 win vs Canada was dominant, minimal physical cost. Fresh legs heading into the France QF. This Morocco squad has been tournament-ready despite the absences.</div>
-      </div>
+      <div class="pm-title">🇲🇦 Morocco → QF M97 vs France (Jul 9)</div>
+      <div class="news-item"><div class="nd nd-red"></div><div class="news-text"><strong>Ismael Saibari — suspected hamstring.</strong> Off at 22' vs Canada. Morocco's leading scorer — scored all 3 group stage matches, just signed for Bayern Munich. Coach Ouahbi: <em>"Saibari had some pain in his thigh. We will know more in the next few days."</em> Decision expected as late as possible.<span class="nb nb-tbd">TBD FOR QF</span></div></div>
+      <div class="news-item"><div class="nd nd-green"></div><div class="news-text"><strong>Soufiane Rahimi</strong> — came on for Saibari at 22', hit the bar, scored Morocco's 3rd in stoppage time. Ready to start if Saibari ruled out.<span class="nb nb-fit">READY</span></div></div>
+      <div class="news-item"><div class="nd nd-amber"></div><div class="news-text"><strong>Riad (CB)</strong> — knee injury (sustained vs Netherlands in R32), missed Canada match. Also a doubt for France QF.<span class="nb nb-doubt">DOUBT</span></div></div>
+      <div class="news-item"><div class="nd nd-red"></div><div class="news-text"><strong>Ezzalzouli</strong> — out all tournament (knee, pre-tournament). Not recoverable.<span class="nb nb-out">OUT (tournament)</span></div></div>
+      <div class="news-item"><div class="nd nd-blue"></div><div class="news-text">Morocco unbeaten in 34 matches. Despite injuries, squad depth is holding. "We are no longer a surprise." — Ouahbi</div></div>
     </div>
-
   </div>
 
-  <!-- Tomorrow Preview -->
-  <div class="section-title" style="margin-top:20px">📅 Tomorrow · R16 Day 4 · July 7</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+  <!-- Tomorrow -->
+  <div class="section-title" style="margin-top:18px">📅 Tomorrow · R16 Day 4 · July 7</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
     <div class="pm-card">
-      <div class="pm-card-title">🇦🇷 Argentina vs 🇪🇬 Egypt</div>
-      <div class="news-item"><div class="news-dot news-dot-blue"></div><div class="news-text">12pm ET · Mercedes-Benz Stadium, Atlanta · Salah confirmed to start (recovering from knock vs Australia). Messi 7 goals, looking for more.</div></div>
+      <div class="pm-title">🇦🇷 Argentina vs 🇪🇬 Egypt · 12pm ET · Atlanta</div>
+      <div class="news-item"><div class="nd nd-blue"></div><div class="news-text">Messi 7 goals in 4 games. Salah confirmed to start after knockout round knock. Egypt a surprise to be here.</div></div>
     </div>
     <div class="pm-card">
-      <div class="pm-card-title">🇨🇭 Switzerland vs 🇨🇴 Colombia</div>
-      <div class="news-item"><div class="news-dot news-dot-blue"></div><div class="news-text">4pm ET · BC Place, Vancouver · Winner faces Argentina/Egypt in QF M100 (Jul 11 9pm ET, Arrowhead KC).</div></div>
+      <div class="pm-title">🇨🇭 Switzerland vs 🇨🇴 Colombia · 4pm ET · Vancouver</div>
+      <div class="news-item"><div class="nd nd-blue"></div><div class="news-text">Open matchup. Winner faces Argentina/Egypt in QF M100 (Jul 11 9pm ET, Arrowhead KC).</div></div>
     </div>
   </div>
 
 </div>
 
-<!-- ============================================================ INSIGHTS TAB -->
+<!-- ======================================================= INSIGHTS TAB -->
 <div id="tab-insights" class="tab-content">
 
   <div class="section-title">R32 Final Day — July 3, 2026</div>
-
   <div class="insights-grid">
-    <div class="insight-card">
-      <div class="ic-header">
-        <span class="ic-match">M86 · Jul 3</span>
-        <span class="ic-score win">3–2 AET</span>
-      </div>
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M86 · Jul 3</span><span class="ic-score win">3–2 AET</span></div>
       <div class="ic-body">
         <div class="ic-teams">🇦🇷 Argentina 3–2 🇨🇻 Cape Verde (AET)</div>
-        <div class="ic-scorers">1-1 at 90' → Martínez 2-1, Cape Verde 2-2, Borges OG (Argentina saved by own goal in ET). Messi = 7 goals in 4 games.</div>
-        <div class="ic-impact"><span class="impact-label impact-negative">SCARE</span> Argentina scraped through. Cape Verde exposed defensive vulnerabilities. Market dipped from 21.3% → 16.8% (-0.2% by Jul 6). Argentina's defence will face much stiffer tests in R16 vs Egypt.</div>
+        <div class="ic-scorers">1-1 at 90' → ET: Martínez 2-1, Cape Verde 2-2, Borges OG. Messi = 7 goals in 4 games.</div>
+        <div class="ic-impact"><span class="imp imp-neg">SCARE</span> Cape Verde exposed Argentina's defence. Market dipped from 21.3% → 16.8%. Defensive concerns heading into Egypt R16.</div>
       </div>
     </div>
-    <div class="insight-card">
-      <div class="ic-header">
-        <span class="ic-match">M88 · Jul 3</span>
-        <span class="ic-score win">W</span>
-      </div>
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M88 · Jul 3</span><span class="ic-score win">W</span></div>
       <div class="ic-body">
         <div class="ic-teams">🇪🇬 Egypt beat 🇦🇺 Australia</div>
-        <div class="ic-scorers">Egypt advances. Salah had a knock but confirmed fit to start R16 vs Argentina.</div>
-        <div class="ic-impact"><span class="impact-label impact-neutral">NEUTRAL</span> Expected result. Egypt's reward: face Argentina at Atlanta. Salah fitness update is the key storyline going into Jul 7.</div>
+        <div class="ic-scorers">Egypt advance. Salah had a knock but cleared to start R16 vs Argentina.</div>
+        <div class="ic-impact"><span class="imp imp-neutral">NEUTRAL</span> Expected result. Salah fitness update is the key storyline going into Jul 7.</div>
       </div>
     </div>
-    <div class="insight-card">
-      <div class="ic-header">
-        <span class="ic-match">M87 · Jul 3</span>
-        <span class="ic-score win">W</span>
-      </div>
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M87 · Jul 3</span><span class="ic-score win">W</span></div>
       <div class="ic-body">
         <div class="ic-teams">🇨🇴 Colombia beat 🇬🇭 Ghana</div>
-        <div class="ic-scorers">Colombia advances to R16 M96 vs Switzerland.</div>
-        <div class="ic-impact"><span class="impact-label impact-positive">POSITIVE</span> Colombia completes their path. R16 M96 vs Switzerland on Jul 7 in Vancouver is an open matchup — winner faces Argentina/Egypt in QF.</div>
+        <div class="ic-scorers">Colombia advance to R16 M96 vs Switzerland.</div>
+        <div class="ic-impact"><span class="imp imp-neutral">NEUTRAL</span> Colombia's path: R16 Jul 7 Vancouver vs Switzerland, then QF M100 vs Argentina/Egypt.</div>
       </div>
     </div>
   </div>
 
-  <div class="section-title" style="margin-top:20px">R16 Days 1–2 — July 4–5, 2026</div>
-
+  <div class="section-title" style="margin-top:18px">R16 Days 1–2 — July 4–5, 2026</div>
   <div class="insights-grid">
-    <div class="insight-card">
-      <div class="ic-header">
-        <span class="ic-match">M89 · Jul 4 · R16</span>
-        <span class="ic-score win">1–0</span>
-      </div>
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M89 · Jul 4 · R16</span><span class="ic-score win">1–0</span></div>
       <div class="ic-body">
         <div class="ic-teams">🇫🇷 France 1–0 🇵🇾 Paraguay</div>
-        <div class="ic-scorers">Mbappé pen 69' (Doue fouled, VAR). Stifling heat in Atlanta. Paraguay defended in two banks of four for 68 mins.</div>
-        <div class="ic-impact"><span class="impact-label impact-positive">POSITIVE</span> France through but it was hard work. Mbappé now 7 WC goals this tournament. PDI 5.6 amber. France odds dipped slightly to 34.9% (-1.0) — market slightly concerned by the difficulty. QF vs Morocco Jul 9 Foxborough.</div>
+        <div class="ic-scorers">Mbappé pen 69' (Doue fouled, VAR). Stifling Atlanta heat. Paraguay defended in two blocks for 68 mins.</div>
+        <div class="ic-impact"><span class="imp imp-pos">THROUGH</span> Hard work. Mbappé 7 WC goals. France odds dipped to 34.9% (-1.0) — market slightly concerned by difficulty. QF M97 vs Morocco Jul 9 Foxborough.</div>
       </div>
     </div>
-    <div class="insight-card">
-      <div class="ic-header">
-        <span class="ic-match">M90 · Jul 4 · R16</span>
-        <span class="ic-score win">3–0</span>
-      </div>
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M90 · Jul 4 · R16</span><span class="ic-score win">3–0</span></div>
       <div class="ic-body">
         <div class="ic-teams">🇲🇦 Morocco 3–0 🇨🇦 Canada</div>
-        <div class="ic-scorers">Morocco dominant throughout. Canada offered little going forward.</div>
-        <div class="ic-impact"><span class="impact-label impact-positive">POSITIVE</span> Morocco's most convincing win. Odds up to 2.5% (+0.9). QF vs France Jul 9 — a rematch of the Qatar 2022 SF atmosphere. Morocco playing with full belief. Missing Ezzalzouli and Aguerd but haven't needed them.</div>
+        <div class="ic-scorers">Ounahi ×2 (second-half brace), Rahimi 90+'. Saibari off 22' (suspected hamstring, sub for Rahimi).</div>
+        <div class="ic-impact"><span class="imp imp-pos">DOMINANT</span> Morocco's most convincing win. Odds +0.9% to 2.5%. <strong>Saibari hamstring is the major story.</strong> QF vs France Jul 9 — rematch of Qatar 2022 SF atmosphere. Morocco unbeaten in 34.</div>
       </div>
     </div>
-    <div class="insight-card">
-      <div class="ic-header">
-        <span class="ic-match">M91 · Jul 5 · R16 🚨</span>
-        <span class="ic-score upset">2–1 UPSET</span>
-      </div>
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M91 · Jul 5 · R16 🚨</span><span class="ic-score upset">2–1 UPSET</span></div>
       <div class="ic-body">
         <div class="ic-teams">🇳🇴 Norway 2–1 🇧🇷 Brazil</div>
-        <div class="ic-scorers">Haaland brace. Brazil pulled one back but Norway held firm. Historic result.</div>
-        <div class="ic-impact"><span class="impact-label impact-shock">SHOCK</span> Biggest upset of the tournament. Norway's first ever World Cup QF. Brazil ELIMINATED — 0% on Polymarket. Haaland is the story: brace against world's best CBs after back-to-back Champions League finals. Norway odds jump to 1.6%. QF vs England Jul 11 Miami is now appointment viewing.</div>
+        <div class="ic-scorers">Haaland brace. Brazil pulled one back but Norway held. Historic result.</div>
+        <div class="ic-impact"><span class="imp imp-shock">SEISMIC</span> Biggest upset of tournament. Norway's first ever WC QF. Brazil ELIMINATED. Haaland = tournament-defining performance. Norway odds jump to 1.6%. QF vs England Jul 11 Miami.</div>
       </div>
     </div>
-    <div class="insight-card">
-      <div class="ic-header">
-        <span class="ic-match">M92 · Jul 5 · R16</span>
-        <span class="ic-score win">3–2</span>
-      </div>
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M92 · Jul 5 · R16</span><span class="ic-score win">3–2</span></div>
       <div class="ic-body">
         <div class="ic-teams">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England 3–2 🇲🇽 Mexico</div>
-        <div class="ic-scorers">Bellingham ×2 (38'), Mexico pen (Quiñones 42'), Kane pen (60'), Mexico pen (Jiménez). Quansah RED CARD 54' (VAR).</div>
-        <div class="ic-impact"><span class="impact-label impact-positive">POSITIVE</span> England won with 10 men from the 54th minute. First WC win at Estadio Azteca in history. Bellingham world-class. <strong>Quansah suspended for QF vs Norway.</strong> England odds +0.3 to 7.2%. Mexico ELIMINATED. England's PDI drops to 5.4 amber (Norway QF replaces Brazil as projected opponent).</div>
+        <div class="ic-scorers">Bellingham ×2 (38'), Mexico pen (Quiñones 42'), Kane pen (60'), Mexico pen (Jiménez). Quansah red card 54' (VAR).</div>
+        <div class="ic-impact"><span class="imp imp-pos">GRITTY WIN</span> England won 10-vs-11 for 36 mins. First WC win at Azteca. Bellingham world-class. <strong>Quansah suspended for QF.</strong> England odds +0.3 to 7.2%. PDI drops to 5.4 (Norway replaces Brazil as projected QF opp).</div>
       </div>
     </div>
   </div>
 
-  <!-- Model changes table -->
-  <div class="section-title" style="margin-top:20px">📊 Model Changes After R16 Days 1–2</div>
-  <div class="method-section">
-    <table class="changes-table">
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>Tournament Win %</th>
-          <th>Change</th>
-          <th>PDI</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+  <div class="section-title" style="margin-top:18px">📊 Model Changes After R16 Days 1–2</div>
+  <div class="ms">
+    <table class="ch-table">
+      <thead><tr><th>Team</th><th>Tournament Win %</th><th>Change</th><th>PDI</th><th>Next</th></tr></thead>
       <tbody>
-        <tr><td>🇫🇷 France</td><td>34.9%</td><td class="change-down">▼ 1.0%</td><td>5.6 🟡</td><td>QF Jul 9 vs Morocco</td></tr>
-        <tr><td>🇦🇷 Argentina</td><td>16.8%</td><td class="change-down">▼ 0.2%</td><td>4.4 🟢</td><td>R16 Jul 7 vs Egypt</td></tr>
-        <tr><td>🇪🇸 Spain</td><td>12.4%</td><td class="change-up">▲ 0.1%</td><td>6.7 🟡</td><td>R16 TODAY vs Portugal</td></tr>
-        <tr><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td>7.2%</td><td class="change-up">▲ 0.3%</td><td>5.4 🟡</td><td>QF Jul 11 vs Norway</td></tr>
-        <tr><td>🇵🇹 Portugal</td><td>6.3%</td><td class="change-up">▲</td><td>7.6 🔴</td><td>R16 TODAY vs Spain</td></tr>
+        <tr><td>🇫🇷 France</td><td>34.9%</td><td class="chg-dn">▼ 1.0%</td><td>5.6 🟡</td><td>QF Jul 9 vs Morocco</td></tr>
+        <tr><td>🇦🇷 Argentina</td><td>16.8%</td><td class="chg-dn">▼ 0.2%</td><td>4.4 🟢</td><td>R16 Jul 7 vs Egypt</td></tr>
+        <tr><td>🇪🇸 Spain</td><td>12.4%</td><td class="chg-up">▲ 0.1%</td><td>6.7 🟡</td><td>R16 TODAY vs Portugal</td></tr>
+        <tr><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td>7.2%</td><td class="chg-up">▲ 0.3%</td><td>5.4 🟡</td><td>QF Jul 11 vs Norway</td></tr>
+        <tr><td>🇵🇹 Portugal</td><td>6.3%</td><td class="chg-up">▲</td><td>7.6 🔴</td><td>R16 TODAY vs Spain</td></tr>
         <tr><td>🇨🇴 Colombia</td><td>3.1%</td><td>—</td><td>5.2 🟡</td><td>R16 Jul 7 vs Switzerland</td></tr>
         <tr><td>🇺🇸 USA</td><td>2.6%</td><td>—</td><td>7.3 🔴</td><td>R16 TODAY vs Belgium</td></tr>
-        <tr><td>🇲🇦 Morocco</td><td>2.5%</td><td class="change-up">▲ 0.9%</td><td>5.8 🟡</td><td>QF Jul 9 vs France</td></tr>
-        <tr><td>🇳🇴 Norway</td><td>1.6%</td><td class="change-up">▲ (new)</td><td>7.3 🔴</td><td>QF Jul 11 vs England</td></tr>
+        <tr><td>🇲🇦 Morocco</td><td>2.5%</td><td class="chg-up">▲ 0.9%</td><td>5.8 🟡</td><td>QF Jul 9 vs France ⚠️ Saibari doubt</td></tr>
+        <tr><td>🇳🇴 Norway</td><td>1.6%</td><td class="chg-up">▲ (new)</td><td>7.3 🔴</td><td>QF Jul 11 vs England</td></tr>
         <tr><td>🇧🇪 Belgium</td><td>1.3%</td><td>—</td><td>5.2 🟡</td><td>R16 TODAY vs USA</td></tr>
         <tr><td>🇨🇭 Switzerland</td><td>0.8%</td><td>—</td><td>4.1 🟢</td><td>R16 Jul 7 vs Colombia</td></tr>
-        <tr><td>🇧🇷 Brazil</td><td class="change-elim">0%</td><td class="change-elim">ELIMINATED</td><td>—</td><td>Lost R16 to Norway 2-1</td></tr>
-        <tr><td>🇲🇽 Mexico</td><td class="change-elim">0%</td><td class="change-elim">ELIMINATED</td><td>—</td><td>Lost R16 to England 3-2</td></tr>
+        <tr><td>🇧🇷 Brazil</td><td class="chg-elim">0%</td><td class="chg-elim">ELIMINATED</td><td>—</td><td>Lost R16 vs Norway 2-1</td></tr>
+        <tr><td>🇲🇽 Mexico</td><td class="chg-elim">0%</td><td class="chg-elim">ELIMINATED</td><td>—</td><td>Lost R16 vs England 3-2</td></tr>
       </tbody>
     </table>
   </div>
 
 </div>
 
-<!-- ============================================================ METHODOLOGY TAB -->
+<!-- ======================================================= METHODOLOGY TAB -->
 <div id="tab-methodology" class="tab-content">
 
-  <div class="method-section">
+  <div class="ms">
+    <h3>🔎 Data Integrity — Eval Criteria</h3>
+    <p>Every build runs the following checks before publishing. Failures block the file from being presented.</p>
+    <p><strong>Bracket chain:</strong> R32→R16→QF→SF pairings verified against FIFA Annex C (references/bracket-chain.md). Never inferred from match number sequence.</p>
+    <p><strong>Kickoff times:</strong> Sourced from FOX Sports / CBS Sports / ESPN official schedules. Times in ET, converted from venue local time. Never from memory.</p>
+    <p><strong>Match results:</strong> Confirmed from ESPN match reports and BBC Sport. Scorers cross-checked across sources.</p>
+    <p><strong>Odds:</strong> Polymarket implied % via defirate.com. Eliminated teams overridden to 0%.</p>
+    <p><strong>Team news:</strong> Sourced from official national team comms, ESPN, The National, FOX Sports buzz. TBD items explicitly flagged as ⚠️ in the eval banner.</p>
+    <p><strong>Anti-hallucination:</strong> Each team appears max once per day's schedule. Matchups are never inferred from group membership.</p>
+    <p><strong>R32 visibility:</strong> R32 match pairs removed from Bracket tab when tournament reaches R16. Full R32 results available in Insights tab.</p>
+  </div>
+
+  <div class="ms">
     <h3>Path Difficulty Index (PDI)</h3>
-    <p>PDI measures the average Elo strength of a team's projected opponents from R32 through SF.</p>
-    <p><code>PDI = (avg_Elo_of_projected_opponents_R32→SF − 1600) / 35</code></p>
-    <p>Clamped to [1.0, 10.0]. Thresholds: <span style="color:#4ade80">≤4.9 green (easy)</span> · <span style="color:#fbbf24">5.0–6.9 amber (competitive)</span> · <span style="color:#f87171">≥7.0 red (elite gauntlet)</span></p>
-    <p>PDI updates after each round as eliminated teams are replaced by actual opponents. Norway's PDI (7.3 red) reflects IvC + Brazil + England + Argentina path — the hardest path remaining.</p>
+    <p><code>PDI = (avg_Elo_of_projected_opponents_R32→SF − 1600) / 35</code> · Clamped [1.0, 10.0]</p>
+    <p><span style="color:#4ade80">≤4.9 green (easy)</span> · <span style="color:#fbbf24">5.0–6.9 amber (competitive)</span> · <span style="color:#f87171">≥7.0 red (elite gauntlet)</span></p>
+    <p>PDI recalculates after each round using actual opponents. Norway's 7.3 RED reflects IvC + Brazil + England + Argentina — tournament's hardest path. England's PDI dropped 5.8→5.4 when Norway replaced Brazil as projected QF opponent.</p>
   </div>
 
-  <div class="method-section">
-    <h3>Tournament Win Probabilities</h3>
-    <p>Sourced from Polymarket (prediction market implied probabilities) via defirate.com. Updated pre-match July 6. Markets for Brazil (0%) and Mexico (0%) not yet settled but shown as eliminated. All other figures are live market prices.</p>
-  </div>
-
-  <div class="method-section">
-    <h3>Match Win Probabilities</h3>
-    <p>Based on Nate Silver's PELE model / ESPN Elo ratings. Win bars show probability of regulation win. Draw % shown in legend. PDI sourced from eloratings.net cross-checked with PELE model ratings.</p>
-  </div>
-
-  <div class="method-section">
+  <div class="ms">
     <h3>Bracket Chain — Verified FIFA Annex C</h3>
-    <p style="margin-bottom:8px">Non-sequential pairings verified against FIFA.com and Wikipedia knockout bracket. Never inferred from match number sequence.</p>
-    <table class="chain-table">
+    <table class="ct">
       <thead><tr><th>R16</th><th>Fed by R32</th><th>→ QF</th><th>→ SF</th></tr></thead>
       <tbody>
-        <tr><td>M89</td><td>W(M74) vs W(M77)</td><td>M97</td><td>SF1 M101</td></tr>
-        <tr><td>M90</td><td>W(M73) vs W(M75)</td><td>M97</td><td>SF1 M101</td></tr>
-        <tr><td>M93</td><td>W(M83) vs W(M84)</td><td>M98</td><td>SF1 M101</td></tr>
-        <tr><td>M94</td><td>W(M81) vs W(M82)</td><td>M98</td><td>SF1 M101</td></tr>
-        <tr><td>M91</td><td>W(M76) vs W(M78)</td><td>M99</td><td>SF2 M102</td></tr>
-        <tr><td>M92</td><td>W(M79) vs W(M80)</td><td>M99</td><td>SF2 M102</td></tr>
-        <tr><td>M95</td><td>W(M86) vs W(M88)</td><td>M100</td><td>SF2 M102</td></tr>
-        <tr><td>M96</td><td>W(M85) vs W(M87)</td><td>M100</td><td>SF2 M102</td></tr>
+        <tr><td>M89 ✅</td><td>W(M74) vs W(M77)</td><td>M97</td><td>SF1 M101</td></tr>
+        <tr><td>M90 ✅</td><td>W(M73) vs W(M75)</td><td>M97</td><td>SF1 M101</td></tr>
+        <tr><td>M93 🔴 TODAY</td><td>W(M83) vs W(M84)</td><td>M98</td><td>SF1 M101</td></tr>
+        <tr><td>M94 🔴 TODAY</td><td>W(M81) vs W(M82)</td><td>M98</td><td>SF1 M101</td></tr>
+        <tr><td>M91 ✅</td><td>W(M76) vs W(M78)</td><td>M99</td><td>SF2 M102</td></tr>
+        <tr><td>M92 ✅</td><td>W(M79) vs W(M80)</td><td>M99</td><td>SF2 M102</td></tr>
+        <tr><td>M95 🔜 Jul 7</td><td>W(M86) vs W(M88)</td><td>M100</td><td>SF2 M102</td></tr>
+        <tr><td>M96 🔜 Jul 7</td><td>W(M85) vs W(M87)</td><td>M100</td><td>SF2 M102</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="method-section">
-    <h3>Kickoff Times</h3>
-    <p>All ET times sourced from CBS Sports / FOX Sports / ESPN official schedules. Never inferred from memory. Games in Seattle (PT) are verified against Pacific → ET conversion. Times ending in :00 ET are always cross-checked.</p>
-  </div>
-
-  <div class="method-section">
-    <h3>Version History</h3>
-    <p>v16 Jun 30 · v17 Jul 1 · v18 Jul 2 · v19 Jul 3 · v20 Jul 6 (current) — by HeavyMetalProduct</p>
-    <p style="margin-top:6px;font-size:11px;color:var(--txt2)">Full GT Analysis tab permanently removed per standing instruction.</p>
+  <div class="ms">
+    <h3>Sources</h3>
+    <p>Tournament win %: Polymarket via defirate.com (Jul 6, pre-kickoff). Match win %: Nate Silver PELE model / ESPN Elo. Elo ratings: eloratings.net. Kickoff times: FOX Sports. Results: ESPN match reports. Team news: The National News (Saibari), ESPN (Nico Williams), FOX Sports Buzz (Salah), official federation sources.</p>
+    <p style="margin-top:6px">v16 Jun 30 · v17 Jul 1 · v18 Jul 2 · v19 Jul 3 · v20 Jul 6 — by HeavyMetalProduct. Full GT Analysis tab permanently removed.</p>
   </div>
 
 </div>
 
 <script>
-function showTab(id) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+function showTab(id, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  event.target.classList.add('active');
+  el.classList.add('active');
 }
 </script>
 </body>
