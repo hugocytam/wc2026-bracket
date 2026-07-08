@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WC 2026 — Game Theory Bracket v21</title>
+<title>WC 2026 — Game Theory Bracket v22</title>
 <style>
   :root {
     --bg:#0f0f13; --card:#1a1a24; --card2:#22222e; --border:#2e2e3e;
@@ -31,33 +31,44 @@
   .tab-content.active { display:block; }
 
   /* EVAL */
-  .eval-banner { background:var(--card2); border:1px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:14px; }
-  .eval-hdr { font-size:10px; font-weight:700; color:var(--txt2); text-transform:uppercase; letter-spacing:.7px; margin-bottom:8px; }
-  .eval-grid { display:flex; flex-wrap:wrap; gap:6px; }
+  .eval-banner { background:var(--card2); border:1px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:12px; }
+  .eval-hdr { font-size:10px; font-weight:700; color:var(--txt2); text-transform:uppercase; letter-spacing:.7px; margin-bottom:7px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; }
+  .eval-ts { font-size:10px; color:var(--txt2); }
+  .eval-grid { display:flex; flex-wrap:wrap; gap:5px; }
   .ec { font-size:10px; padding:3px 8px; border-radius:6px; display:flex; align-items:center; gap:4px; }
   .ec-ok { background:rgba(22,163,74,.15); border:1px solid rgba(22,163,74,.3); color:#4ade80; }
   .ec-warn { background:rgba(217,119,6,.15); border:1px solid rgba(217,119,6,.3); color:#fbbf24; }
+  .ec-off { background:rgba(96,96,120,.12); border:1px solid rgba(96,96,120,.2); color:var(--txt2); }
 
-  /* ODDS */
-  .odds-ticker { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+  /* ODDS TICKER */
+  .odds-wrap { margin-bottom:12px; }
+  .odds-source { font-size:10px; color:var(--txt2); margin-bottom:5px; }
+  .odds-source a { color:var(--accent2); text-decoration:none; }
+  .odds-source a:hover { text-decoration:underline; }
+  .odds-ticker { display:flex; gap:5px; flex-wrap:wrap; }
   .oc { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:3px 10px; font-size:11px; display:flex; align-items:center; gap:5px; }
   .oc .pct { font-weight:700; color:var(--accent2); }
-  .du { color:#4ade80; font-size:10px; }
-  .dd { color:#f87171; font-size:10px; }
+  .du { color:#4ade80; font-size:10px; font-weight:700; }
+  .dd { color:#f87171; font-size:10px; font-weight:700; }
   .de { color:var(--txt2); font-size:10px; }
+
+  /* DIFF ALERT */
+  .diff-alert { background:rgba(220,38,38,.08); border:1px solid rgba(220,38,38,.25); border-radius:8px; padding:9px 12px; margin-bottom:12px; }
+  .diff-alert-title { font-size:10px; font-weight:700; color:#f87171; text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; }
+  .diff-row { font-size:11px; margin-bottom:3px; }
 
   /* BRACKET */
   .bracket-wrap { display:grid; grid-template-columns:1fr 100px 1fr; gap:10px; align-items:start; }
   @media(max-width:900px){ .bracket-wrap { grid-template-columns:1fr; } }
   .bracket-side { display:flex; flex-direction:column; gap:7px; }
 
-  .match-pair { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; transition:border-color .15s; }
+  .match-pair { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
   .match-pair:hover { border-color:var(--accent); }
   .match-pair.resolved { border-color:#1f3a1f; }
-  .match-pair.today-match { border-color:var(--accent); box-shadow:0 0 12px rgba(124,58,237,.25); }
-  .match-pair.pending { opacity:.82; }
   .match-pair.qf-locked { border-color:#2a4a2a; background:rgba(22,163,74,.03); }
-  .match-header { padding:5px 10px; background:var(--card2); font-size:10px; color:var(--txt2); display:flex; justify-content:space-between; align-items:center; }
+  .match-pair.pending { opacity:.82; }
+  .match-header { padding:5px 10px; background:var(--card2); font-size:10px; color:var(--txt2); display:flex; justify-content:space-between; align-items:center; gap:4px; flex-wrap:wrap; }
+  .mh-id { font-size:9px; color:var(--accent2); font-weight:700; }
   .match-team { padding:7px 10px; display:flex; align-items:center; gap:8px; }
   .match-team.winner { background:rgba(22,163,74,.07); }
   .match-team.elim { opacity:.38; }
@@ -76,6 +87,7 @@
   .win-pct { font-size:10px; color:var(--txt2); }
   .score-badge { font-size:10px; font-weight:800; background:rgba(22,163,74,.2); color:#4ade80; padding:2px 7px; border-radius:5px; border:1px solid rgba(22,163,74,.3); }
   .upset-badge { font-size:10px; font-weight:800; background:rgba(168,85,247,.2); color:#c084fc; padding:2px 7px; border-radius:5px; border:1px solid rgba(168,85,247,.3); }
+  .pens-badge { font-size:10px; font-weight:800; background:rgba(251,191,36,.2); color:#fbbf24; padding:2px 7px; border-radius:5px; border:1px solid rgba(251,191,36,.3); }
   .match-divider { height:1px; background:var(--border); }
   .match-note { padding:4px 10px; font-size:10px; color:var(--txt2); background:var(--card2); }
 
@@ -84,7 +96,6 @@
   .cb { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:8px 10px; width:100%; text-align:center; }
   .cb.final { border-color:var(--accent); background:linear-gradient(135deg,#2d1657,#1a1a24); }
   .cb.locked { border-color:#2a4a2a; }
-  .cb.today { border-color:var(--accent); }
   .cb-label { font-size:9px; color:var(--txt2); text-transform:uppercase; letter-spacing:.5px; }
   .cb-teams { font-size:11px; font-weight:700; margin-top:3px; }
   .cb-meta { font-size:9px; color:var(--txt2); margin-top:2px; }
@@ -93,42 +104,52 @@
   .section-title { font-size:15px; font-weight:800; color:var(--txt); margin:16px 0 10px; border-left:3px solid var(--accent); padding-left:10px; }
   .divider { height:1px; background:var(--border); margin:10px 0; }
 
-  /* QF PREVIEW */
+  /* QF PREVIEW GRID */
   .qf-wrap { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:14px; }
   .qf-wrap h3 { font-size:13px; font-weight:700; color:var(--accent2); margin-bottom:10px; }
   .qf-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
   @media(max-width:600px){ .qf-grid { grid-template-columns:1fr; } }
   .qc { background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:9px 11px; }
   .qc.locked { border-color:#2a4a2a; }
-  .qc.today { border-color:var(--accent); }
   .qc-id { font-size:9px; color:var(--txt2); text-transform:uppercase; font-weight:700; margin-bottom:3px; }
   .qc-teams { font-size:13px; font-weight:700; }
   .qc-meta { font-size:10px; color:var(--txt2); margin-top:2px; }
 
+  /* R16 TABLE */
+  .rt { width:100%; border-collapse:collapse; font-size:11px; margin-top:10px; }
+  .rt th { padding:6px 8px; text-align:left; font-size:10px; color:var(--txt2); text-transform:uppercase; border-bottom:1px solid var(--border); }
+  .rt td { padding:5px 8px; border-bottom:1px solid rgba(46,46,62,.5); }
+  .rt tr:hover td { background:rgba(124,58,237,.05); }
+  .rt-upset td { background:rgba(168,85,247,.04); }
+  .rt a { color:var(--accent2); text-decoration:none; font-size:10px; }
+  .rt a:hover { text-decoration:underline; }
+
   /* TODAY TAB */
-  .today-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  @media(max-width:800px){ .today-grid { grid-template-columns:1fr; } }
-  .tc { background:var(--card); border:1px solid var(--accent); border-radius:12px; overflow:hidden; box-shadow:0 0 14px rgba(124,58,237,.2); }
-  .tc-hdr { background:linear-gradient(135deg,#2d1657,#1a1a24); padding:12px 16px; }
-  .tc-id { font-size:10px; color:var(--accent2); font-weight:700; text-transform:uppercase; }
-  .tc-title { font-size:17px; font-weight:800; margin-top:4px; }
-  .tc-meta { font-size:11px; color:var(--txt2); margin-top:3px; }
-  .tc-time { font-size:13px; font-weight:700; color:#fbbf24; margin-top:2px; }
-  .tc-body { padding:14px 16px; }
-  .tc-teams { display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center; margin-bottom:12px; }
-  .tc-team-name { font-size:14px; font-weight:800; }
-  .tc-team-flag { font-size:22px; }
-  .tc-team-odds { font-size:11px; color:var(--txt2); margin-top:2px; }
-  .tc-vs { font-size:13px; font-weight:900; color:var(--txt2); text-align:center; }
+  .rest-notice { background:var(--card2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .rest-icon { font-size:28px; }
+  .rest-title { font-size:15px; font-weight:700; }
+  .rest-sub { font-size:11px; color:var(--txt2); margin-top:3px; }
+
+  .qp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:800px){ .qp-grid { grid-template-columns:1fr; } }
+  .qp { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .qp-hdr { background:linear-gradient(135deg,#2d1657,#1a1a24); padding:12px 16px; }
+  .qp-id { font-size:10px; color:var(--accent2); font-weight:700; text-transform:uppercase; }
+  .qp-title { font-size:16px; font-weight:800; margin-top:4px; }
+  .qp-meta { font-size:11px; color:var(--txt2); margin-top:3px; }
+  .qp-time { font-size:13px; font-weight:700; color:#fbbf24; margin-top:2px; }
+  .qp-body { padding:13px 16px; }
   .bar-outer { background:var(--border); border-radius:4px; height:8px; overflow:hidden; display:flex; }
   .bar-a { background:var(--win); height:100%; }
   .bar-d { background:var(--draw); height:100%; }
   .bar-b { background:var(--lose); height:100%; }
   .bar-legend { display:flex; justify-content:space-between; font-size:10px; color:var(--txt2); margin-top:3px; }
+  .bar-src { font-size:9px; color:var(--txt2); margin-top:2px; font-style:italic; }
 
   /* NEWS */
-  .news-section { border-top:1px solid var(--border); padding-top:11px; margin-top:11px; }
-  .news-title { font-size:11px; font-weight:700; color:var(--accent2); text-transform:uppercase; letter-spacing:.5px; margin-bottom:7px; }
+  .news-section { border-top:1px solid var(--border); padding-top:10px; margin-top:10px; }
+  .news-title { font-size:11px; font-weight:700; color:var(--accent2); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+  .prov-note { font-size:9px; color:#fbbf24; margin-bottom:6px; }
   .ni { display:flex; gap:8px; margin-bottom:7px; align-items:flex-start; }
   .nd { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:4px; }
   .nd-g { background:#4ade80; } .nd-a { background:#fbbf24; } .nd-r { background:#f87171; } .nd-b { background:#60a5fa; }
@@ -142,16 +163,6 @@
   .nb-fit { background:rgba(22,163,74,.2); color:#4ade80; }
   .nb-tbd { background:rgba(124,58,237,.2); color:var(--accent2); }
 
-  .stakes-badge { display:inline-block; font-size:9px; font-weight:800; padding:2px 7px; border-radius:4px; text-transform:uppercase; }
-  .sf-fire { background:rgba(220,38,38,.35); color:#ff6b6b; border:1px solid rgba(220,38,38,.5); }
-  .sf-high { background:rgba(220,38,38,.2); color:#f87171; border:1px solid rgba(220,38,38,.3); }
-
-  .whatif-section { border-top:1px solid var(--border); padding-top:9px; margin-top:9px; }
-  .wi-title { font-size:10px; font-weight:700; color:var(--txt2); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
-  .wi-row { font-size:11px; color:var(--txt); margin-bottom:5px; line-height:1.4; }
-  .wi-row span { color:var(--txt2); }
-
-  /* POST MATCH */
   .pm-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(275px,1fr)); gap:10px; margin-top:12px; }
   .pm-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:11px 13px; }
   .pm-title { font-size:12px; font-weight:700; margin-bottom:8px; }
@@ -164,7 +175,7 @@
   .ic-score { font-size:14px; font-weight:800; }
   .ic-score.win { color:#4ade80; }
   .ic-score.upset { color:#c084fc; }
-  .ic-score.loss { color:#f87171; }
+  .ic-score.pens { color:#fbbf24; }
   .ic-body { padding:10px 12px; }
   .ic-teams { font-size:13px; font-weight:700; margin-bottom:5px; }
   .ic-scorers { font-size:11px; color:var(--txt2); margin-bottom:7px; line-height:1.5; }
@@ -174,6 +185,18 @@
   .imp-shock { background:rgba(168,85,247,.2); color:#c084fc; }
   .imp-neg { background:rgba(220,38,38,.15); color:#f87171; }
   .imp-neutral { background:rgba(96,96,120,.2); color:var(--txt2); }
+  .imp-alert { background:rgba(220,38,38,.25); color:#f87171; border:1px solid rgba(220,38,38,.3); }
+
+  .big-mover-box { background:var(--card); border:1px solid rgba(220,38,38,.3); border-radius:10px; padding:13px 15px; margin-bottom:14px; }
+  .bm-title { font-size:13px; font-weight:700; color:#f87171; margin-bottom:8px; }
+  .bm-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:8px; }
+  .bm { background:var(--card2); border-radius:7px; padding:8px 10px; }
+  .bm-team { font-size:12px; font-weight:700; }
+  .bm-delta { font-size:18px; font-weight:900; margin:4px 0 2px; }
+  .bm-delta.up { color:#4ade80; }
+  .bm-delta.dn { color:#f87171; }
+  .bm-from { font-size:10px; color:var(--txt2); }
+  .bm-ctx { font-size:10px; color:var(--txt2); margin-top:4px; line-height:1.4; }
 
   .ch-table { width:100%; border-collapse:collapse; font-size:11px; }
   .ch-table th { padding:6px 8px; text-align:left; font-size:10px; color:var(--txt2); text-transform:uppercase; border-bottom:1px solid var(--border); }
@@ -181,14 +204,23 @@
   .chg-up { color:#4ade80; font-weight:700; }
   .chg-dn { color:#f87171; font-weight:700; }
   .chg-elim { color:var(--txt2); }
+  .chg-big { color:#f87171; font-weight:900; }
 
+  /* METHODOLOGY */
   .ms { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:10px; }
   .ms h3 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:7px; }
   .ms p { font-size:12px; color:var(--txt2); line-height:1.6; margin-bottom:5px; }
   .ms code { background:var(--card2); padding:2px 5px; border-radius:3px; font-size:11px; color:#fbbf24; }
+  .tier-badge { font-size:9px; font-weight:700; padding:1px 6px; border-radius:4px; margin-right:4px; text-transform:uppercase; }
+  .t1 { background:rgba(22,163,74,.2); color:#4ade80; border:1px solid rgba(22,163,74,.3); }
+  .t2 { background:rgba(251,191,36,.15); color:#fbbf24; border:1px solid rgba(251,191,36,.3); }
+  .t3 { background:rgba(96,145,245,.15); color:#93c5fd; border:1px solid rgba(96,145,245,.3); }
+  .t4 { background:rgba(96,96,120,.15); color:var(--txt2); border:1px solid var(--border); }
   .ct { width:100%; border-collapse:collapse; font-size:11px; }
   .ct th { padding:5px 8px; text-align:left; color:var(--txt2); border-bottom:1px solid var(--border); font-size:10px; }
   .ct td { padding:5px 8px; border-bottom:1px solid rgba(46,46,62,.4); }
+  .dl-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(124,58,237,.2); border:1px solid rgba(124,58,237,.4); color:var(--accent2); padding:6px 14px; border-radius:7px; font-size:11px; font-weight:700; cursor:pointer; margin-top:8px; }
+  .dl-btn:hover { background:rgba(124,58,237,.35); }
 </style>
 </head>
 <body>
@@ -196,87 +228,94 @@
 <div class="header">
   <div class="header-left">
     <h1>⚽ WC 2026 — <span>Game Theory Bracket</span></h1>
-    <div class="byline">by HeavyMetalProduct · v21 · R16 Day 4 · Pre-kickoff</div>
+    <div class="byline">by HeavyMetalProduct · v22 · QF Preview Day · Jul 8, 2026</div>
   </div>
   <div class="header-right">
-    <div class="hdate">July 7, 2026</div>
-    <div class="hmeta">R16 Final Day · Last 2 spots in QF · QF opens Jul 9 · v21</div>
+    <div class="hdate">July 8, 2026</div>
+    <div class="hmeta">R16 complete · 8 teams remain · QF opens tomorrow · v22</div>
   </div>
 </div>
 
 <div class="tabs">
   <div class="tab active" onclick="showTab('bracket',this)">🏆 Bracket</div>
-  <div class="tab" onclick="showTab('today',this)">📅 Today · R16 Day 4 · Jul 7</div>
-  <div class="tab" onclick="showTab('insights',this)">🔍 Insights · Jul 6</div>
-  <div class="tab" onclick="showTab('methodology',this)">📐 Methodology</div>
+  <div class="tab" onclick="showTab('today',this)">📅 Today · Rest Day · QF Preview</div>
+  <div class="tab" onclick="showTab('insights',this)">🔍 Insights · Jul 7</div>
+  <div class="tab" onclick="showTab('methodology',this)">📐 Methodology & Sources</div>
 </div>
 
-<!-- ====================================================== BRACKET TAB -->
+<!-- ============================= BRACKET TAB ============================= -->
 <div id="tab-bracket" class="tab-content active">
 
   <!-- EVAL PANEL -->
   <div class="eval-banner">
-    <div class="eval-hdr">🔎 Data Integrity Check — v21 · Jul 7, 2026</div>
+    <div class="eval-hdr">
+      <span>🔎 Data Integrity — v22 · Jul 8, 2026</span>
+      <span class="eval-ts">Last checked: Jul 8, 2026 · Sources below</span>
+    </div>
     <div class="eval-grid">
-      <div class="ec ec-ok">✅ Bracket chain — FIFA Annex C verified</div>
-      <div class="ec ec-ok">✅ Kickoff times — CBS Sports / FOX Sports sourced</div>
-      <div class="ec ec-ok">✅ Odds — defirate.com (Polymarket/Kalshi) Jul 7</div>
-      <div class="ec ec-ok">✅ M93 Spain 1-0 Portugal — ESPN / FIFA.com confirmed</div>
-      <div class="ec ec-ok">✅ M94 Belgium 4-1 USA — ESPN / FIFA.com confirmed</div>
-      <div class="ec ec-ok">✅ QF M98 LOCKED: Spain vs Belgium (Jul 10, SoFi LA)</div>
-      <div class="ec ec-ok">✅ Quansah SUSPENDED — England QF vs Norway</div>
-      <div class="ec ec-warn">⚠️ Saibari (Morocco) — hamstring, QF decision Jul 9 still pending</div>
-      <div class="ec ec-warn">⚠️ Switzerland 3 players (Manzambi/Vargas/Sow) left training early — fitness TBD</div>
-      <div class="ec ec-warn">⚠️ Egypt: Fatouh (thigh, virtually out), Abdelmonem (ankle, TBD)</div>
-      <div class="ec ec-warn">⚠️ Argentina: Medina (calf, doubtful), Molina/Fernandez (fatigue concern)</div>
+      <div class="ec ec-ok">✅ <span><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule" target="_blank" style="color:#4ade80;text-decoration:none">Bracket chain — FIFA Annex C · verified</a></span></div>
+      <div class="ec ec-ok">✅ <span><a href="https://www.fifa.com/en/match-centre/match/17/285023/289288/400021528" target="_blank" style="color:#4ade80;text-decoration:none">M95 Argentina 3-2 Egypt — FIFA match centre</a></span></div>
+      <div class="ec ec-ok">✅ <span><a href="https://www.fifa.com/en/match-centre/match/17/285023/289288/400021535" target="_blank" style="color:#4ade80;text-decoration:none">M96 Switzerland 0-0 Colombia (4-3 pens) — FIFA match centre</a></span></div>
+      <div class="ec ec-ok">✅ QF M100 LOCKED: Argentina vs Switzerland · Jul 11 · 9pm ET · Arrowhead KC</div>
+      <div class="ec ec-ok">✅ All 4 QFs locked · verified via FIFA schedule</div>
+      <div class="ec ec-ok">✅ <a href="https://polymarket.com/event/world-cup-winner" target="_blank" style="color:#4ade80;text-decoration:none">Odds — Polymarket direct fetch · Jul 8, 2026</a></div>
+      <div class="ec ec-warn">⚠️ Odds note: ~39% residual in unsettled eliminated-team contracts on Polymarket (Brazil, Portugal, Germany etc.) — raw %s shown</div>
+      <div class="ec ec-warn">⚠️ Match win % — internal Elo model · cross-check Opta via ESPN pre-match</div>
+      <div class="ec ec-warn">⚠️ Team news — provisional, pre-lineup · confirm FIFA squad list T-1h before each QF</div>
+      <div class="ec ec-warn">⚠️ Saibari (Morocco) — 2nd MRI encouraging, final call pre-match Jul 9 · <a href="https://www.moroccoworldnews.com/2026/07/327550/saibaris-quarterfinal-participation-hinges-on-mri-results/" target="_blank" style="color:#fbbf24;text-decoration:none">source ↗</a></div>
+      <div class="ec ec-warn">⚠️ Nico Williams (Spain) — fitness TBD · didn't start vs Portugal</div>
+      <div class="ec ec-warn">⚠️ Reece James (England) — targeting Jul 11, unlikely to start</div>
+      <div class="ec ec-ok">✅ Quansah (England) — CONFIRMED SUSPENDED QF vs Norway</div>
+      <div class="ec ec-ok">✅ Amadou Onana (Belgium) — ACL confirmed, tournament over</div>
+      <div class="ec ec-ok">✅ Jordan Henderson (England) — wrist surgery, out of tournament</div>
+      <div class="ec ec-off">❌ Editorial content — excluded from integrity pass · visible in Insights tab only</div>
     </div>
   </div>
 
   <!-- ODDS TICKER -->
-  <div class="odds-ticker">
-    <div class="oc">🇫🇷 France <span class="pct">32.9%</span><span class="dd"> ▼2.0</span></div>
-    <div class="oc">🇦🇷 Argentina <span class="pct">18.1%</span><span class="du"> ▲1.3</span></div>
-    <div class="oc">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="pct">14.4%</span><span class="du"> ▲7.2 🚀</span></div>
-    <div class="oc">🇪🇸 Spain <span class="pct">13.2%</span><span class="du"> ▲0.8</span></div>
-    <div class="oc">🇳🇴 Norway <span class="pct">4.7%</span><span class="du"> ▲3.1</span></div>
-    <div class="oc">🇨🇴 Colombia <span class="pct">3.0%</span></div>
-    <div class="oc">🇲🇦 Morocco <span class="pct">2.6%</span><span class="du"> ▲0.1</span></div>
-    <div class="oc">🇧🇪 Belgium <span class="pct">1.4%</span><span class="du"> ▲0.1</span></div>
-    <div class="oc">🇨🇭 Switzerland <span class="pct">0.9%</span><span class="du"> ▲0.1</span></div>
-    <div class="oc">🇵🇹 Portugal <span class="pct">0%</span><span class="de"> ELIM</span></div>
-    <div class="oc">🇺🇸 USA <span class="pct">0%</span><span class="de"> ELIM</span></div>
-    <div class="oc">🇧🇷 Brazil <span class="pct">0%</span><span class="de"> ELIM</span></div>
-    <div class="oc">🇲🇽 Mexico <span class="pct">0%</span><span class="de"> ELIM</span></div>
+  <div class="odds-wrap">
+    <div class="odds-source">
+      Odds as of: Jul 8, 2026 (QF teams only) · Primary: <a href="https://polymarket.com/event/world-cup-winner" target="_blank">Polymarket ↗</a> · Cross-check: <a href="https://kalshi.com/markets/kxmenworldcup/mens-world-cup-winner/kxmenworldcup-26" target="_blank">Kalshi ↗</a> · Note: defirate.com used as convenience cross-check only, not primary source
+    </div>
+    <div class="odds-ticker">
+      <div class="oc">🇪🇸 Spain <span class="pct">17.0%</span><span class="du"> ▲3.8</span></div>
+      <div class="oc">🇫🇷 France <span class="pct">16.7%</span><span class="dd"> ▼16.2 🚨</span></div>
+      <div class="oc">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="pct">11.2%</span><span class="dd"> ▼3.2</span></div>
+      <div class="oc">🇦🇷 Argentina <span class="pct">8.6%</span><span class="dd"> ▼9.5 🚨</span></div>
+      <div class="oc">🇳🇴 Norway <span class="pct">2.9%</span><span class="dd"> ▼1.8</span></div>
+      <div class="oc">🇧🇪 Belgium <span class="pct">1.8%</span><span class="du"> ▲0.4</span></div>
+      <div class="oc">🇲🇦 Morocco <span class="pct">1.5%</span><span class="dd"> ▼1.1</span></div>
+      <div class="oc">🇨🇭 Switzerland <span class="pct">1.1%</span><span class="du"> ▲0.2</span></div>
+      <div class="oc">🇵🇹 Portugal <span class="pct">0%</span><span class="de"> ELIM</span></div>
+      <div class="oc">🇺🇸 USA <span class="pct">0%</span><span class="de"> ELIM</span></div>
+      <div class="oc">🇧🇷 Brazil <span class="pct">0%</span><span class="de"> ELIM</span></div>
+      <div class="oc">🇲🇽 Mexico <span class="pct">0%</span><span class="de"> ELIM</span></div>
+      <div class="oc">🇪🇬 Egypt <span class="pct">0%</span><span class="de"> ELIM</span></div>
+      <div class="oc">🇨🇴 Colombia <span class="pct">0%</span><span class="de"> ELIM</span></div>
+    </div>
+  </div>
+
+  <!-- BIG MOVERS ALERT -->
+  <div class="diff-alert">
+    <div class="diff-alert-title">⚡ Odds moves ≥2pp vs v21 (Jul 7 → Jul 8)</div>
+    <div class="diff-row">🇫🇷 France <strong style="color:#f87171">▼16.2pp</strong> · 32.9% → 16.7% — Market fully repriced at QF stage. France no longer solo favorite; Spain co-leads. Reflects France's harder perceived path (Morocco QF) and elimination of unsettled contracts.</div>
+    <div class="diff-row">🇦🇷 Argentina <strong style="color:#f87171">▼9.5pp</strong> · 18.1% → 8.6% — Near-exit vs Egypt (down 2-0 at 67') rattled confidence. Messi still record-holder but market spooked.</div>
+    <div class="diff-row">🇪🇸 Spain <strong style="color:#4ade80">▲3.8pp</strong> · 13.2% → 17.0% — Merino heroics + strong camp vs Belgium perceived as winnable QF.</div>
+    <div class="diff-row">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <strong style="color:#f87171">▼3.2pp</strong> · 14.4% → 11.2% — Modest drop despite QF vs Norway being favourable. Henderson wrist injury + Quansah suspension weighing on market.</div>
   </div>
 
   <!-- QF PICTURE -->
   <div class="qf-wrap">
-    <h3>⚡ Quarterfinal Picture — 3 of 4 locked</h3>
+    <h3>⚡ All 4 Quarterfinals — LOCKED ✅</h3>
     <div class="qf-grid">
-      <div class="qc locked">
-        <div class="qc-id">M97 · QF · SF1 · LOCKED ✅</div>
-        <div class="qc-teams">🇫🇷 France vs 🇲🇦 Morocco</div>
-        <div class="qc-meta">Jul 9 · 4pm ET · Gillette Stadium, Foxborough · ⚠️ Saibari doubt</div>
-      </div>
-      <div class="qc locked">
-        <div class="qc-id">M98 · QF · SF1 · LOCKED ✅</div>
-        <div class="qc-teams">🇪🇸 Spain vs 🇧🇪 Belgium</div>
-        <div class="qc-meta">Jul 10 · 3pm ET · SoFi Stadium, LA</div>
-      </div>
-      <div class="qc locked">
-        <div class="qc-id">M99 · QF · SF2 · LOCKED ✅</div>
-        <div class="qc-teams">🇳🇴 Norway vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div>
-        <div class="qc-meta">Jul 11 · 5pm ET · Hard Rock Stadium, Miami · Quansah SUSP</div>
-      </div>
-      <div class="qc today">
-        <div class="qc-id">M100 · QF · SF2 · TODAY's winners</div>
-        <div class="qc-teams">W(Argentina/Egypt) vs W(Switzerland/Colombia)</div>
-        <div class="qc-meta">Jul 11 · 9pm ET · Arrowhead Stadium, KC</div>
-      </div>
+      <div class="qc locked"><div class="qc-id">M97 · SF1 · ✅ LOCKED</div><div class="qc-teams">🇫🇷 France vs 🇲🇦 Morocco</div><div class="qc-meta">Jul 9 · 4pm ET · Gillette Stadium, Foxborough · ⚠️ Saibari decision pre-match</div></div>
+      <div class="qc locked"><div class="qc-id">M98 · SF1 · ✅ LOCKED</div><div class="qc-teams">🇪🇸 Spain vs 🇧🇪 Belgium</div><div class="qc-meta">Jul 10 · 3pm ET · SoFi Stadium, LA · ⚠️ Nico Williams TBD · Onana OUT</div></div>
+      <div class="qc locked"><div class="qc-id">M99 · SF2 · ✅ LOCKED</div><div class="qc-teams">🇳🇴 Norway vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div><div class="qc-meta">Jul 11 · 5pm ET · Hard Rock Stadium, Miami · Quansah SUSP · Henderson OUT</div></div>
+      <div class="qc locked"><div class="qc-id">M100 · SF2 · ✅ LOCKED</div><div class="qc-teams">🇦🇷 Argentina vs 🇨🇭 Switzerland</div><div class="qc-meta">Jul 11 · 9pm ET · Arrowhead Stadium, KC · Argentina came from 2-0 down to qualify</div></div>
     </div>
   </div>
 
-  <!-- BRACKET: R16 VIEW -->
+  <!-- BRACKET: R16 (all resolved) + QFs -->
   <div class="bracket-wrap">
 
     <!-- LEFT: SF1 -->
@@ -284,548 +323,385 @@
       <div class="round-tag">SF1 Side · R16 complete</div>
 
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M89 · Jul 4 ✅ → QF M97</span><span class="score-badge">1–0</span></div>
-        <div class="match-team winner">
-          <span class="team-flag">🇫🇷</span>
-          <div class="team-info"><div class="team-name">France</div>
-            <div class="team-pills"><span class="pill pill-purple">32.9%</span><span class="pill pill-amber">PDI 5.6</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:100%"></div><div class="win-pct">72%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">FIFA M89</span><span>R16 · Jul 4 ✅ → QF M97</span><span class="score-badge">1–0</span></div>
+        <div class="match-team winner"><span class="team-flag">🇫🇷</span><div class="team-info"><div class="team-name">France</div><div class="team-pills"><span class="pill pill-purple">16.7%</span><span class="pill pill-amber">PDI 5.6</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:100%"></div><div class="win-pct">72%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team elim">
-          <span class="team-flag">🇵🇾</span>
-          <div class="team-info"><div class="team-name">Paraguay</div><div class="team-pills"><span class="pill pill-outline">Elim</span></div></div>
-        </div>
-        <div class="match-note">Mbappé pen 69' · France → QF M97 vs Morocco</div>
+        <div class="match-team elim"><span class="team-flag">🇵🇾</span><div class="team-info"><div class="team-name">Paraguay</div><div class="team-pills"><span class="pill pill-outline">Elim</span></div></div></div>
+        <div class="match-note">Mbappé pen 69' · <a href="https://www.fifa.com/en/match-centre/match/17/285023/289288/400021520" target="_blank" style="color:var(--accent2)">FIFA match report ↗</a></div>
       </div>
 
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M90 · Jul 4 ✅ → QF M97</span><span class="score-badge">3–0</span></div>
-        <div class="match-team winner">
-          <span class="team-flag">🇲🇦</span>
-          <div class="team-info"><div class="team-name">Morocco <span style="font-size:9px;color:#fbbf24">⚠️ Saibari doubt</span></div>
-            <div class="team-pills"><span class="pill pill-purple">2.6%</span><span class="pill pill-amber">PDI 5.8</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:42%"></div><div class="win-pct">40%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">FIFA M90</span><span>R16 · Jul 4 ✅ → QF M97</span><span class="score-badge">3–0</span></div>
+        <div class="match-team winner"><span class="team-flag">🇲🇦</span><div class="team-info"><div class="team-name">Morocco <span style="font-size:9px;color:#fbbf24">⚠️ Saibari TBD</span></div><div class="team-pills"><span class="pill pill-purple">1.5%</span><span class="pill pill-amber">PDI 5.8</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:42%"></div><div class="win-pct">40%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team elim">
-          <span class="team-flag">🇨🇦</span>
-          <div class="team-info"><div class="team-name">Canada</div><div class="team-pills"><span class="pill pill-outline">Elim</span></div></div>
-        </div>
-        <div class="match-note">Ounahi ×2, Rahimi 90+' · Saibari off 22' (hamstring) → QF M97 vs France</div>
+        <div class="match-team elim"><span class="team-flag">🇨🇦</span><div class="team-info"><div class="team-name">Canada</div><div class="team-pills"><span class="pill pill-outline">Elim</span></div></div></div>
+        <div class="match-note">Ounahi ×2, Rahimi 90+' · Saibari off 22' (hamstring)</div>
       </div>
 
-      <!-- QF M97 LOCKED -->
+      <!-- QF M97 -->
       <div class="match-pair qf-locked">
-        <div class="match-header"><span>QF M97 · Jul 9 ✅ LOCKED</span><span style="color:#fbbf24;font-weight:700">4pm ET · Foxborough</span></div>
-        <div class="match-team">
-          <span class="team-flag">🇫🇷</span>
-          <div class="team-info"><div class="team-name">France</div>
-            <div class="team-pills"><span class="pill pill-purple">32.9%</span><span class="pill pill-amber">PDI 5.6</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:68%"></div><div class="win-pct">65%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">QF M97</span><span>Jul 9 · 4pm ET · Foxborough ✅</span></div>
+        <div class="match-team"><span class="team-flag">🇫🇷</span><div class="team-info"><div class="team-name">France</div><div class="team-pills"><span class="pill pill-purple">16.7%</span><span class="pill pill-amber">PDI 5.6</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:68%"></div><div class="win-pct">65%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team">
-          <span class="team-flag">🇲🇦</span>
-          <div class="team-info"><div class="team-name">Morocco</div>
-            <div class="team-pills"><span class="pill pill-purple">2.6%</span><span class="pill pill-amber">PDI 5.8</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:20%"></div><div class="win-pct">18%</div></div>
-        </div>
-        <div class="match-note">Qatar 2022 SF rematch energy · Gillette Stadium</div>
+        <div class="match-team"><span class="team-flag">🇲🇦</span><div class="team-info"><div class="team-name">Morocco</div><div class="team-pills"><span class="pill pill-purple">1.5%</span><span class="pill pill-amber">PDI 5.8</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:20%"></div><div class="win-pct">18%</div></div></div>
+        <div class="match-note">2022 SF rematch · Gillette Stadium · Saibari decision at T-1h</div>
       </div>
 
       <div class="divider"></div>
 
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M93 · Jul 6 ✅ → QF M98</span><span class="score-badge">1–0</span></div>
-        <div class="match-team winner">
-          <span class="team-flag">🇪🇸</span>
-          <div class="team-info"><div class="team-name">Spain</div>
-            <div class="team-pills"><span class="pill pill-purple">13.2%</span><span class="pill pill-amber">PDI 6.4</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:65%"></div><div class="win-pct">62%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">FIFA M93</span><span>R16 · Jul 6 ✅ → QF M98</span><span class="score-badge">1–0</span></div>
+        <div class="match-team winner"><span class="team-flag">🇪🇸</span><div class="team-info"><div class="team-name">Spain</div><div class="team-pills"><span class="pill pill-purple">17.0%</span><span class="pill pill-amber">PDI 6.4</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:65%"></div><div class="win-pct">62%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team elim">
-          <span class="team-flag">🇵🇹</span>
-          <div class="team-info"><div class="team-name">Portugal</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div>
-        </div>
-        <div class="match-note">Merino 90+1' (sub 85', Torres assist) · 6th straight WC clean sheet (record) · Ronaldo's career ends</div>
+        <div class="match-team elim"><span class="team-flag">🇵🇹</span><div class="team-info"><div class="team-name">Portugal</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div></div>
+        <div class="match-note">Merino 90+1' (sub 85', Torres assist) · Spain 6th straight WC clean sheet</div>
       </div>
 
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M94 · Jul 6 ✅ → QF M98</span><span class="score-badge">4–1</span></div>
-        <div class="match-team winner">
-          <span class="team-flag">🇧🇪</span>
-          <div class="team-info"><div class="team-name">Belgium</div>
-            <div class="team-pills"><span class="pill pill-purple">1.4%</span><span class="pill pill-amber">PDI 5.5</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:75%"></div><div class="win-pct">72%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">FIFA M94</span><span>R16 · Jul 6 ✅ → QF M98</span><span class="score-badge">4–1</span></div>
+        <div class="match-team winner"><span class="team-flag">🇧🇪</span><div class="team-info"><div class="team-name">Belgium <span style="font-size:9px;color:#f87171">✗ Onana ACL</span></div><div class="team-pills"><span class="pill pill-purple">1.8%</span><span class="pill pill-amber">PDI 5.5</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:75%"></div><div class="win-pct">72%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team elim">
-          <span class="team-flag">🇺🇸</span>
-          <div class="team-info"><div class="team-name">USA</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div>
-        </div>
-        <div class="match-note">De Ketelaere 9', 33' · Tillman 31' · Vanaken 57' · Lukaku 90+3' · USA 1 shot on target all game</div>
+        <div class="match-team elim"><span class="team-flag">🇺🇸</span><div class="team-info"><div class="team-name">USA</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div></div>
+        <div class="match-note">De Ketelaere ×2, Tillman, Vanaken, Lukaku · USA 1 shot on target</div>
       </div>
 
-      <!-- QF M98 LOCKED -->
+      <!-- QF M98 -->
       <div class="match-pair qf-locked">
-        <div class="match-header"><span>QF M98 · Jul 10 ✅ LOCKED</span><span style="color:#fbbf24;font-weight:700">3pm ET · SoFi, LA</span></div>
-        <div class="match-team">
-          <span class="team-flag">🇪🇸</span>
-          <div class="team-info"><div class="team-name">Spain</div>
-            <div class="team-pills"><span class="pill pill-purple">13.2%</span><span class="pill pill-amber">PDI 6.4</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:62%"></div><div class="win-pct">60%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">QF M98</span><span>Jul 10 · 3pm ET · SoFi, LA ✅</span></div>
+        <div class="match-team"><span class="team-flag">🇪🇸</span><div class="team-info"><div class="team-name">Spain</div><div class="team-pills"><span class="pill pill-purple">17.0%</span><span class="pill pill-amber">PDI 6.4</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:62%"></div><div class="win-pct">60%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team">
-          <span class="team-flag">🇧🇪</span>
-          <div class="team-info"><div class="team-name">Belgium</div>
-            <div class="team-pills"><span class="pill pill-purple">1.4%</span><span class="pill pill-amber">PDI 5.5</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:26%"></div><div class="win-pct">24%</div></div>
-        </div>
-        <div class="match-note">SoFi Stadium, LA · De Ketelaere vs Yamal is the tie-within-the-tie</div>
+        <div class="match-team"><span class="team-flag">🇧🇪</span><div class="team-info"><div class="team-name">Belgium</div><div class="team-pills"><span class="pill pill-purple">1.8%</span><span class="pill pill-amber">PDI 5.5</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:26%"></div><div class="win-pct">24%</div></div></div>
+        <div class="match-note">SoFi Stadium · Onana OUT (ACL) · Yamal vs De Ketelaere</div>
       </div>
     </div>
 
     <!-- CENTER -->
     <div class="bracket-center">
       <div style="height:6px"></div>
-      <div class="cb final">
-        <div class="cb-label">Final · M104</div>
-        <div class="cb-teams">TBD vs TBD</div>
-        <div class="cb-meta">Jul 19 · MetLife, NJ</div>
-      </div>
-      <div class="cb">
-        <div class="cb-label">SF1 · M101</div>
-        <div class="cb-teams">TBD vs TBD</div>
-        <div class="cb-meta">Jul 14 · AT&T, Arlington</div>
-      </div>
-      <div class="cb">
-        <div class="cb-label">SF2 · M102</div>
-        <div class="cb-teams">TBD vs TBD</div>
-        <div class="cb-meta">Jul 15 · Atlanta</div>
-      </div>
-      <div class="cb locked">
-        <div class="cb-label">QF M97 ✅</div>
-        <div class="cb-teams">🇫🇷 vs 🇲🇦</div>
-        <div class="cb-meta">Jul 9 · Foxborough</div>
-      </div>
-      <div class="cb locked">
-        <div class="cb-label">QF M98 ✅</div>
-        <div class="cb-teams">🇪🇸 vs 🇧🇪</div>
-        <div class="cb-meta">Jul 10 · SoFi, LA</div>
-      </div>
-      <div class="cb locked">
-        <div class="cb-label">QF M99 ✅</div>
-        <div class="cb-teams">🇳🇴 vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
-        <div class="cb-meta">Jul 11 · Miami</div>
-      </div>
-      <div class="cb today">
-        <div class="cb-label">QF M100 · Today</div>
-        <div class="cb-teams">M95 vs M96 winner</div>
-        <div class="cb-meta">Jul 11 · Arrowhead, KC</div>
-      </div>
+      <div class="cb final"><div class="cb-label">Final · M104</div><div class="cb-teams">TBD vs TBD</div><div class="cb-meta">Jul 19 · MetLife, NJ</div></div>
+      <div class="cb"><div class="cb-label">SF1 · M101</div><div class="cb-teams">TBD vs TBD</div><div class="cb-meta">Jul 14 · AT&T, Arlington</div></div>
+      <div class="cb"><div class="cb-label">SF2 · M102</div><div class="cb-teams">TBD vs TBD</div><div class="cb-meta">Jul 15 · Atlanta</div></div>
+      <div class="cb locked"><div class="cb-label">QF M97 ✅</div><div class="cb-teams">🇫🇷 vs 🇲🇦</div><div class="cb-meta">Jul 9 · Foxborough</div></div>
+      <div class="cb locked"><div class="cb-label">QF M98 ✅</div><div class="cb-teams">🇪🇸 vs 🇧🇪</div><div class="cb-meta">Jul 10 · SoFi, LA</div></div>
+      <div class="cb locked"><div class="cb-label">QF M99 ✅</div><div class="cb-teams">🇳🇴 vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="cb-meta">Jul 11 · Miami</div></div>
+      <div class="cb locked"><div class="cb-label">QF M100 ✅</div><div class="cb-teams">🇦🇷 vs 🇨🇭</div><div class="cb-meta">Jul 11 · Arrowhead, KC</div></div>
     </div>
 
     <!-- RIGHT: SF2 -->
     <div class="bracket-side">
-      <div class="round-tag">SF2 Side · R16 final day</div>
+      <div class="round-tag">SF2 Side · R16 complete</div>
 
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M91 · Jul 5 ✅ → QF M99</span><span class="upset-badge">2–1 UPSET 🚨</span></div>
-        <div class="match-team winner">
-          <span class="team-flag">🇳🇴</span>
-          <div class="team-info"><div class="team-name">Norway</div>
-            <div class="team-pills"><span class="pill pill-purple">4.7%</span><span class="pill pill-red">PDI 7.3</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:38%"></div><div class="win-pct">36%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">FIFA M91</span><span>R16 · Jul 5 ✅ → QF M99</span><span class="upset-badge">2–1 UPSET 🚨</span></div>
+        <div class="match-team winner"><span class="team-flag">🇳🇴</span><div class="team-info"><div class="team-name">Norway</div><div class="team-pills"><span class="pill pill-purple">2.9%</span><span class="pill pill-red">PDI 7.3</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:38%"></div><div class="win-pct">36%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team elim">
-          <span class="team-flag">🇧🇷</span>
-          <div class="team-info"><div class="team-name">Brazil</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div>
-        </div>
-        <div class="match-note">HAALAND BRACE · Norway's first ever WC QF · Tournament-defining upset</div>
+        <div class="match-team elim"><span class="team-flag">🇧🇷</span><div class="team-info"><div class="team-name">Brazil</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div></div>
+        <div class="match-note">Haaland ×2 · Norway's first ever WC QF · Neymar retirement announced</div>
       </div>
 
       <div class="match-pair resolved">
-        <div class="match-header"><span>R16 M92 · Jul 5 ✅ → QF M99</span><span class="score-badge">3–2</span></div>
-        <div class="match-team winner">
-          <span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
-          <div class="team-info"><div class="team-name">England <span style="font-size:9px;color:#f87171">⛔ Quansah SUSP</span></div>
-            <div class="team-pills"><span class="pill pill-purple">14.4%</span><span class="pill pill-amber">PDI 5.4</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:68%"></div><div class="win-pct">65%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">FIFA M92</span><span>R16 · Jul 5 ✅ → QF M99</span><span class="score-badge">3–2</span></div>
+        <div class="match-team winner"><span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><div class="team-info"><div class="team-name">England <span style="font-size:9px;color:#f87171">⛔ Quansah SUSP · Henderson OUT</span></div><div class="team-pills"><span class="pill pill-purple">11.2%</span><span class="pill pill-amber">PDI 5.4</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:68%"></div><div class="win-pct">65%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team elim">
-          <span class="team-flag">🇲🇽</span>
-          <div class="team-info"><div class="team-name">Mexico</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div>
-        </div>
-        <div class="match-note">Bellingham ×2, Kane pen · Quansah red (54', VAR) · First WC win at Azteca</div>
+        <div class="match-team elim"><span class="team-flag">🇲🇽</span><div class="team-info"><div class="team-name">Mexico</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div></div>
+        <div class="match-note">Bellingham ×2, Kane pen · Quansah red (VAR) · Henderson wrist (celebrating)</div>
       </div>
 
-      <!-- QF M99 LOCKED -->
+      <!-- QF M99 -->
       <div class="match-pair qf-locked">
-        <div class="match-header"><span>QF M99 · Jul 11 ✅ LOCKED</span><span style="color:#fbbf24;font-weight:700">5pm ET · Miami</span></div>
-        <div class="match-team">
-          <span class="team-flag">🇳🇴</span>
-          <div class="team-info"><div class="team-name">Norway</div>
-            <div class="team-pills"><span class="pill pill-purple">4.7%</span><span class="pill pill-red">PDI 7.3</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:40%"></div><div class="win-pct">38%</div></div>
-        </div>
+        <div class="match-header"><span class="mh-id">QF M99</span><span>Jul 11 · 5pm ET · Miami ✅</span></div>
+        <div class="match-team"><span class="team-flag">🇳🇴</span><div class="team-info"><div class="team-name">Norway</div><div class="team-pills"><span class="pill pill-purple">2.9%</span><span class="pill pill-red">PDI 7.3</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:40%"></div><div class="win-pct">38%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team">
-          <span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
-          <div class="team-info"><div class="team-name">England</div>
-            <div class="team-pills"><span class="pill pill-purple">14.4%</span><span class="pill pill-amber">PDI 5.4</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:44%"></div><div class="win-pct">42%</div></div>
-        </div>
-        <div class="match-note">Hard Rock Stadium, Miami · Quansah SUSPENDED · Haaland vs Kane</div>
+        <div class="match-team"><span class="team-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><div class="team-info"><div class="team-name">England</div><div class="team-pills"><span class="pill pill-purple">11.2%</span><span class="pill pill-amber">PDI 5.4</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:44%"></div><div class="win-pct">42%</div></div></div>
+        <div class="match-note">Hard Rock Stadium · Haaland 7 goals (Golden Boot) · Quansah SUSP</div>
       </div>
 
       <div class="divider"></div>
 
-      <!-- M95 TODAY -->
-      <div class="match-pair today-match">
-        <div class="match-header"><span>R16 M95 · Jul 7 🔴 TODAY → QF M100</span><span style="color:#fbbf24;font-weight:700">12pm ET</span></div>
-        <div class="match-team">
-          <span class="team-flag">🇦🇷</span>
-          <div class="team-info"><div class="team-name">Argentina</div>
-            <div class="team-pills"><span class="pill pill-purple">18.1%</span><span class="pill pill-green">PDI 4.4</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:80%"></div><div class="win-pct">69%</div></div>
-        </div>
+      <div class="match-pair resolved">
+        <div class="match-header"><span class="mh-id">FIFA M95</span><span>R16 · Jul 7 ✅ → QF M100</span><span class="score-badge">3–2</span></div>
+        <div class="match-team winner"><span class="team-flag">🇦🇷</span><div class="team-info"><div class="team-name">Argentina</div><div class="team-pills"><span class="pill pill-purple">8.6%</span><span class="pill pill-green">PDI 4.4</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:80%"></div><div class="win-pct">69%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team">
-          <span class="team-flag">🇪🇬</span>
-          <div class="team-info"><div class="team-name">Egypt <span style="font-size:9px;color:#4ade80">✅ Salah starts</span></div>
-            <div class="team-pills"><span class="pill pill-outline">~0.4%</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:14%"></div><div class="win-pct">12%</div></div>
-        </div>
-        <div class="match-note">Mercedes-Benz Stadium, Atlanta · Messi vs Salah · Medina doubt</div>
+        <div class="match-team elim"><span class="team-flag">🇪🇬</span><div class="team-info"><div class="team-name">Egypt</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div></div>
+        <div class="match-note">Down 2-0 at 67' · Messi 83' (record 21st WC goal) · Romero ~86' · Fernández 90+2'</div>
       </div>
 
-      <!-- M96 TODAY -->
-      <div class="match-pair today-match">
-        <div class="match-header"><span>R16 M96 · Jul 7 🔴 TODAY → QF M100</span><span style="color:#fbbf24;font-weight:700">4pm ET</span></div>
-        <div class="match-team">
-          <span class="team-flag">🇨🇭</span>
-          <div class="team-info"><div class="team-name">Switzerland <span style="font-size:9px;color:#fbbf24">⚠️ 3 fitness doubts</span></div>
-            <div class="team-pills"><span class="pill pill-purple">0.9%</span><span class="pill pill-green">PDI 4.1</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:52%"></div><div class="win-pct">50%</div></div>
-        </div>
+      <div class="match-pair resolved">
+        <div class="match-header"><span class="mh-id">FIFA M96</span><span>R16 · Jul 7 ✅ → QF M100</span><span class="pens-badge">0–0 aet · 4-3 pens</span></div>
+        <div class="match-team winner"><span class="team-flag">🇨🇭</span><div class="team-info"><div class="team-name">Switzerland</div><div class="team-pills"><span class="pill pill-purple">1.1%</span><span class="pill pill-green">PDI 4.1</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:52%"></div><div class="win-pct">50%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team">
-          <span class="team-flag">🇨🇴</span>
-          <div class="team-info"><div class="team-name">Colombia</div>
-            <div class="team-pills"><span class="pill pill-purple">3.0%</span><span class="pill pill-amber">PDI 5.2</span></div>
-          </div>
-          <div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:38%"></div><div class="win-pct">36%</div></div>
-        </div>
-        <div class="match-note">BC Place, Vancouver · Winner → QF M100 vs Argentina/Egypt (Arrowhead, KC)</div>
+        <div class="match-team elim"><span class="team-flag">🇨🇴</span><div class="team-info"><div class="team-name">Colombia</div><div class="team-pills"><span class="pill pill-outline">ELIMINATED</span></div></div></div>
+        <div class="match-note">Vargas decisive pen · First WC QF for Switzerland since 1954</div>
       </div>
 
-      <!-- QF M100 TBD -->
-      <div class="match-pair">
-        <div class="match-header"><span>QF M100 · Jul 11 · Today decides</span><span style="color:#fbbf24;font-weight:700">9pm ET</span></div>
-        <div class="match-team">
-          <span class="team-flag">🏟️</span>
-          <div class="team-info"><div class="team-name">W(M95)</div>
-            <div class="team-pills"><span class="pill pill-outline">TBD</span></div>
-          </div>
-        </div>
+      <!-- QF M100 -->
+      <div class="match-pair qf-locked">
+        <div class="match-header"><span class="mh-id">QF M100</span><span>Jul 11 · 9pm ET · Arrowhead KC ✅</span></div>
+        <div class="match-team"><span class="team-flag">🇦🇷</span><div class="team-info"><div class="team-name">Argentina</div><div class="team-pills"><span class="pill pill-purple">8.6%</span><span class="pill pill-green">PDI 4.4</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--win);width:72%"></div><div class="win-pct">68%</div></div></div>
         <div class="match-divider"></div>
-        <div class="match-team">
-          <span class="team-flag">🏟️</span>
-          <div class="team-info"><div class="team-name">W(M96)</div>
-            <div class="team-pills"><span class="pill pill-outline">TBD</span></div>
-          </div>
-        </div>
-        <div class="match-note">Arrowhead Stadium, KC · Jul 11 9pm ET</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================== TODAY TAB -->
-<div id="tab-today" class="tab-content">
-
-  <div class="section-title">Today · R16 Day 4 (Final) · July 7, 2026</div>
-  <p style="font-size:12px;color:var(--txt2);margin-bottom:16px">Last 2 QF spots. Winners meet in QF M100 · Jul 11 · 9pm ET · Arrowhead Stadium, KC.</p>
-
-  <div class="today-grid">
-
-    <!-- M95: Argentina vs Egypt -->
-    <div class="tc">
-      <div class="tc-hdr">
-        <div class="tc-id">R16 · M95 · SF2 Side · <span class="stakes-badge sf-fire">🌟 MESSI vs SALAH</span></div>
-        <div class="tc-title">🇦🇷 Argentina vs Egypt 🇪🇬</div>
-        <div class="tc-meta">Mercedes-Benz Stadium · Atlanta, GA · FOX</div>
-        <div class="tc-time">⏰ 12:00 PM ET</div>
-      </div>
-      <div class="tc-body">
-        <div class="tc-teams">
-          <div>
-            <div class="tc-team-flag">🇦🇷</div>
-            <div class="tc-team-name">Argentina</div>
-            <div class="tc-team-odds">Win 69% · 18.1%</div>
-          </div>
-          <div class="tc-vs">vs</div>
-          <div style="text-align:right">
-            <div class="tc-team-flag">🇪🇬</div>
-            <div class="tc-team-name">Egypt</div>
-            <div class="tc-team-odds">Win 12% · ~0.4%</div>
-          </div>
-        </div>
-        <div style="margin-bottom:12px">
-          <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Match outcome probability (Opta)</div>
-          <div class="bar-outer">
-            <div class="bar-a" style="width:69%"></div>
-            <div class="bar-d" style="width:19%"></div>
-            <div class="bar-b" style="width:12%"></div>
-          </div>
-          <div class="bar-legend"><span>Argentina 69%</span><span>Draw 19%</span><span>Egypt 12%</span></div>
-        </div>
-
-        <div class="news-section">
-          <div class="news-title">🇦🇷 Argentina — Team News</div>
-          <div class="news-item ni">
-            <div class="nd nd-g"></div>
-            <div class="nt"><strong>Lionel Messi</strong> — 7 goals in 4 games. Missed one previous match (muscular concern) but confirmed fit and primed for this Salah showdown.<span class="nb nb-fit">FIT</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-a"></div>
-            <div class="nt"><strong>Facundo Medina</strong> — calf problem vs Cape Verde, could not complete full recovery session. Doubtful.<span class="nb nb-doubt">DOUBT</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-a"></div>
-            <div class="nt"><strong>Nahuel Molina + Enzo Fernández</strong> — fatigue concerns after grueling AET vs Cape Verde, did not complete full recovery session.<span class="nb nb-watch">FATIGUE</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-g"></div>
-            <div class="nt"><strong>Cristian Romero</strong> — returned after knee injury in group stage, available.<span class="nb nb-fit">AVAILABLE</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-a"></div>
-            <div class="nt">Cape Verde exposed Argentina's defence in R32. Defensive vulnerabilities remain a concern heading into this match.</div>
-          </div>
-        </div>
-
-        <div class="news-section">
-          <div class="news-title">🇪🇬 Egypt — Team News</div>
-          <div class="news-item ni">
-            <div class="nd nd-g"></div>
-            <div class="nt"><strong>Mohamed Salah</strong> — confirmed starting despite hamstring knock vs Australia. Egypt's entire tournament runs through him against Argentina.<span class="nb nb-fit">STARTS ✅</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-r"></div>
-            <div class="nt"><strong>Ahmed Fatouh (LB)</strong> — thigh injury, virtually ruled out.<span class="nb nb-out">VIRTUALLY OUT</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-a"></div>
-            <div class="nt"><strong>Mohamed Abdelmonem (CB)</strong> — ankle problem, on the coach's touch-and-go list.<span class="nb nb-doubt">TBD</span></div>
-          </div>
-        </div>
-
-        <div class="whatif-section">
-          <div class="wi-title">⚡ What This Means</div>
-          <div class="wi-row"><strong>Argentina wins →</strong> <span>QF M100 Jul 11 9pm ET Arrowhead KC. vs Switzerland or Colombia. Argentina's easiest possible QF matchup. Path to SF2.</span></div>
-          <div class="wi-row"><strong>Egypt wins →</strong> <span>Greatest result in African football history. Salah's legacy permanently written. QF vs Switzerland or Colombia.</span></div>
-          <div class="wi-row"><strong>GT note →</strong> <span>Argentina are massive favourites but their defence was leaky vs Cape Verde (AET). Salah in form + defensive injuries = real risk of a scare.</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- M96: Switzerland vs Colombia -->
-    <div class="tc">
-      <div class="tc-hdr">
-        <div class="tc-id">R16 · M96 · SF2 Side · <span class="stakes-badge sf-high">HIGH STAKES</span></div>
-        <div class="tc-title">🇨🇭 Switzerland vs Colombia 🇨🇴</div>
-        <div class="tc-meta">BC Place · Vancouver, BC · FOX</div>
-        <div class="tc-time">⏰ 4:00 PM ET</div>
-      </div>
-      <div class="tc-body">
-        <div class="tc-teams">
-          <div>
-            <div class="tc-team-flag">🇨🇭</div>
-            <div class="tc-team-name">Switzerland</div>
-            <div class="tc-team-odds">Win 50% · 0.9%</div>
-          </div>
-          <div class="tc-vs">vs</div>
-          <div style="text-align:right">
-            <div class="tc-team-flag">🇨🇴</div>
-            <div class="tc-team-name">Colombia</div>
-            <div class="tc-team-odds">Win 36% · 3.0%</div>
-          </div>
-        </div>
-        <div style="margin-bottom:12px">
-          <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Match outcome probability</div>
-          <div class="bar-outer">
-            <div class="bar-a" style="width:50%"></div>
-            <div class="bar-d" style="width:14%"></div>
-            <div class="bar-b" style="width:36%"></div>
-          </div>
-          <div class="bar-legend"><span>Switzerland 50%</span><span>Draw 14%</span><span>Colombia 36%</span></div>
-        </div>
-
-        <div class="news-section">
-          <div class="news-title">🇨🇭 Switzerland — Team News</div>
-          <div class="news-item ni">
-            <div class="nd nd-r"></div>
-            <div class="nt"><strong>Aebischer</strong> — muscle injury, out.<span class="nb nb-out">OUT</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-r"></div>
-            <div class="nt"><strong>Jaquez</strong> — muscle injury, out.<span class="nb nb-out">OUT</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-a"></div>
-            <div class="nt"><strong>Manzambi, Vargas, Djibril Sow</strong> — all left training early Monday. Three influential players with fitness doubts ahead of this match.<span class="nb nb-doubt">ALL DOUBTFUL</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-a"></div>
-            <div class="nt">Switzerland's injury situation is the most serious of today's two matches. If all three doubts miss out, this dramatically shifts the match outlook.</div>
-          </div>
-        </div>
-
-        <div class="news-section">
-          <div class="news-title">🇨🇴 Colombia — Team News</div>
-          <div class="news-item ni">
-            <div class="nd nd-r"></div>
-            <div class="nt"><strong>Cordoba</strong> — groin injury, sidelined.<span class="nb nb-out">OUT</span></div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-g"></div>
-            <div class="nt">Colombia otherwise in good shape. If Switzerland's three doubts miss out, Colombia become slight favourites given the injury imbalance.</div>
-          </div>
-          <div class="news-item ni">
-            <div class="nd nd-b"></div>
-            <div class="nt">Colombia's odds (3.0% tournament) reflect a team capable of an upset run. QF vs Argentina/Egypt is a winnable path to SF2.</div>
-          </div>
-        </div>
-
-        <div class="whatif-section">
-          <div class="wi-title">⚡ What This Means</div>
-          <div class="wi-row"><strong>Switzerland wins →</strong> <span>QF M100 Arrowhead KC vs Argentina/Egypt. PDI 4.1 remains the easiest QF path in the tournament.</span></div>
-          <div class="wi-row"><strong>Colombia wins →</strong> <span>QF M100 vs Argentina/Egypt. Colombian fans at KC could be enormous. 3.0% tournament odds could move sharply.</span></div>
-          <div class="wi-row"><strong>GT note →</strong> <span>Switzerland's triple fitness doubt is the wildcard. Track pre-match lineup news. If Manzambi/Vargas/Sow all miss, lean Colombia.</span></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- POST-MATCH NOTES -->
-  <div class="section-title" style="margin-top:22px">🩺 Post-R16 Fitness & Suspension Watch</div>
-  <div class="pm-grid">
-    <div class="pm-card">
-      <div class="pm-title">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England → QF M99 vs Norway (Jul 11 5pm ET)</div>
-      <div class="news-item ni"><div class="nd nd-r"></div><div class="nt"><strong>Quansah SUSPENDED</strong> — red card (54', VAR) vs Mexico. Tuchel must rethink CB pairing vs Haaland.<span class="nb nb-susp">SUSPENDED</span></div></div>
-      <div class="news-item ni"><div class="nd nd-g"></div><div class="nt">Bellingham, Kane fit. England's odds jumped 7.2pts to 14.4% — market's biggest mover post-R16.</div></div>
-    </div>
-    <div class="pm-card">
-      <div class="pm-title">🇳🇴 Norway → QF M99 vs England (Jul 11 5pm ET)</div>
-      <div class="news-item ni"><div class="nd nd-g"></div><div class="nt"><strong>Haaland — brace vs Brazil.</strong> No injury, no cards. Full fit. Miami heat Jul 11 is the one external factor.<span class="nb nb-fit">FIT</span></div></div>
-    </div>
-    <div class="pm-card">
-      <div class="pm-title">🇫🇷 France → QF M97 vs Morocco (Jul 9 4pm ET)</div>
-      <div class="news-item ni"><div class="nd nd-a"></div><div class="nt"><strong>Mbappé — fatigue watch.</strong> Paraguay in stifling heat. 7 WC goals. Short rest before Foxborough Jul 9.<span class="nb nb-watch">FATIGUE WATCH</span></div></div>
-      <div class="news-item ni"><div class="nd nd-g"></div><div class="nt">No cards, no injuries beyond fatigue. Barcola/Doue depth available.</div></div>
-    </div>
-    <div class="pm-card">
-      <div class="pm-title">🇲🇦 Morocco → QF M97 vs France (Jul 9 4pm ET)</div>
-      <div class="news-item ni"><div class="nd nd-a"></div><div class="nt"><strong>Ismael Saibari</strong> — hamstring (off 22' vs Canada), decision pending ahead of Jul 9. Rahimi ready to start.<span class="nb nb-tbd">QF DECISION PENDING</span></div></div>
-      <div class="news-item ni"><div class="nd nd-a"></div><div class="nt"><strong>Riad (CB)</strong> — knee doubt, missed Canada match too.<span class="nb nb-doubt">DOUBT</span></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================== INSIGHTS TAB -->
-<div id="tab-insights" class="tab-content">
-
-  <div class="section-title">R16 Day 3 — July 6, 2026</div>
-  <div class="ig">
-    <div class="ic">
-      <div class="ic-hdr"><span class="ic-match">M93 · Jul 6 · R16</span><span class="ic-score win">1–0</span></div>
-      <div class="ic-body">
-        <div class="ic-teams">🇪🇸 Spain 1–0 🇵🇹 Portugal</div>
-        <div class="ic-scorers">Mikel Merino 90+1' (sub on 85', Ferran Torres assist through ball). Spain: 6 consecutive WC clean sheets — all-time record. 0 shots on target for Portugal in the final 20 mins.</div>
-        <div class="ic-impact"><span class="imp imp-pos">HISTORIC</span> Spain's substitute Merino breaks Portuguese hearts. Ronaldo (41) bows out: 11 WC goals in 27 games, career likely over. Spain proved incredible depth — the winning goal came from a substitute who was on the pitch for 6 mins. Odds ▲ to 13.2%.</div>
-      </div>
-    </div>
-    <div class="ic">
-      <div class="ic-hdr"><span class="ic-match">M94 · Jul 6 · R16</span><span class="ic-score win">4–1</span></div>
-      <div class="ic-body">
-        <div class="ic-teams">🇧🇪 Belgium 4–1 🇺🇸 USA</div>
-        <div class="ic-scorers">De Ketelaere 9', 33' (both Trossard assists) · Tillman 31' (deflected free kick — USA's only shot on target) · Vanaken 57' (after Freese missed clearance) · Lukaku 90+3'. USA had just 1 shot on target all match.</div>
-        <div class="ic-impact"><span class="imp imp-neg">THRASHING</span> USA comprehensively outclassed. Co-host eliminated with a whimper. De Ketelaere was unmarkable. Freese's howler for Vanaken's goal killed the tie. Belgium mock Trump with "Overturn this" social post. USA ELIMINATED. Belgium → QF M98 vs Spain (SoFi, LA).</div>
+        <div class="match-team"><span class="team-flag">🇨🇭</span><div class="team-info"><div class="team-name">Switzerland</div><div class="team-pills"><span class="pill pill-purple">1.1%</span><span class="pill pill-green">PDI 4.1</span></div></div><div class="win-bar-wrap"><div class="win-bar" style="background:var(--lose);width:22%"></div><div class="win-pct">20%</div></div></div>
+        <div class="match-note">Arrowhead Stadium, KC · Messi vs Swiss discipline · penalty practice matters</div>
       </div>
     </div>
   </div>
 
-  <div class="section-title" style="margin-top:18px">📊 Model Changes After R16 Day 3</div>
-  <div class="ms">
-    <table class="ch-table">
-      <thead><tr><th>Team</th><th>Tournament Win %</th><th>Change</th><th>PDI</th><th>Next</th></tr></thead>
+  <!-- R16 RESULTS TABLE -->
+  <div class="section-title" style="margin-top:20px">📋 R16 Complete Results — All 8 Confirmed</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+    <table class="rt">
+      <thead><tr><th>Match</th><th>Teams</th><th>Score</th><th>Key scorer(s)</th><th>Note</th><th>Source</th></tr></thead>
       <tbody>
-        <tr><td>🇫🇷 France</td><td>32.9%</td><td class="chg-dn">▼ 2.0%</td><td>5.6 🟡</td><td>QF Jul 9 vs Morocco</td></tr>
-        <tr><td>🇦🇷 Argentina</td><td>18.1%</td><td class="chg-up">▲ 1.3%</td><td>4.4 🟢</td><td>R16 TODAY vs Egypt</td></tr>
-        <tr><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td>14.4%</td><td class="chg-up">▲ 7.2% 🚀</td><td>5.4 🟡</td><td>QF Jul 11 vs Norway</td></tr>
-        <tr><td>🇪🇸 Spain</td><td>13.2%</td><td class="chg-up">▲ 0.8%</td><td>6.4 🟡</td><td>QF Jul 10 vs Belgium</td></tr>
-        <tr><td>🇳🇴 Norway</td><td>4.7%</td><td class="chg-up">▲ 3.1%</td><td>7.3 🔴</td><td>QF Jul 11 vs England</td></tr>
-        <tr><td>🇨🇴 Colombia</td><td>3.0%</td><td class="chg-dn">▼ 0.1%</td><td>5.2 🟡</td><td>R16 TODAY vs Switzerland</td></tr>
-        <tr><td>🇲🇦 Morocco</td><td>2.6%</td><td class="chg-up">▲ 0.1%</td><td>5.8 🟡</td><td>QF Jul 9 vs France ⚠️ Saibari</td></tr>
-        <tr><td>🇧🇪 Belgium</td><td>1.4%</td><td class="chg-up">▲ 0.1%</td><td>5.5 🟡</td><td>QF Jul 10 vs Spain</td></tr>
-        <tr><td>🇨🇭 Switzerland</td><td>0.9%</td><td class="chg-up">▲ 0.1%</td><td>4.1 🟢</td><td>R16 TODAY vs Colombia</td></tr>
-        <tr><td>🇵🇹 Portugal</td><td class="chg-elim">0%</td><td class="chg-elim">ELIMINATED</td><td>—</td><td>Lost R16 to Spain 0-1</td></tr>
-        <tr><td>🇺🇸 USA</td><td class="chg-elim">0%</td><td class="chg-elim">ELIMINATED</td><td>—</td><td>Lost R16 to Belgium 1-4</td></tr>
-        <tr><td>🇧🇷 Brazil</td><td class="chg-elim">0%</td><td class="chg-elim">ELIMINATED</td><td>—</td><td>Lost R16 to Norway 1-2</td></tr>
-        <tr><td>🇲🇽 Mexico</td><td class="chg-elim">0%</td><td class="chg-elim">ELIMINATED</td><td>—</td><td>Lost R16 to England 2-3</td></tr>
+        <tr><td>M89 · Jul 4</td><td>🇫🇷 France vs 🇵🇾 Paraguay</td><td class="score-badge" style="display:inline-block">1–0</td><td>Mbappé 69' (pen)</td><td>→ QF M97</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760503/paraguay-france" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>M90 · Jul 4</td><td>🇲🇦 Morocco vs 🇨🇦 Canada</td><td class="score-badge" style="display:inline-block">3–0</td><td>Ounahi ×2, Rahimi 90+'</td><td>Saibari off 22' (hamstring) → QF M97</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760504/morocco-canada" target="_blank">ESPN ↗</a></td></tr>
+        <tr class="rt-upset"><td>M91 · Jul 5</td><td>🇳🇴 Norway vs 🇧🇷 Brazil</td><td class="upset-badge" style="display:inline-block">2–1 🚨</td><td>Haaland ×2</td><td>Norway first WC QF in history → QF M99</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760505/brazil-norway" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>M92 · Jul 5</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇲🇽 Mexico</td><td class="score-badge" style="display:inline-block">3–2</td><td>Bellingham ×2, Kane pen</td><td>Quansah red (VAR 54') · Henderson wrist injury → QF M99</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760506/mexico-england" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>M93 · Jul 6</td><td>🇪🇸 Spain vs 🇵🇹 Portugal</td><td class="score-badge" style="display:inline-block">1–0</td><td>Merino 90+1' (sub 85')</td><td>Torres assist · 6th WC clean sheet (record) → QF M98</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760507/portugal-spain" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>M94 · Jul 6</td><td>🇧🇪 Belgium vs 🇺🇸 USA</td><td class="score-badge" style="display:inline-block">4–1</td><td>De Ketelaere ×2, Tillman, Vanaken, Lukaku</td><td>USA 1 shot on target · Onana ACL → QF M98</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760510/usa-belgium" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>M95 · Jul 7</td><td>🇦🇷 Argentina vs 🇪🇬 Egypt</td><td class="score-badge" style="display:inline-block">3–2</td><td>Ibrahim 15', Zico 67' (EGY); Messi 83', Romero ~86', Fernández 90+2' (ARG)</td><td>Down 2-0 at 67' · Messi pen miss 21' · record 21st WC goal → QF M100</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289288/400021528" target="_blank">FIFA ↗</a></td></tr>
+        <tr><td>M96 · Jul 7</td><td>🇨🇭 Switzerland vs 🇨🇴 Colombia</td><td class="pens-badge" style="display:inline-block">0–0 aet · 4-3P</td><td>Vargas decisive pen</td><td>First Swiss WC QF since 1954 → QF M100</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289288/400021535" target="_blank">FIFA ↗</a></td></tr>
       </tbody>
     </table>
   </div>
 
-  <div style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-top:12px;">
-    <div style="font-size:12px;font-weight:700;color:var(--accent2);margin-bottom:8px">🚀 England biggest mover post-R16: +7.2pts to 14.4%</div>
-    <div style="font-size:11px;color:var(--txt);line-height:1.6">Market has fully repriced England as a genuine contender. Three factors: (1) Norway QF is very winnable at 14.4% vs Norway's 4.7% — England are the favourites; (2) 10-man win at Azteca showed Tuchel's mentality; (3) QF winner faces Argentina or an easier team in SF2. England's path to the final now runs: Norway → Argentina/Egypt or Colombia/Switzerland. France remains their potential final opponent.</div>
+  <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <button class="dl-btn" onclick="downloadJSON()">⬇ Download Fixtures JSON</button>
+    <button class="dl-btn" onclick="downloadCSV()">⬇ Download Fixtures CSV</button>
+    <span style="font-size:10px;color:var(--txt2)">All 8 R16 results + 4 QF fixtures · v22 Jul 8, 2026</span>
+  </div>
+
+</div>
+
+<!-- ============================= TODAY TAB ============================= -->
+<div id="tab-today" class="tab-content">
+
+  <div class="rest-notice">
+    <div class="rest-icon">😴</div>
+    <div>
+      <div class="rest-title">Rest Day — Jul 8, 2026</div>
+      <div class="rest-sub">No matches today. R16 complete. All 4 QFs locked. QF window opens tomorrow — France vs Morocco 4pm ET, Gillette Stadium.</div>
+    </div>
+  </div>
+
+  <div class="section-title">⚽ QF Previews — Team News & Fitness Tracker</div>
+  <p style="font-size:11px;color:#fbbf24;margin-bottom:14px">⚠️ All team news below is PROVISIONAL — pre-lineup. Confirm against FIFA official squad list at T-1h before each kickoff.</p>
+
+  <div class="qp-grid">
+
+    <!-- M97 France vs Morocco -->
+    <div class="qp">
+      <div class="qp-hdr">
+        <div class="qp-id">QF · M97 · SF1 · Jul 9</div>
+        <div class="qp-title">🇫🇷 France vs Morocco 🇲🇦</div>
+        <div class="qp-meta">Gillette Stadium · Foxborough, MA · FOX</div>
+        <div class="qp-time">⏰ 4:00 PM ET</div>
+      </div>
+      <div class="qp-body">
+        <div style="margin-bottom:10px">
+          <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Match win probability · internal Elo model</div>
+          <div class="bar-outer"><div class="bar-a" style="width:65%"></div><div class="bar-d" style="width:17%"></div><div class="bar-b" style="width:18%"></div></div>
+          <div class="bar-legend"><span>France 65%</span><span>Draw 17%</span><span>Morocco 18%</span></div>
+          <div class="bar-src">Source: internal Elo · confirm vs Opta/ESPN pre-match</div>
+        </div>
+        <div class="news-section">
+          <div class="news-title">🇫🇷 France</div>
+          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 9</div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>Mbappé</strong> — 7 WC goals (Golden Boot race). Fit.<span class="nb nb-fit">FIT</span></div></div>
+          <div class="ni"><div class="nd nd-a"></div><div class="nt"><strong>Mbappé fatigue watch</strong> — Paraguay match in heat. Short rest ahead of Jul 9.<span class="nb nb-watch">FATIGUE</span></div></div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt">No cards, no injuries confirmed. Barcola / Doue available as depth.</div></div>
+        </div>
+        <div class="news-section">
+          <div class="news-title">🇲🇦 Morocco</div>
+          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 9</div>
+          <div class="ni"><div class="nd nd-a"></div><div class="nt"><strong>Ismael Saibari</strong> — hamstring (off 22' vs Canada). 2nd MRI showed encouraging progress, but final call pre-match. <a href="https://www.moroccoworldnews.com/2026/07/327550/saibaris-quarterfinal-participation-hinges-on-mri-results/" target="_blank" style="color:var(--accent2)">source ↗</a><span class="nb nb-tbd">FINAL CALL PRE-MATCH</span></div></div>
+          <div class="ni"><div class="nd nd-a"></div><div class="nt"><strong>Riad (CB)</strong> — knee doubt, missed Canada match. Also TBD.<span class="nb nb-doubt">DOUBT</span></div></div>
+          <div class="ni"><div class="nd nd-b"></div><div class="nt">Rahimi (scored Saibari's replacement role vs Canada) ready to start if Saibari ruled out.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M98 Spain vs Belgium -->
+    <div class="qp">
+      <div class="qp-hdr">
+        <div class="qp-id">QF · M98 · SF1 · Jul 10</div>
+        <div class="qp-title">🇪🇸 Spain vs Belgium 🇧🇪</div>
+        <div class="qp-meta">SoFi Stadium · Inglewood, CA · FOX</div>
+        <div class="qp-time">⏰ 3:00 PM ET</div>
+      </div>
+      <div class="qp-body">
+        <div style="margin-bottom:10px">
+          <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Match win probability · internal Elo model</div>
+          <div class="bar-outer"><div class="bar-a" style="width:60%"></div><div class="bar-d" style="width:16%"></div><div class="bar-b" style="width:24%"></div></div>
+          <div class="bar-legend"><span>Spain 60%</span><span>Draw 16%</span><span>Belgium 24%</span></div>
+          <div class="bar-src">Source: internal Elo · confirm vs Opta/ESPN pre-match</div>
+        </div>
+        <div class="news-section">
+          <div class="news-title">🇪🇸 Spain</div>
+          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 10</div>
+          <div class="ni"><div class="nd nd-a"></div><div class="nt"><strong>Nico Williams</strong> — groin vs Uruguay. Did not start vs Portugal. Fitness decision pending. <a href="https://www.espn.com/soccer/story/_/id/49200729/spain-nico-williams-injury-yeremy-pino-2026-world-cup" target="_blank" style="color:var(--accent2)">ESPN ↗</a><span class="nb nb-tbd">TBD</span></div></div>
+          <div class="ni"><div class="nd nd-r"></div><div class="nt"><strong>Yeremy Pino</strong> — same injury, has not played since Uruguay match.<span class="nb nb-out">UNLIKELY</span></div></div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>Mikel Merino</strong> — hero of Portugal match (sub, 90+1' winner). Available. Spain's depth is their weapon.</div></div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt">Rodri, Pedri, Yamal all fit. Spain's midfield control structure intact.</div></div>
+        </div>
+        <div class="news-section">
+          <div class="news-title">🇧🇪 Belgium</div>
+          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 10</div>
+          <div class="ni"><div class="nd nd-r"></div><div class="nt"><strong>Amadou Onana</strong> — ACL vs USA. Tournament over. Season likely over too. Major midfield loss. <a href="https://www.si.com/soccer/belgium-onana-injury" target="_blank" style="color:var(--accent2)">source ↗</a><span class="nb nb-out">TOURNAMENT OVER</span></div></div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>Charles De Ketelaere</strong> — brace vs USA. Fit and in form.<span class="nb nb-fit">FIT</span></div></div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>De Bruyne + Doku</strong> — expected to return to starting XI after rotation vs USA.<span class="nb nb-fit">EXPECTED</span></div></div>
+          <div class="ni"><div class="nd nd-b"></div><div class="nt">Belgium set up 4-3-3 around Tielemans with Onana replaced. Midfield balance is the key concern against Rodri-Pedri.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M99 Norway vs England -->
+    <div class="qp">
+      <div class="qp-hdr">
+        <div class="qp-id">QF · M99 · SF2 · Jul 11</div>
+        <div class="qp-title">🇳🇴 Norway vs England 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        <div class="qp-meta">Hard Rock Stadium · Miami, FL · CBS</div>
+        <div class="qp-time">⏰ 5:00 PM ET</div>
+      </div>
+      <div class="qp-body">
+        <div style="margin-bottom:10px">
+          <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Match win probability · internal Elo model</div>
+          <div class="bar-outer"><div class="bar-a" style="width:38%"></div><div class="bar-d" style="width:20%"></div><div class="bar-b" style="width:42%"></div></div>
+          <div class="bar-legend"><span>Norway 38%</span><span>Draw 20%</span><span>England 42%</span></div>
+          <div class="bar-src">Source: internal Elo · confirm vs Opta/ESPN pre-match</div>
+        </div>
+        <div class="news-section">
+          <div class="news-title">🇳🇴 Norway</div>
+          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 11</div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>Erling Haaland</strong> — 7 goals in 4 games. Golden Boot leader (tied Mbappé / Messi). No cards, no injury. Miami heat is the one external variable.<span class="nb nb-fit">FIT</span></div></div>
+          <div class="ni"><div class="nd nd-b"></div><div class="nt">Norway rode Haaland to Brazil upset. England's CB pairing (without Quansah) is the defining matchup.</div></div>
+        </div>
+        <div class="news-section">
+          <div class="news-title">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div>
+          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 11</div>
+          <div class="ni"><div class="nd nd-r"></div><div class="nt"><strong>Quansah</strong> — red card (VAR 54', lunge on Gallardo). Confirmed suspended. Tuchel must rethink CB pairing vs Haaland. <a href="https://www.skysports.com/football/news/12016/13560940/world-cup-2026-englands-jordan-henderson-out-of-tournament" target="_blank" style="color:var(--accent2)">Sky Sports ↗</a><span class="nb nb-susp">CONFIRMED SUSPENDED</span></div></div>
+          <div class="ni"><div class="nd nd-r"></div><div class="nt"><strong>Jordan Henderson</strong> — wrist surgery after freak injury celebrating vs Mexico. Out of the tournament.<span class="nb nb-out">TOURNAMENT OVER</span></div></div>
+          <div class="ni"><div class="nd nd-a"></div><div class="nt"><strong>Reece James</strong> — targeting Jul 11 comeback but unlikely to start. Possible substitute role. <a href="https://www.si.com/soccer/england-huge-injury-boost-world-cup-quarterfinal-norway" target="_blank" style="color:var(--accent2)">SI ↗</a><span class="nb nb-doubt">POSS. SUB</span></div></div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>Bellingham + Kane</strong> — both fit. Bellingham 2 goals vs Mexico. England's attacking threat is intact.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M100 Argentina vs Switzerland -->
+    <div class="qp">
+      <div class="qp-hdr">
+        <div class="qp-id">QF · M100 · SF2 · Jul 11</div>
+        <div class="qp-title">🇦🇷 Argentina vs Switzerland 🇨🇭</div>
+        <div class="qp-meta">Arrowhead Stadium · Kansas City, MO · FOX</div>
+        <div class="qp-time">⏰ 9:00 PM ET</div>
+      </div>
+      <div class="qp-body">
+        <div style="margin-bottom:10px">
+          <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Match win probability · internal Elo model</div>
+          <div class="bar-outer"><div class="bar-a" style="width:68%"></div><div class="bar-d" style="width:12%"></div><div class="bar-b" style="width:20%"></div></div>
+          <div class="bar-legend"><span>Argentina 68%</span><span>Draw 12%</span><span>Switzerland 20%</span></div>
+          <div class="bar-src">Source: internal Elo · confirm vs Opta/ESPN pre-match</div>
+        </div>
+        <div class="news-section">
+          <div class="news-title">🇦🇷 Argentina</div>
+          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 11</div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>Messi</strong> — record 21st WC goal vs Egypt. Penalty miss 21' but authored the comeback. Fit.<span class="nb nb-fit">FIT</span></div></div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>Cristian Romero</strong> — scored comeback goal ~86'. Available after earlier knee worry.</div></div>
+          <div class="ni"><div class="nd nd-a"></div><div class="nt"><strong>Medina</strong> — calf doubt carried from earlier in tournament. Still TBD.<span class="nb nb-doubt">DOUBT</span></div></div>
+          <div class="ni"><div class="nd nd-b"></div><div class="nt">Argentina's penalty shootout record is a concern if it goes to pens — Messi missed vs Egypt. Swiss are solid in shoot-outs (beat Colombia 4-3).</div></div>
+        </div>
+        <div class="news-section">
+          <div class="news-title">🇨🇭 Switzerland</div>
+          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 11</div>
+          <div class="ni"><div class="nd nd-g"></div><div class="nt"><strong>Ruben Vargas</strong> — scored decisive penalty vs Colombia. Key creative outlet.<span class="nb nb-fit">FIT</span></div></div>
+          <div class="ni"><div class="nd nd-a"></div><div class="nt"><strong>Manzambi, Sow</strong> — fitness doubts carried over from pre-Colombia. Status for QF TBD.<span class="nb nb-tbd">TBD</span></div></div>
+          <div class="ni"><div class="nd nd-b"></div><td class="nt">Switzerland are battle-hardened from 120min + pens vs Colombia. Penalty shootout experience is now an asset.</div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ====================================================== METHODOLOGY TAB -->
-<div id="tab-methodology" class="tab-content">
-  <div class="ms">
-    <h3>🔎 Data Integrity — Eval Criteria</h3>
-    <p><strong>Bracket chain:</strong> Verified against FIFA Annex C (references/bracket-chain.md). Non-sequential pairings. Never inferred from match number sequence.</p>
-    <p><strong>Match results:</strong> Cross-checked from ESPN match reports + FIFA.com match reports. Scorers + times verified.</p>
-    <p><strong>Kickoff times:</strong> Sourced from CBS Sports / FOX Sports official schedules. In ET, converted from venue local time.</p>
-    <p><strong>Odds:</strong> defirate.com aggregated Polymarket/Kalshi Jul 7. Eliminated teams show 0% regardless of unsettled market positions.</p>
-    <p><strong>Team news:</strong> The National (Saibari), ESPN (Argentina injuries), Al Jazeera (Switzerland fitness), FOX Sports Buzz (Salah).</p>
-    <p><strong>Anti-hallucination:</strong> Each team appears max once in today's schedule. Pairings verified from official fixture list only.</p>
+<!-- ============================= INSIGHTS TAB ============================= -->
+<div id="tab-insights" class="tab-content">
+
+  <div class="section-title">R16 Day 4 — July 7, 2026</div>
+  <div class="ig">
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M95 · Jul 7 · <a href="https://www.fifa.com/en/match-centre/match/17/285023/289288/400021528" target="_blank" style="color:var(--txt2)">FIFA ↗</a></span><span class="ic-score win">3–2</span></div>
+      <div class="ic-body">
+        <div class="ic-teams">🇦🇷 Argentina 3–2 Egypt 🇪🇬</div>
+        <div class="ic-scorers">🇪🇬 Ibrahim 15' (Attia) · Zico 67' (H.Hassan) — Egypt 2-0 at 67'<br>🇦🇷 Messi 83' (Montiel) · Romero ~86' · Fernández 90+2' (Lautaro) — three in 23 mins<br>Messi pen miss 21' · Messi's record 21st WC goal in comeback</div>
+        <div class="ic-impact"><span class="imp imp-shock">COMEBACK</span> Argentina were 2-0 down and seemingly heading out. Egypt, Salah fit, delivered the heroics — but Messi had the last word. The market saw it: Argentina ▼9.5pp to 8.6%. Messi's pen miss and defensive vulnerabilities are now priced in. QF vs Switzerland at Arrowhead is more palatable than it looked before this match.</div>
+      </div>
+    </div>
+    <div class="ic">
+      <div class="ic-hdr"><span class="ic-match">M96 · Jul 7 · <a href="https://www.fifa.com/en/match-centre/match/17/285023/289288/400021535" target="_blank" style="color:var(--txt2)">FIFA ↗</a></span><span class="ic-score pens">0–0 aet · 4-3P</span></div>
+      <div class="ic-body">
+        <div class="ic-teams">🇨🇭 Switzerland 4-3 pens 🇨🇴 Colombia</div>
+        <div class="ic-scorers">0-0 after 120 minutes · Vargas scored decisive 4th penalty for Switzerland · Switzerland win 4-3 in shoot-out</div>
+        <div class="ic-impact"><span class="imp imp-neutral">GRINDING</span> Switzerland ground it out. Vargas was the hero. Colombia couldn't convert in normal time despite Cordoba's absence freeing space. Switzerland haven't been in a WC QF since 1954 when they were hosts. Now they face Messi's still-dangerous Argentina at Arrowhead. Penalty experience is now an asset — the Swiss know how to win this way.</div>
+      </div>
+    </div>
   </div>
+
+  <!-- BIG MOVERS -->
+  <div class="section-title" style="margin-top:18px">📊 Market Repricing — v21 → v22 (Jul 7 → Jul 8)</div>
+  <div class="big-mover-box">
+    <div class="bm-title">🚨 Moves ≥2pp — biggest single-day repricing of the tournament</div>
+    <div class="bm-grid">
+      <div class="bm"><div class="bm-team">🇫🇷 France</div><div class="bm-delta dn">▼16.2pp</div><div class="bm-from">32.9% → 16.7%</div><div class="bm-ctx">Solo favorite to co-leader. Market normalized across 8 QF teams as eliminated contracts (Brazil, Portugal etc.) begin settling. France's hard path (Morocco QF) also weighed.</div></div>
+      <div class="bm"><div class="bm-team">🇦🇷 Argentina</div><div class="bm-delta dn">▼9.5pp</div><div class="bm-from">18.1% → 8.6%</div><div class="bm-ctx">Near-exit vs Egypt spooked the market. Down 2-0 at 67'. Messi pen miss. Defensive vulnerabilities now priced. QF vs Switzerland is still winnable but confidence hit.</div></div>
+      <div class="bm"><div class="bm-team">🇪🇸 Spain</div><div class="bm-delta up">▲3.8pp</div><div class="bm-from">13.2% → 17.0%</div><div class="bm-ctx">Now co-leads with France. Merino heroics cemented Spain as depth-driven, resilient team. Belgium QF seen as manageable. Onana's ACL helped Spain's path perception.</div></div>
+      <div class="bm"><div class="bm-team">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div><div class="bm-delta dn">▼3.2pp</div><div class="bm-from">14.4% → 11.2%</div><div class="bm-ctx">Modest drop. Henderson wrist surgery + Quansah suspension weigh. Norway QF still favourable but disrupted squad depth is now a real concern.</div></div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:16px">📊 Full Odds Table — v21 vs v22</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+    <table class="ch-table">
+      <thead><tr><th>Team</th><th>v22 (Jul 8)</th><th>v21 (Jul 7)</th><th>Change</th><th>PDI</th><th>Next</th></tr></thead>
+      <tbody>
+        <tr><td>🇪🇸 Spain</td><td>17.0%</td><td>13.2%</td><td class="chg-up">▲3.8pp</td><td>6.4 🟡</td><td>QF M98 Jul 10 vs Belgium</td></tr>
+        <tr><td>🇫🇷 France</td><td>16.7%</td><td>32.9%</td><td class="chg-big">▼16.2pp 🚨</td><td>5.6 🟡</td><td>QF M97 Jul 9 vs Morocco</td></tr>
+        <tr><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td>11.2%</td><td>14.4%</td><td class="chg-dn">▼3.2pp</td><td>5.4 🟡</td><td>QF M99 Jul 11 vs Norway</td></tr>
+        <tr><td>🇦🇷 Argentina</td><td>8.6%</td><td>18.1%</td><td class="chg-big">▼9.5pp 🚨</td><td>4.4 🟢</td><td>QF M100 Jul 11 vs Switzerland</td></tr>
+        <tr><td>🇳🇴 Norway</td><td>2.9%</td><td>4.7%</td><td class="chg-dn">▼1.8pp</td><td>7.3 🔴</td><td>QF M99 Jul 11 vs England</td></tr>
+        <tr><td>🇧🇪 Belgium</td><td>1.8%</td><td>1.4%</td><td class="chg-up">▲0.4pp</td><td>5.5 🟡</td><td>QF M98 Jul 10 vs Spain</td></tr>
+        <tr><td>🇲🇦 Morocco</td><td>1.5%</td><td>2.6%</td><td class="chg-dn">▼1.1pp</td><td>5.8 🟡</td><td>QF M97 Jul 9 vs France ⚠️ Saibari</td></tr>
+        <tr><td>🇨🇭 Switzerland</td><td>1.1%</td><td>0.9%</td><td class="chg-up">▲0.2pp</td><td>4.1 🟢</td><td>QF M100 Jul 11 vs Argentina</td></tr>
+        <tr><td>🇵🇹 Portugal</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">—</td><td>—</td><td>Out R16 M93 · Spain 0-1</td></tr>
+        <tr><td>🇺🇸 USA</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">—</td><td>—</td><td>Out R16 M94 · Belgium 1-4</td></tr>
+        <tr><td>🇧🇷 Brazil</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">—</td><td>—</td><td>Out R16 M91 · Norway 1-2</td></tr>
+        <tr><td>🇲🇽 Mexico</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">—</td><td>—</td><td>Out R16 M92 · England 2-3</td></tr>
+        <tr><td>🇪🇬 Egypt</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">—</td><td class="chg-elim">—</td><td>—</td><td>Out R16 M95 · Argentina 2-3</td></tr>
+        <tr><td>🇨🇴 Colombia</td><td class="chg-elim">0% ELIM</td><td class="chg-elim">3.0%</td><td class="chg-elim">▼3.0</td><td>—</td><td>Out R16 M96 · Switzerland pens</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============================= METHODOLOGY TAB ============================= -->
+<div id="tab-methodology" class="tab-content">
+
+  <div class="ms">
+    <h3>Source Tiers</h3>
+    <p><span class="tier-badge t1">Tier 1</span><strong>Authoritative (must match):</strong> Bracket chain — FIFA.com Annex C PDF. Final scores/scorers — FIFA match centre + ESPN match report. Kickoff times — FIFA official schedule → ET conversion. Discipline — FIFA match report / disciplinary summary.</p>
+    <p><span class="tier-badge t2">Tier 2</span><strong>Markets (timestamp required):</strong> Tournament win % — Polymarket direct + Kalshi cross-check. Match win % — Kalshi match contracts / Opta via ESPN if licensed. Defirate.com — convenience cross-check only, never sole source.</p>
+    <p><span class="tier-badge t3">Tier 3</span><strong>Team news (flag uncertainty):</strong> FIFA pre-match squad lists (gold standard, published T-1h). ESPN / Sports Mole / national FA — mark as DOUBT until lineup confirmed. The National, Al Jazeera, FOX Buzz — context only, not for scores or odds.</p>
+    <p><span class="tier-badge t4">Tier 4</span><strong>Analytics:</strong> xG/match quality — Opta via broadcaster. Elo for PDI — FIFA ranking blend + internal model. All labeled in-UI with source.</p>
+    <p style="margin-top:6px;color:#fbbf24;font-size:11px">Pre-match team news = "PROVISIONAL — confirm at FIFA lineup T-1h." Editorial content (records, career commentary) excluded from integrity pass.</p>
+  </div>
+
   <div class="ms">
     <h3>Path Difficulty Index (PDI)</h3>
     <p><code>PDI = (avg_Elo_of_projected_opponents_R32→SF − 1600) / 35</code> · Clamped [1.0, 10.0]</p>
     <p><span style="color:#4ade80">≤4.9 green</span> · <span style="color:#fbbf24">5.0–6.9 amber</span> · <span style="color:#f87171">≥7.0 red</span></p>
-    <p>Spain's PDI recalculated to 6.4 amber after Portugal eliminated (QF vs Belgium replaces Portugal as projected path). Norway remains 7.3 RED — hardest path in the tournament.</p>
+    <p>Norway remains 7.3 RED — hardest remaining path. Argentina 4.4 GREEN and Switzerland 4.1 GREEN have the most favorable SF2 paths. Spain's PDI 6.4 reflects Belgium QF + likely France/Morocco SF.</p>
   </div>
+
   <div class="ms">
-    <h3>Bracket Chain — Verified FIFA Annex C</h3>
+    <h3>Bracket Chain — FIFA Annex C Verified</h3>
     <table class="ct">
-      <thead><tr><th>R16</th><th>Fed by R32</th><th>→ QF</th><th>→ SF</th><th>Status</th></tr></thead>
+      <thead><tr><th>R16</th><th>Fed by R32</th><th>→ QF</th><th>→ SF</th><th>Winner</th></tr></thead>
       <tbody>
         <tr><td>M89</td><td>W(M74) vs W(M77)</td><td>M97</td><td>SF1 M101</td><td>✅ France</td></tr>
         <tr><td>M90</td><td>W(M73) vs W(M75)</td><td>M97</td><td>SF1 M101</td><td>✅ Morocco</td></tr>
@@ -833,15 +709,25 @@
         <tr><td>M94</td><td>W(M81) vs W(M82)</td><td>M98</td><td>SF1 M101</td><td>✅ Belgium</td></tr>
         <tr><td>M91</td><td>W(M76) vs W(M78)</td><td>M99</td><td>SF2 M102</td><td>✅ Norway</td></tr>
         <tr><td>M92</td><td>W(M79) vs W(M80)</td><td>M99</td><td>SF2 M102</td><td>✅ England</td></tr>
-        <tr><td>M95</td><td>W(M86) vs W(M88)</td><td>M100</td><td>SF2 M102</td><td>🔴 TODAY</td></tr>
-        <tr><td>M96</td><td>W(M85) vs W(M87)</td><td>M100</td><td>SF2 M102</td><td>🔴 TODAY</td></tr>
+        <tr><td>M95</td><td>W(M86) vs W(M88)</td><td>M100</td><td>SF2 M102</td><td>✅ Argentina</td></tr>
+        <tr><td>M96</td><td>W(M85) vs W(M87)</td><td>M100</td><td>SF2 M102</td><td>✅ Switzerland</td></tr>
       </tbody>
     </table>
   </div>
+
   <div class="ms">
-    <h3>Sources</h3>
-    <p>Odds: defirate.com (Polymarket/Kalshi aggregate, Jul 7). Match results: ESPN, FIFA.com. Kickoff times: CBS Sports, FOX Sports. Team news: The National (Saibari), ESPN/Sports Mole (Argentina/Switzerland), Al Jazeera (Argentina vs Egypt preview), FOX Sports Buzz (Salah). R32 results available in prior version insights.</p>
-    <p style="margin-top:6px">v16 Jun 30 · v17 Jul 1 · v18 Jul 2 · v19 Jul 3 · v20 Jul 6 · v21 Jul 7 — by HeavyMetalProduct. Full GT Analysis tab permanently removed.</p>
+    <h3>Sources Index</h3>
+    <p><a href="https://polymarket.com/event/world-cup-winner" target="_blank" style="color:var(--accent2)">Polymarket — WC Winner market ↗</a> · Tournament win % primary source · fetched Jul 8, 2026</p>
+    <p><a href="https://kalshi.com/markets/kxmenworldcup/mens-world-cup-winner/kxmenworldcup-26" target="_blank" style="color:var(--accent2)">Kalshi — Men's World Cup Winner ↗</a> · Cross-check</p>
+    <p><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" style="color:var(--accent2)">FIFA.com — Official WC 2026 match centre ↗</a> · Match results + bracket chain primary</p>
+    <p><a href="https://www.espn.com/soccer/league/_/name/FIFA.WORLD" target="_blank" style="color:var(--accent2)">ESPN — WC 2026 scores ↗</a> · Results cross-check</p>
+    <p><a href="https://www.moroccoworldnews.com/2026/07/327550/saibaris-quarterfinal-participation-hinges-on-mri-results/" target="_blank" style="color:var(--accent2)">Morocco World News — Saibari MRI ↗</a> · Jul 7, 2026</p>
+    <p><a href="https://www.si.com/soccer/england-huge-injury-boost-world-cup-quarterfinal-norway" target="_blank" style="color:var(--accent2)">SI — England injury news (James) ↗</a></p>
+    <p><a href="https://www.skysports.com/football/news/12016/13560940/world-cup-2026-englands-jordan-henderson-out-of-tournament" target="_blank" style="color:var(--accent2)">Sky Sports — Henderson wrist surgery ↗</a></p>
+    <p><a href="https://www.espn.com/soccer/story/_/id/49200729/spain-nico-williams-injury-yeremy-pino-2026-world-cup" target="_blank" style="color:var(--accent2)">ESPN — Spain Nico Williams injury ↗</a></p>
+    <p style="margin-top:8px;font-size:11px;color:var(--txt2)">v16 Jun 30 · v17 Jul 1 · v18 Jul 2 · v19 Jul 3 · v20 Jul 6 · v21 Jul 7 · v22 Jul 8 — by HeavyMetalProduct</p>
+    <button class="dl-btn" onclick="downloadJSON()">⬇ Download Fixtures JSON</button>
+    <button class="dl-btn" onclick="downloadCSV()" style="margin-left:6px">⬇ Download Fixtures CSV</button>
   </div>
 </div>
 
@@ -851,6 +737,33 @@ function showTab(id, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
   el.classList.add('active');
+}
+
+const fixtures = [
+  {match:"M89",round:"R16",date:"2026-07-04",teamA:"France",teamB:"Paraguay",scoreA:1,scoreB:0,scorers:"Mbappe 69p",venue:"TBD",status:"completed"},
+  {match:"M90",round:"R16",date:"2026-07-04",teamA:"Morocco",teamB:"Canada",scoreA:3,scoreB:0,scorers:"Ounahi x2, Rahimi 90+",venue:"TBD",status:"completed"},
+  {match:"M91",round:"R16",date:"2026-07-05",teamA:"Norway",teamB:"Brazil",scoreA:2,scoreB:1,scorers:"Haaland x2 (NOR)",venue:"TBD",status:"completed"},
+  {match:"M92",round:"R16",date:"2026-07-05",teamA:"England",teamB:"Mexico",scoreA:3,scoreB:2,scorers:"Bellingham x2, Kane pen (ENG)",venue:"TBD",status:"completed"},
+  {match:"M93",round:"R16",date:"2026-07-06",teamA:"Spain",teamB:"Portugal",scoreA:1,scoreB:0,scorers:"Merino 90+1",venue:"TBD",status:"completed"},
+  {match:"M94",round:"R16",date:"2026-07-06",teamA:"Belgium",teamB:"USA",scoreA:4,scoreB:1,scorers:"De Ketelaere x2, Tillman, Vanaken, Lukaku",venue:"TBD",status:"completed"},
+  {match:"M95",round:"R16",date:"2026-07-07",teamA:"Argentina",teamB:"Egypt",scoreA:3,scoreB:2,scorers:"Ibrahim 15, Zico 67 (EGY); Messi 83, Romero ~86, Fernandez 90+2 (ARG)",venue:"Atlanta",status:"completed"},
+  {match:"M96",round:"R16",date:"2026-07-07",teamA:"Switzerland",teamB:"Colombia",scoreA:0,scoreB:0,extraTime:"4-3 pens",scorers:"0-0 aet; Vargas decisive pen",venue:"Vancouver",status:"completed"},
+  {match:"M97",round:"QF",date:"2026-07-09",teamA:"France",teamB:"Morocco",scoreA:null,scoreB:null,venue:"Foxborough",kickoff_et:"4:00 PM ET",status:"upcoming"},
+  {match:"M98",round:"QF",date:"2026-07-10",teamA:"Spain",teamB:"Belgium",scoreA:null,scoreB:null,venue:"SoFi Stadium LA",kickoff_et:"3:00 PM ET",status:"upcoming"},
+  {match:"M99",round:"QF",date:"2026-07-11",teamA:"Norway",teamB:"England",scoreA:null,scoreB:null,venue:"Miami",kickoff_et:"5:00 PM ET",status:"upcoming"},
+  {match:"M100",round:"QF",date:"2026-07-11",teamA:"Argentina",teamB:"Switzerland",scoreA:null,scoreB:null,venue:"Kansas City",kickoff_et:"9:00 PM ET",status:"upcoming"}
+];
+
+function downloadJSON() {
+  const blob = new Blob([JSON.stringify({generated:"2026-07-08",version:"v22",source:"polymarket.com + fifa.com",fixtures}, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'wc2026_fixtures_v22.json'; a.click();
+}
+
+function downloadCSV() {
+  const rows = [['Match','Round','Date','Team A','Team B','Score A','Score B','Extra','Scorers','Venue','Kickoff ET','Status']];
+  fixtures.forEach(f => rows.push([f.match,f.round,f.date,f.teamA,f.teamB,f.scoreA??'',f.scoreB??'',f.extraTime??'',f.scorers??'',f.venue,f.kickoff_et??'',f.status]));
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'wc2026_fixtures_v22.csv'; a.click();
 }
 </script>
 </body>
