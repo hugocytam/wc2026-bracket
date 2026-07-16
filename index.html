@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WC 2026 — Game Theory Bracket v27</title>
+<title>WC 2026 — Game Theory Bracket v29</title>
 <style>
   :root {
     --bg:#0f0f13;--card:#1a1a24;--card2:#22222e;--border:#2e2e3e;
@@ -46,18 +46,15 @@
 
   .odds-panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
   .panel-title{font-size:10px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
-  .odds-warn{font-size:10px;color:#fbbf24;background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2);border-radius:6px;padding:5px 8px;margin-bottom:8px;line-height:1.4;}
   .ot{width:100%;border-collapse:collapse;font-size:11px;}
   .ot th{font-size:10px;color:var(--txt2);padding:3px 5px;text-align:left;border-bottom:1px solid var(--border);}
   .ot td{padding:4px 5px;border-bottom:1px solid rgba(46,46,62,.4);}
-  .ot tr.sf-row td{background:rgba(124,58,237,.06);}
-  .ot tr.elim-row td{opacity:.4;}
+  .ot tr.final-row td{background:rgba(168,85,247,.08);}
+  .ot tr.elim-row td{opacity:.35;}
   .chg-up{color:#4ade80;font-weight:700;font-size:10px;}
   .chg-dn{color:#f87171;font-weight:700;font-size:10px;}
 
   .h2h-panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
-  .h2h-half{margin-bottom:12px;}
-  .h2h-half:last-child{margin-bottom:0;}
   .h2h-title{font-size:12px;font-weight:700;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;}
   .h2h-sub{font-size:10px;color:var(--txt2);font-weight:400;}
   .h2h-badges{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px;}
@@ -70,7 +67,6 @@
   .h2h-table th{padding:3px 5px;color:var(--txt2);border-bottom:1px solid var(--border);text-align:left;}
   .h2h-table td{padding:3px 5px;border-bottom:1px solid rgba(46,46,62,.3);}
   .h2h-table tr.wc-row{background:rgba(124,58,237,.05);}
-  .h2h-divider{height:1px;background:var(--border);margin:10px 0;}
   .h2h-note{font-size:10px;color:var(--txt2);margin-top:4px;line-height:1.4;}
 
   /* ── PATH CARDS ── */
@@ -79,32 +75,33 @@
   @media(max-width:600px){.path-grid{grid-template-columns:1fr;}}
 
   .path-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-  .path-card.sf1-a{border-color:#1d4ed8;}
-  .path-card.sf1-b{border-color:#7c3aed;}
-  .path-card.sf2-a{border-color:#d97706;}
-  .path-card.sf2-b{border-color:#dc2626;}
+  .path-card.finalist-esp{border:2px solid #a855f7;box-shadow:0 0 12px rgba(168,85,247,.2);}
+  .path-card.finalist-arg{border:2px solid #d97706;box-shadow:0 0 12px rgba(217,119,6,.2);}
+  .path-card.eliminated{opacity:.55;border-color:#2a2a3a;}
 
   .path-hdr{padding:8px 11px;display:flex;align-items:center;gap:8px;}
-  .path-hdr.sf1-a{background:rgba(29,78,216,.15);}
-  .path-hdr.sf1-b{background:rgba(124,58,237,.15);}
-  .path-hdr.sf2-a{background:rgba(217,119,6,.15);}
-  .path-hdr.sf2-b{background:rgba(220,38,38,.12);}
+  .path-hdr.c-esp{background:rgba(168,85,247,.18);}
+  .path-hdr.c-fra{background:rgba(96,96,120,.15);}
+  .path-hdr.c-eng{background:rgba(96,96,120,.15);}
+  .path-hdr.c-arg{background:rgba(217,119,6,.18);}
   .path-flag{font-size:22px;}
   .path-team{font-size:13px;font-weight:800;}
-  .path-pct{font-size:10px;color:var(--accent2);font-weight:700;margin-top:1px;}
+  .path-pct{font-size:10px;font-weight:700;margin-top:1px;}
+  .path-pct.finalist{color:#c084fc;}
+  .path-pct.elim{color:#5a5a7a;}
 
   .path-body{padding:8px 11px 10px;}
 
-  /* phase dividers */
   .phase-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--txt2);margin:6px 0 4px;padding:2px 6px;background:rgba(46,46,62,.5);border-radius:4px;display:inline-block;}
   .phase-lbl.ko{color:var(--accent2);background:rgba(124,58,237,.1);}
 
-  /* fixture rows */
   .fx{display:flex;gap:0;margin-bottom:5px;font-size:10px;line-height:1.4;}
   .fx-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;margin-right:6px;}
   .fx-dot-gs{background:#3a3a5a;}
   .fx-dot-ko{background:var(--accent2);}
   .fx-dot-sf{background:#fbbf24;}
+  .fx-dot-final{background:#a855f7;}
+  .fx-dot-elim{background:#5a1a1a;}
   .fx-col{flex:1;min-width:0;}
   .fx-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
   .fx-badge{font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;white-space:nowrap;}
@@ -112,29 +109,32 @@
   .fb-r16{background:rgba(22,163,74,.2);color:#4ade80;}
   .fb-qf{background:rgba(124,58,237,.2);color:#c084fc;}
   .fb-sf{background:rgba(168,85,247,.35);color:#c084fc;border:1px solid rgba(168,85,247,.5);}
-  .fb-today{background:rgba(220,38,38,.3);color:#f87171;border:1px solid rgba(220,38,38,.4);}
-  .fb-tmrw{background:rgba(217,119,6,.3);color:#fbbf24;border:1px solid rgba(217,119,6,.4);}
+  .fb-final{background:rgba(168,85,247,.4);color:#e9d5ff;border:1px solid rgba(168,85,247,.7);font-weight:900;}
+  .fb-elim{background:rgba(100,20,20,.4);color:#f87171;border:1px solid rgba(200,50,50,.3);}
   .fx-score{font-size:11px;font-weight:800;color:#4ade80;white-space:nowrap;}
   .fx-score.draw{color:var(--txt2);}
   .fx-score.pend{color:#fbbf24;}
+  .fx-score.loss{color:#f87171;}
   .fx-opp{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .fx-scorers{font-size:10px;color:var(--txt2);margin-top:1px;}
   .fx-alert{font-size:10px;color:#f87171;margin-top:1px;}
 
-  /* stats footer */
   .path-stats{margin-top:8px;padding-top:7px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px;font-size:10px;}
   .stat-pill{background:var(--card2);border:1px solid var(--border);border-radius:5px;padding:2px 7px;}
   .stat-pill strong{color:var(--txt);}
   .stat-pill span{color:var(--txt2);}
 
-  /* SVG bracket */
+  .finalist-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:4px;}
+  .fb-finalist-esp{background:rgba(168,85,247,.3);color:#e9d5ff;border:1px solid rgba(168,85,247,.6);}
+  .fb-finalist-arg{background:rgba(217,119,6,.3);color:#fde68a;border:1px solid rgba(217,119,6,.6);}
+  .fb-elim-badge{background:rgba(100,20,20,.3);color:#fca5a5;border:1px solid rgba(200,50,50,.3);font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-block;margin-top:4px;}
+
   .bracket-svg-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;overflow-x:auto;margin-bottom:14px;}
 
-  /* QF mini */
   .qf-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
   @media(max-width:900px){.qf-grid{grid-template-columns:1fr 1fr;}}
   .qf-mini{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-  .qf-mini.c-sf1{border-color:#1d4ed8;}
+  .qf-mini.c-sf1{border-color:#7c3aed;}
   .qf-mini.c-sf2{border-color:#d97706;}
   .qf-hdr{padding:4px 9px;background:var(--card2);font-size:9px;color:var(--txt2);display:flex;justify-content:space-between;}
   .qf-body{padding:7px 9px;}
@@ -142,7 +142,6 @@
   .qf-score{font-size:11px;font-weight:700;color:#4ade80;margin:2px 0;}
   .qf-notes{font-size:10px;color:var(--txt2);line-height:1.4;}
 
-  /* log table */
   .log-table{width:100%;border-collapse:collapse;font-size:11px;}
   .log-table th{padding:6px 8px;text-align:left;font-size:10px;color:var(--txt2);border-bottom:1px solid var(--border);text-transform:uppercase;}
   .log-table td{padding:5px 8px;border-bottom:1px solid rgba(46,46,62,.5);}
@@ -152,19 +151,16 @@
   .log-table tr.qf-row td{background:rgba(22,163,74,.03);}
   .log-table tr.sf-row td{background:rgba(124,58,237,.05);}
   .log-table tr.sf2-row td{background:rgba(217,119,6,.05);}
+  .log-table tr.final-row td{background:rgba(168,85,247,.06);}
 
-  /* TODAY tab */
-  .sf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  @media(max-width:800px){.sf-grid{grid-template-columns:1fr;}}
+  /* FINAL PREVIEW tab */
+  .final-banner{background:linear-gradient(135deg,rgba(168,85,247,.18),rgba(217,119,6,.12));border:2px solid rgba(168,85,247,.5);border-radius:12px;padding:14px 18px;margin-bottom:14px;text-align:center;}
   .sfc{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-  .sfc.today{border-color:var(--accent);}
-  .sfc.tmrw{border-color:#d97706;}
+  .sfc.final-card{border:2px solid rgba(168,85,247,.5);box-shadow:0 0 20px rgba(168,85,247,.1);}
   .sfc-hdr{padding:12px 16px;}
-  .sfc-hdr.today-bg{background:linear-gradient(135deg,#2d1657,#1a1a24);}
-  .sfc-hdr.tmrw-bg{background:linear-gradient(135deg,#3d2500,#1a1a24);}
+  .sfc-hdr.final-bg{background:linear-gradient(135deg,#2d1657,#1a1a24);}
   .sfc-id{font-size:10px;font-weight:700;text-transform:uppercase;}
-  .sfc-id.c1{color:var(--accent2);}
-  .sfc-id.c2{color:#fbbf24;}
+  .sfc-id.c-final{color:#c084fc;}
   .sfc-title{font-size:17px;font-weight:800;margin-top:4px;}
   .sfc-meta{font-size:11px;color:var(--txt2);margin-top:3px;}
   .sfc-time{font-size:13px;font-weight:700;color:#fbbf24;margin-top:2px;}
@@ -185,14 +181,17 @@
   .nb-ok{background:rgba(22,163,74,.25);color:#4ade80;}
   .nb-doubt{background:rgba(217,119,6,.25);color:#fbbf24;}
   .nb-out{background:rgba(220,38,38,.25);color:#f87171;}
-  .nb-susp{background:rgba(220,38,38,.35);color:#f87171;border:1px solid rgba(220,38,38,.5);}
   .nb-fit{background:rgba(22,163,74,.2);color:#4ade80;}
-  .nb-gtd{background:rgba(217,119,6,.3);color:#fbbf24;border:1px solid rgba(217,119,6,.4);}
   .gt-box{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);border-radius:7px;padding:8px 10px;margin-top:10px;}
   .gt-box-title{font-size:10px;font-weight:700;color:#c084fc;margin-bottom:4px;}
   .prov-note{font-size:9px;color:#fbbf24;margin-bottom:5px;}
 
-  /* insights */
+  .sf-result{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+  .sf-result-hdr{padding:8px 13px;background:var(--card2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+  .sf-result-teams{font-size:15px;font-weight:800;}
+  .sf-result-score{font-size:18px;font-weight:900;color:#4ade80;}
+  .sf-result-body{padding:9px 13px;}
+
   .ig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;}
   .ic{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
   .ic-hdr{padding:7px 11px;background:var(--card2);display:flex;justify-content:space-between;align-items:center;}
@@ -200,6 +199,7 @@
   .ic-score{font-size:14px;font-weight:800;}
   .ic-score.win{color:#4ade80;}
   .ic-score.aet{color:#fbbf24;}
+  .ic-score.drama{color:#f87171;}
   .ic-body{padding:9px 11px;}
   .ic-teams{font-size:13px;font-weight:700;margin-bottom:4px;}
   .ic-scorers{font-size:11px;color:var(--txt2);margin-bottom:6px;line-height:1.5;}
@@ -207,8 +207,8 @@
   .imp{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;text-transform:uppercase;margin-right:4px;}
   .imp-pos{background:rgba(22,163,74,.2);color:#4ade80;}
   .imp-shock{background:rgba(168,85,247,.2);color:#c084fc;}
+  .imp-drama{background:rgba(220,38,38,.2);color:#f87171;}
 
-  /* methodology */
   .ms{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 16px;margin-bottom:10px;}
   .ms h3{font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:6px;}
   .ms p{font-size:12px;color:var(--txt2);line-height:1.6;margin-bottom:4px;}
@@ -227,18 +227,18 @@
 <div class="header">
   <div>
     <h1>⚽ WC 2026 — <span>Game Theory Bracket</span></h1>
-    <div class="header-meta">by HeavyMetalProduct · v27 · SF1 Day · Jul 14, 2026</div>
+    <div class="header-meta">by HeavyMetalProduct · v29 · Final Preview · Jul 16, 2026</div>
   </div>
   <div>
-    <div class="header-date">July 14, 2026</div>
-    <div class="header-sub">🔴 SF1 France vs Spain TODAY 3pm ET · SF2 England vs Argentina Jul 15 · v27 — full tournament paths</div>
+    <div class="header-date">July 16, 2026</div>
+    <div class="header-sub">✅ SF2: Argentina 2–1 England · 🥉 3rd Place: France vs England Jul 18 5pm ET Miami · 🏆 FINAL: Spain vs Argentina Jul 19 · MetLife NJ · v29</div>
   </div>
 </div>
 
 <div class="tabs">
   <div class="tab active" onclick="showTab('bracket',this)">🏆 Bracket</div>
-  <div class="tab" onclick="showTab('today',this)">📅 Today · SF1 · Jul 14</div>
-  <div class="tab" onclick="showTab('insights',this)">🔍 Insights · QF Day 2–3</div>
+  <div class="tab" onclick="showTab('today',this)">🏆 Final Preview · Jul 19</div>
+  <div class="tab" onclick="showTab('insights',this)">🔍 Insights · SF2 Day · Jul 15</div>
   <div class="tab" onclick="showTab('methodology',this)">📐 Methodology & Sources</div>
 </div>
 
@@ -248,96 +248,77 @@
   <!-- EVAL -->
   <div class="eval-banner">
     <div class="eval-hdr">
-      <span>🔎 Data Integrity — v27 · Jul 14, 2026 · Pre-SF1 3pm ET</span>
-      <span style="font-size:10px;color:var(--txt2)">Last checked: Jul 14, 2026</span>
+      <span>🔎 Data Integrity — v29 · Jul 16, 2026 · Final Confirmed</span>
+      <span style="font-size:10px;color:var(--txt2)">Last checked: Jul 16, 2026</span>
     </div>
     <div class="eval-grid">
-      <div class="ec ec-ok">✅ All 4 QFs confirmed — M97 M98 M99 M100</div>
-      <div class="ec ec-ok">✅ All 4 SF teams' group stage records confirmed — ESPN · FIFA · Sports Mole</div>
-      <div class="ec ec-ok">✅ <a href="https://www.fifa.com/en/match-centre/match/17/285023/289290/400021541" target="_blank" style="color:#4ade80;text-decoration:none">SF1 M101 France vs Spain — TODAY 3pm ET · Dallas ↗</a></div>
-      <div class="ec ec-ok">✅ <a href="https://www.fifa.com/en/match-centre/match/17/285023/289290/400021540" target="_blank" style="color:#4ade80;text-decoration:none">SF2 M102 England vs Argentina — Jul 15 3pm ET · Atlanta ↗</a></div>
-      <div class="ec ec-ok">✅ Mbappé ankle — cleared · expected to start SF1</div>
-      <div class="ec ec-ok">✅ Quansah — 2-match ban confirmed · Konsa CB · O'Reilly LB for SF2</div>
-      <div class="ec ec-warn">⚠️ <strong>Tchouameni (France) — game-time decision, thigh</strong> · Rabiot confirmed pivot partner</div>
-      <div class="ec ec-warn">⚠️ Nico Williams (Spain) — not in predicted XI · Baena starts LW</div>
-      <div class="ec ec-warn">⚠️ ODDS: Polymarket page cache stale · search-sourced (Jul 12–13): France ~39%, England ~22%, Spain ~20%, Argentina ~19%</div>
-      <div class="ec ec-warn">⚠️ SF1 win probs: Opta — France 42.1% · Draw 26.1% · Spain 31.8% (regulation time)</div>
-      <div class="ec ec-warn">⚠️ All team news PROVISIONAL until FIFA lineup T-1h (SF1: 2pm ET today · SF2: Jul 15 2pm ET)</div>
+      <div class="ec ec-ok">✅ SF1 CONFIRMED: Spain 2–0 France · Oyarzabal 22'p · Porro 58' · Jul 14 Dallas</div>
+      <div class="ec ec-ok">✅ SF2 CONFIRMED: Argentina 2–1 England · Gordon 55' (ENG) · Fernández 85' · L.Martínez 90+2' · Jul 15 Atlanta</div>
+      <div class="ec ec-ok">✅ FINAL CONFIRMED: Spain vs Argentina · <a href="https://www.fifa.com/en/match-centre/match/17/285023/289292/400021543" target="_blank" style="color:#4ade80">M104 · Jul 19 · MetLife NJ · FIFA ↗</a></div>
+      <div class="ec ec-ok">✅ BOTH FINALISTS CONFIRMED — Spain (unbeaten W6 D1) · Argentina (W7 D0 comeback kings)</div>
+      <div class="ec ec-ok">✅ Messi ×2 assists vs England · 10 KO assists (record vs last 60 years) · 8 goals in Final race</div>
+      <div class="ec ec-ok">✅ Golden Boot: Messi &amp; Mbappé tied 8 goals — Messi leads on assists (4 vs 3). Mbappé ELIMINATED.</div>
+      <div class="ec ec-warn">⚠️ Lamine Yamal — injury scare in SF training · Sports Mole: "Yamal status TBD" · expected to start · confirm T-1h Jul 19</div>
+      <div class="ec ec-warn">⚠️ Argentina XI: Scaloni double change — De Paul returns (Simeone out) · Montiel replaces Molina at RB · PROVISIONAL</div>
+      <div class="ec ec-warn">⚠️ Spain XI: Pedri dropped · Fabián Ruiz in double pivot with Rodri · PROVISIONAL until Jul 19 2pm ET</div>
+      <div class="ec ec-ok">✅ 3RD PLACE CONFIRMED: France vs England · Jul 18 · 5pm ET · Hard Rock Stadium, Miami · M103</div>
+      <div class="ec ec-warn">⚠️ Tournament win odds: Polymarket/Kalshi — Spain ~58% · Argentina ~42% · Jul 15–16 (verify ↗)</div>
     </div>
   </div>
 
   <!-- ODDS + H2H -->
   <div class="top-panels">
     <div class="odds-panel">
-      <div class="panel-title">Tournament Win % — 4 teams left</div>
-      <div class="odds-warn">⚠️ Polymarket page stale cache. Search-sourced Jul 12–13. <a href="https://polymarket.com/event/world-cup-winner" target="_blank">Verify ↗</a></div>
+      <div class="panel-title">Tournament Win % — 2 teams remain</div>
       <table class="ot">
-        <thead><tr><th>Team</th><th>~%</th><th>v24</th><th>Δ</th></tr></thead>
+        <thead><tr><th>Team</th><th>~%</th><th>v27</th><th>Δ</th></tr></thead>
         <tbody>
-          <tr class="sf-row"><td>🇫🇷 France</td><td><strong>~39%</strong></td><td>16.7%</td><td><span class="chg-up">▲+22pp</span></td></tr>
-          <tr class="sf-row"><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td><strong>~22%</strong></td><td>11.2%</td><td><span class="chg-up">▲+11pp</span></td></tr>
-          <tr class="sf-row"><td>🇪🇸 Spain</td><td><strong>~20%</strong></td><td>17.0%</td><td><span class="chg-up">▲+3pp</span></td></tr>
-          <tr class="sf-row"><td>🇦🇷 Argentina</td><td><strong>~19%</strong></td><td>8.6%</td><td><span class="chg-up">▲+10pp</span></td></tr>
-          <tr class="elim-row"><td>🇧🇪 Belgium</td><td>0% ELIM</td><td>1.8%</td><td class="chg-dn">M98</td></tr>
-          <tr class="elim-row"><td>🇳🇴 Norway</td><td>0% ELIM</td><td>2.9%</td><td class="chg-dn">M99</td></tr>
-          <tr class="elim-row"><td>🇨🇭 Switzerland</td><td>0% ELIM</td><td>1.1%</td><td class="chg-dn">M100</td></tr>
-          <tr class="elim-row"><td>🇲🇦 Morocco</td><td>0% ELIM</td><td>1.5%*</td><td class="chg-dn">M97</td></tr>
+          <tr class="final-row"><td>🇪🇸 Spain</td><td><strong>~58%</strong></td><td>~20%</td><td><span class="chg-up">▲+38pp</span></td></tr>
+          <tr class="final-row"><td>🇦🇷 Argentina</td><td><strong>~42%</strong></td><td>~19%</td><td><span class="chg-up">▲+23pp</span></td></tr>
+          <tr class="elim-row"><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td>0% ELIM</td><td>~22%</td><td class="chg-dn">SF2</td></tr>
+          <tr class="elim-row"><td>🇫🇷 France</td><td>0% ELIM</td><td>~39%</td><td class="chg-dn">SF1</td></tr>
+          <tr class="elim-row"><td>🇧🇪 Belgium</td><td>0% ELIM</td><td>—</td><td class="chg-dn">M98</td></tr>
+          <tr class="elim-row"><td>🇳🇴 Norway</td><td>0% ELIM</td><td>—</td><td class="chg-dn">M99</td></tr>
         </tbody>
       </table>
-      <div style="font-size:9px;color:var(--txt2);margin-top:6px">launchpoly.com · defirate.com · Kalshi Jul 12–13</div>
+      <div style="font-size:9px;color:var(--txt2);margin-top:6px">Polymarket · Kalshi · Jul 15–16 · <a href="https://polymarket.com/event/world-cup-winner" target="_blank" style="color:var(--accent2)">Verify ↗</a></div>
     </div>
 
     <div class="h2h-panel">
-      <div class="panel-title">Head-to-Head — SF Matchups</div>
-      <div class="h2h-half">
-        <div class="h2h-title">🇫🇷 France vs Spain 🇪🇸 <span class="h2h-sub">SF1 · TODAY · Dallas</span></div>
-        <div class="h2h-badges">
-          <span class="hb hb-b">Spain 18W all-time</span><span class="hb hb-d">7D</span><span class="hb hb-a">France 13W</span><span class="hb hb-wc">Only 2nd WC meeting</span>
-        </div>
-        <table class="h2h-table">
-          <thead><tr><th>Date</th><th>Result</th><th>Competition</th></tr></thead>
-          <tbody>
-            <tr><td>Jun 5, 2025</td><td>🇪🇸 <strong>Spain 5–4</strong> France</td><td>UEFA Nations League SF</td></tr>
-            <tr class="wc-row"><td>Jul 9, 2024</td><td>🇪🇸 <strong>Spain 2–1</strong> France</td><td>Euro 2024 Semifinal</td></tr>
-            <tr><td>Oct 10, 2021</td><td>🇫🇷 <strong>France 2–1</strong> Spain</td><td>UEFA Nations League Final</td></tr>
-            <tr><td>Oct 7, 2021</td><td>🇪🇸 <strong>Spain 2–1</strong> France aet</td><td>UEFA Nations League SF</td></tr>
-            <tr class="wc-row"><td>Jun 27, 2006</td><td>🇫🇷 <strong>France 3–1</strong> Spain</td><td>🏆 WC R16</td></tr>
-          </tbody>
-        </table>
-        <div class="h2h-note">Spain won last 2 competitive. France's only WC win vs Spain: 2006. Opta: FRA 42.1% · D 26.1% · ESP 31.8% (90 mins).</div>
+      <div class="panel-title">Head-to-Head — FINAL: Spain vs Argentina</div>
+      <div class="h2h-title">🇪🇸 Spain vs Argentina 🇦🇷 <span class="h2h-sub">FINAL · M104 · Jul 19 · MetLife NJ</span></div>
+      <div class="h2h-badges">
+        <span class="hb hb-a">Spain: +164 favorite (DK)</span>
+        <span class="hb hb-b">Argentina: +134 underdog</span>
+        <span class="hb hb-wc">No prior WC Final meetings</span>
+        <span class="hb hb-d">Last WC meeting: never in KO</span>
       </div>
-      <div class="h2h-divider"></div>
-      <div class="h2h-half">
-        <div class="h2h-title">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs Argentina 🇦🇷 <span class="h2h-sub">SF2 · Jul 15 · Atlanta</span></div>
-        <div class="h2h-badges">
-          <span class="hb hb-a">England 6W</span><span class="hb hb-d">5D</span><span class="hb hb-b">Argentina 3W</span><span class="hb hb-wc">WC: ENG 4–1–1</span>
-        </div>
-        <table class="h2h-table">
-          <thead><tr><th>Date</th><th>Result</th><th>Competition</th></tr></thead>
-          <tbody>
-            <tr><td>Mar 2022</td><td>🇦🇷 <strong>Argentina 2–1</strong> England</td><td>Friendly</td></tr>
-            <tr class="wc-row"><td>Jun 2002</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 <strong>England 1–0</strong> Arg</td><td>🏆 WC Group</td></tr>
-            <tr class="wc-row"><td>Jun 1998</td><td>🇦🇷 <strong>Arg 5-4P</strong> (2-2 aet)</td><td>🏆 WC R16</td></tr>
-            <tr class="wc-row"><td>Jun 1986</td><td>🇦🇷 <strong>Argentina 2–1</strong> England</td><td>🏆 WC QF</td></tr>
-            <tr class="wc-row"><td>Jun 1966</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 <strong>England 1–0</strong> Arg</td><td>🏆 WC QF</td></tr>
-          </tbody>
-        </table>
-        <div class="h2h-note">England leads WC H2H 4–1–1. Last WC clash 2002. ⛔ Quansah BANNED. Argentina used ET in both KO rounds.</div>
-      </div>
+      <table class="h2h-table">
+        <thead><tr><th>Date</th><th>Result</th><th>Competition</th></tr></thead>
+        <tbody>
+          <tr><td>Jun 2018</td><td>🇦🇷 <strong>Argentina 6–1</strong> Spain</td><td>Friendly (Messi hat-trick)</td></tr>
+          <tr><td>Mar 2010</td><td>🇦🇷 <strong>Argentina 2–1</strong> Spain</td><td>Friendly</td></tr>
+          <tr><td>Feb 2009</td><td>🇦🇷 <strong>Argentina 2–0</strong> Spain</td><td>Friendly</td></tr>
+          <tr><td>Nov 2007</td><td>🇦🇷 <strong>Argentina 1–0</strong> Spain</td><td>Friendly</td></tr>
+          <tr><td>Jun 2005</td><td>🇦🇷 <strong>Argentina 3–0</strong> Spain</td><td>Confederations Cup GS</td></tr>
+        </tbody>
+      </table>
+      <div class="h2h-note">⚠️ Argentina lead friendlies heavily but Spain are now a different animal. First WC Final meeting in history. Spain unbeaten 37 matches (28W 9D since Mar 2024 loss to Colombia). Spain conceded just 1 goal all tournament (vs Belgium QF); Argentina went to ET three times in KO. DK regulation: Spain +115 · Draw +200 · Argentina +285.</div>
     </div>
   </div>
 
   <!-- ══ TOURNAMENT PATH PER TEAM ══ -->
-  <div class="section-title">🛤️ Full Tournament Path — Group Stage + Knockout Rounds</div>
+  <div class="section-title">🛤️ Full Tournament Path — All Matches Including Group Stage</div>
   <div class="path-grid">
 
-    <!-- FRANCE -->
-    <div class="path-card sf1-a">
-      <div class="path-hdr sf1-a">
+    <!-- FRANCE (ELIMINATED) -->
+    <div class="path-card eliminated">
+      <div class="path-hdr c-fra">
         <div class="path-flag">🇫🇷</div>
         <div>
           <div class="path-team">France</div>
-          <div class="path-pct">~39% win · Group I · 9pts · 1st</div>
+          <div class="path-pct elim">0% · ELIMINATED SF1 · W6 D0 L1</div>
+          <span class="fb-elim-badge">ELIMINATED · Jul 14</span>
         </div>
       </div>
       <div class="path-body">
@@ -365,8 +346,15 @@
           </div>
         </div>
 
-        <div class="phase-lbl ko">Knockout Rounds — W2 D0 L0 · GF 3 GA 0</div>
+        <div class="phase-lbl ko">Knockout Rounds — W3 D0 L1 · GF 6 GA 2</div>
 
+        <div class="fx">
+          <div class="fx-dot fx-dot-ko"></div>
+          <div class="fx-col">
+            <div class="fx-top"><span class="fx-badge fb-r16">R32 · Jun 30</span><span class="fx-score">3–0</span><span class="fx-opp">vs 🇸🇪 Sweden</span></div>
+            <div class="fx-scorers">Mbappé (×2, before HT + 74') · Barcola · MetLife Stadium NJ</div>
+          </div>
+        </div>
         <div class="fx">
           <div class="fx-dot fx-dot-ko"></div>
           <div class="fx-col">
@@ -378,34 +366,42 @@
           <div class="fx-dot fx-dot-ko"></div>
           <div class="fx-col">
             <div class="fx-top"><span class="fx-badge fb-qf">QF · M97 · Jul 9</span><span class="fx-score">2–0</span><span class="fx-opp">vs 🇲🇦 Morocco</span></div>
-            <div class="fx-scorers">Mbappé 60' · Dembélé 66' · Mbappé sub 77' (ankle → cleared)</div>
+            <div class="fx-scorers">Mbappé 60' · Dembélé 66'</div>
           </div>
         </div>
         <div class="fx">
-          <div class="fx-dot fx-dot-sf"></div>
+          <div class="fx-dot fx-dot-elim"></div>
           <div class="fx-col">
-            <div class="fx-top"><span class="fx-badge fb-sf">SF1 · M101 · Jul 14</span><span class="fx-score pend">TODAY</span><span class="fx-opp">vs 🇪🇸 Spain</span></div>
-            <div class="fx-scorers">3pm ET · Dallas · Tchouameni GTD (thigh) · Opta FRA 42.1%</div>
+            <div class="fx-top"><span class="fx-badge fb-elim">SF1 · M101 · Jul 14</span><span class="fx-score loss">0–2</span><span class="fx-opp">vs 🇪🇸 Spain</span></div>
+            <div class="fx-scorers">Oyarzabal 22'p · Porro 58' · AT&T Stadium Dallas</div>
+          </div>
+        </div>
+        <div class="fx">
+          <div class="fx-dot" style="width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;margin-right:6px;background:#b45309"></div>
+          <div class="fx-col">
+            <div class="fx-top"><span class="fx-badge" style="background:rgba(180,83,9,.3);color:#fcd34d;border:1px solid rgba(180,83,9,.5)">3RD PLACE · M103 · Jul 18</span><span class="fx-score pend">5pm ET</span><span class="fx-opp">vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span></div>
+            <div class="fx-scorers">Hard Rock Stadium · Miami · FOX</div>
           </div>
         </div>
 
         <div class="path-stats">
-          <div class="stat-pill"><strong>13</strong> <span>goals total</span></div>
-          <div class="stat-pill"><strong>3</strong> <span>conceded</span></div>
-          <div class="stat-pill"><strong>Mbappé</strong> <span>6 goals</span></div>
-          <div class="stat-pill"><strong>Dembélé</strong> <span>5 goals</span></div>
-          <div class="stat-pill"><strong>2/2</strong> <span>KO clean sheets</span></div>
+          <div class="stat-pill"><strong>16</strong> <span>goals total</span></div>
+          <div class="stat-pill"><strong>5</strong> <span>conceded</span></div>
+          <div class="stat-pill"><strong>Mbappé</strong> <span>8 goals (ELIM)</span></div>
+          <div class="stat-pill"><strong>Dembélé</strong> <span>5 goals (ELIM)</span></div>
+          <div class="stat-pill"><strong>3/4</strong> <span>KO clean sheets</span></div>
         </div>
       </div>
     </div>
 
-    <!-- SPAIN -->
-    <div class="path-card sf1-b">
-      <div class="path-hdr sf1-b">
+    <!-- SPAIN (FINALIST) -->
+    <div class="path-card finalist-esp">
+      <div class="path-hdr c-esp">
         <div class="path-flag">🇪🇸</div>
         <div>
           <div class="path-team">Spain</div>
-          <div class="path-pct">~20% win · Group H · 7pts · 1st</div>
+          <div class="path-pct finalist">~58% · IN FINAL · W6 D1 L0</div>
+          <span class="finalist-badge fb-finalist-esp">🏆 FINALIST · Jul 19 MetLife NJ</span>
         </div>
       </div>
       <div class="path-body">
@@ -433,8 +429,15 @@
           </div>
         </div>
 
-        <div class="phase-lbl ko">Knockout Rounds — W2 D0 L0 · GF 3 GA 1</div>
+        <div class="phase-lbl ko">Knockout Rounds — W4 D0 L0 · GF 8 GA 1 · 3 KO clean sheets</div>
 
+        <div class="fx">
+          <div class="fx-dot fx-dot-ko"></div>
+          <div class="fx-col">
+            <div class="fx-top"><span class="fx-badge fb-r16">R32 · Jul 2</span><span class="fx-score">3–0</span><span class="fx-opp">vs 🇦🇹 Austria</span></div>
+            <div class="fx-scorers">Oyarzabal 36' 89' · Porro 66' · SoFi Stadium LA</div>
+          </div>
+        </div>
         <div class="fx">
           <div class="fx-dot fx-dot-ko"></div>
           <div class="fx-col">
@@ -446,34 +449,43 @@
           <div class="fx-dot fx-dot-ko"></div>
           <div class="fx-col">
             <div class="fx-top"><span class="fx-badge fb-qf">QF · M98 · Jul 10</span><span class="fx-score">2–1</span><span class="fx-opp">vs 🇧🇪 Belgium</span></div>
-            <div class="fx-scorers">Fabián Ruiz · De Ketelaere eq · Merino 88' (sub, 2' after coming on)</div>
+            <div class="fx-scorers">Fabián Ruiz · De Ketelaere eq · Merino 88'</div>
           </div>
         </div>
         <div class="fx">
           <div class="fx-dot fx-dot-sf"></div>
           <div class="fx-col">
-            <div class="fx-top"><span class="fx-badge fb-sf">SF1 · M101 · Jul 14</span><span class="fx-score pend">TODAY</span><span class="fx-opp">vs 🇫🇷 France</span></div>
-            <div class="fx-scorers">3pm ET · Dallas · Nico Williams TBD · Opta ESP 31.8%</div>
+            <div class="fx-top"><span class="fx-badge fb-sf">SF1 · M101 · Jul 14</span><span class="fx-score">2–0</span><span class="fx-opp">vs 🇫🇷 France</span></div>
+            <div class="fx-scorers">Oyarzabal 22'p (Yamal drew foul from Digne) · Porro 58' (give-and-go)</div>
+          </div>
+        </div>
+        <div class="fx">
+          <div class="fx-dot fx-dot-final"></div>
+          <div class="fx-col">
+            <div class="fx-top"><span class="fx-badge fb-final">FINAL · M104 · Jul 19</span><span class="fx-score pend">3pm ET</span><span class="fx-opp">vs 🇦🇷 Argentina</span></div>
+            <div class="fx-scorers">MetLife Stadium · East Rutherford NJ · FOX/ABC</div>
+            <div class="fx-alert" style="color:#fbbf24">⚠️ Yamal injury scare · expected to start · confirm T-1h · Pedri dropped · Fabián Ruiz double pivot</div>
           </div>
         </div>
 
         <div class="path-stats">
-          <div class="stat-pill"><strong>8</strong> <span>goals total</span></div>
-          <div class="stat-pill"><strong>1</strong> <span>conceded</span></div>
-          <div class="stat-pill"><strong>Merino</strong> <span>2 late winners</span></div>
-          <div class="stat-pill"><strong>Oyarzabal</strong> <span>2 goals</span></div>
-          <div class="stat-pill"><strong>4/5</strong> <span>games clean sheet</span></div>
+          <div class="stat-pill"><strong>13</strong> <span>goals total</span></div>
+          <div class="stat-pill"><strong>1</strong> <span>conceded (all-tournament)</span></div>
+          <div class="stat-pill"><strong>Oyarzabal</strong> <span>5 goals</span></div>
+          <div class="stat-pill"><strong>Merino</strong> <span>2 sub winners</span></div>
+          <div class="stat-pill"><strong>6/7</strong> <span>clean sheets</span></div>
         </div>
       </div>
     </div>
 
-    <!-- ENGLAND -->
-    <div class="path-card sf2-a">
-      <div class="path-hdr sf2-a">
+    <!-- ENGLAND (ELIMINATED) -->
+    <div class="path-card eliminated">
+      <div class="path-hdr c-eng">
         <div class="path-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
         <div>
           <div class="path-team">England</div>
-          <div class="path-pct">~22% win · Group L · 7pts · 1st</div>
+          <div class="path-pct elim">0% · ELIMINATED SF2 · W5 D1 L1</div>
+          <span class="fb-elim-badge">ELIMINATED · Jul 15</span>
         </div>
       </div>
       <div class="path-body">
@@ -483,26 +495,33 @@
           <div class="fx-dot fx-dot-gs"></div>
           <div class="fx-col">
             <div class="fx-top"><span class="fx-badge fb-gs">MD1 · Jun 17</span><span class="fx-score">4–2</span><span class="fx-opp">vs 🇭🇷 Croatia</span></div>
-            <div class="fx-scorers">Kane 12'(p) 42' · Bellingham 47' · Rashford 85' (Baturina 36' · Musa 45+5')</div>
+            <div class="fx-scorers">Kane 12'p 42' · Bellingham 47' · Rashford 85' (Baturina 36' · Musa 45+5')</div>
           </div>
         </div>
         <div class="fx">
           <div class="fx-dot fx-dot-gs"></div>
           <div class="fx-col">
             <div class="fx-top"><span class="fx-badge fb-gs">MD2 · Jun 23</span><span class="fx-score draw">0–0</span><span class="fx-opp">vs 🇬🇭 Ghana</span></div>
-            <div class="fx-scorers" style="color:#5a5a7a">Goalless draw · O'Reilly crossbar late</div>
+            <div class="fx-scorers" style="color:#5a5a7a">Goalless draw</div>
           </div>
         </div>
         <div class="fx">
           <div class="fx-dot fx-dot-gs"></div>
           <div class="fx-col">
             <div class="fx-top"><span class="fx-badge fb-gs">MD3 · Jun 27</span><span class="fx-score">2–0</span><span class="fx-opp">vs 🇵🇦 Panama</span></div>
-            <div class="fx-scorers">Bellingham 62' (Saka corner) · Kane 78' head (record 11th WC goal)</div>
+            <div class="fx-scorers">Bellingham 62' · Kane 78' (record 11th WC goal)</div>
           </div>
         </div>
 
-        <div class="phase-lbl ko">Knockout Rounds — W2 D0 L0 · GF 5 GA 3 · ET×1</div>
+        <div class="phase-lbl ko">Knockout Rounds — W3 D0 L1 · GF 8 GA 6 · ET×1</div>
 
+        <div class="fx">
+          <div class="fx-dot fx-dot-ko"></div>
+          <div class="fx-col">
+            <div class="fx-top"><span class="fx-badge fb-r16">R32 · Jul 1</span><span class="fx-score">2–1</span><span class="fx-opp">vs 🇨🇩 Congo DR</span></div>
+            <div class="fx-scorers">Cipenga 7' (CDR) · Kane 75' 86' · Atlanta</div>
+          </div>
+        </div>
         <div class="fx">
           <div class="fx-dot fx-dot-ko"></div>
           <div class="fx-col">
@@ -514,35 +533,42 @@
           <div class="fx-dot fx-dot-ko"></div>
           <div class="fx-col">
             <div class="fx-top"><span class="fx-badge fb-qf">QF · M99 · Jul 11</span><span class="fx-score">2–1 aet</span><span class="fx-opp">vs 🇳🇴 Norway</span></div>
-            <div class="fx-scorers">Schjelderup eq · Bellingham ×2 (ET 3') · Quansah ban M1 served</div>
+            <div class="fx-scorers">Schjelderup eq · Bellingham ×2 (ET 3')</div>
           </div>
         </div>
         <div class="fx">
-          <div class="fx-dot fx-dot-sf"></div>
+          <div class="fx-dot fx-dot-elim"></div>
           <div class="fx-col">
-            <div class="fx-top"><span class="fx-badge fb-tmrw">SF2 · M102 · Jul 15</span><span class="fx-score pend">TOMORROW</span><span class="fx-opp">vs 🇦🇷 Argentina</span></div>
-            <div class="fx-scorers">3pm ET · Atlanta · CBS</div>
-            <div class="fx-alert">⛔ Quansah BANNED (M2) · Konsa in at CB · O'Reilly at LB</div>
+            <div class="fx-top"><span class="fx-badge fb-elim">SF2 · M102 · Jul 15</span><span class="fx-score loss">1–2</span><span class="fx-opp">vs 🇦🇷 Argentina</span></div>
+            <div class="fx-scorers">Gordon 55' (ENG) · E.Fernández 85' · L.Martínez 90+2' (ARG, Messi ×2 assists)</div>
+          </div>
+        </div>
+        <div class="fx">
+          <div class="fx-dot" style="width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;margin-right:6px;background:#b45309"></div>
+          <div class="fx-col">
+            <div class="fx-top"><span class="fx-badge" style="background:rgba(180,83,9,.3);color:#fcd34d;border:1px solid rgba(180,83,9,.5)">3RD PLACE · M103 · Jul 18</span><span class="fx-score pend">5pm ET</span><span class="fx-opp">vs 🇫🇷 France</span></div>
+            <div class="fx-scorers">Hard Rock Stadium · Miami · FOX</div>
           </div>
         </div>
 
         <div class="path-stats">
-          <div class="stat-pill"><strong>11</strong> <span>goals total</span></div>
-          <div class="stat-pill"><strong>5</strong> <span>conceded</span></div>
+          <div class="stat-pill"><strong>14</strong> <span>goals total</span></div>
+          <div class="stat-pill"><strong>8</strong> <span>conceded</span></div>
+          <div class="stat-pill"><strong>Kane</strong> <span>6 goals</span></div>
           <div class="stat-pill"><strong>Bellingham</strong> <span>6 goals</span></div>
-          <div class="stat-pill"><strong>Kane</strong> <span>5 goals</span></div>
-          <div class="stat-pill"><strong>1/2</strong> <span>KO ET used</span></div>
+          <div class="stat-pill"><strong>Messi curse</strong> <span>3rd WC KO heartbreak</span></div>
         </div>
       </div>
     </div>
 
-    <!-- ARGENTINA -->
-    <div class="path-card sf2-b">
-      <div class="path-hdr sf2-b">
+    <!-- ARGENTINA (FINALIST) -->
+    <div class="path-card finalist-arg">
+      <div class="path-hdr c-arg">
         <div class="path-flag">🇦🇷</div>
         <div>
           <div class="path-team">Argentina</div>
-          <div class="path-pct">~19% win · Group J · 9pts · 1st</div>
+          <div class="path-pct finalist" style="color:#fbbf24">~42% · IN FINAL · W7 D0 L0</div>
+          <span class="finalist-badge fb-finalist-arg">🏆 FINALIST · Jul 19 MetLife NJ</span>
         </div>
       </div>
       <div class="path-body">
@@ -559,7 +585,7 @@
           <div class="fx-dot fx-dot-gs"></div>
           <div class="fx-col">
             <div class="fx-top"><span class="fx-badge fb-gs">MD2 · Jun 22</span><span class="fx-score">2–0</span><span class="fx-opp">vs 🇦🇹 Austria</span></div>
-            <div class="fx-scorers">Messi ×2 (WC goals 17 & 18 — new all-time record)</div>
+            <div class="fx-scorers">Messi ×2 (WC goals 17 &amp; 18 — new all-time record)</div>
           </div>
         </div>
         <div class="fx">
@@ -570,8 +596,15 @@
           </div>
         </div>
 
-        <div class="phase-lbl ko">Knockout Rounds — W2 D0 L0 · GF 6 GA 3 · ET×2</div>
+        <div class="phase-lbl ko">Knockout Rounds — W4 D0 L0 · GF 11 GA 6 · ET×3</div>
 
+        <div class="fx">
+          <div class="fx-dot fx-dot-ko"></div>
+          <div class="fx-col">
+            <div class="fx-top"><span class="fx-badge fb-r16">R32 · Jul 3</span><span class="fx-score">3–2 aet</span><span class="fx-opp">vs 🇨🇻 Cape Verde</span></div>
+            <div class="fx-scorers">Messi 29' · L.Martínez 92'(ET) · Borges OG 111' (Duarte 59' · Lopes Cabral 103') · Miami</div>
+          </div>
+        </div>
         <div class="fx">
           <div class="fx-dot fx-dot-ko"></div>
           <div class="fx-col">
@@ -589,17 +622,25 @@
         <div class="fx">
           <div class="fx-dot fx-dot-sf"></div>
           <div class="fx-col">
-            <div class="fx-top"><span class="fx-badge fb-tmrw">SF2 · M102 · Jul 15</span><span class="fx-score pend">TOMORROW</span><span class="fx-opp">vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span></div>
-            <div class="fx-scorers">3pm ET · Atlanta · CBS · De Paul provisional (knock M100)</div>
+            <div class="fx-top"><span class="fx-badge fb-sf">SF2 · M102 · Jul 15</span><span class="fx-score">2–1</span><span class="fx-opp">vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span></div>
+            <div class="fx-scorers">Gordon 55' (ENG) · E.Fernández 85' · L.Martínez 90+2' · Messi ×2 assists · comeback again</div>
+          </div>
+        </div>
+        <div class="fx">
+          <div class="fx-dot fx-dot-final"></div>
+          <div class="fx-col">
+            <div class="fx-top"><span class="fx-badge fb-final">FINAL · M104 · Jul 19</span><span class="fx-score pend">3pm ET</span><span class="fx-opp">vs 🇪🇸 Spain</span></div>
+            <div class="fx-scorers">MetLife Stadium · East Rutherford NJ · FOX/ABC</div>
+            <div class="fx-alert" style="color:#fbbf24">⚠️ De Paul returns (Simeone out) · Montiel replaces Molina · PROVISIONAL</div>
           </div>
         </div>
 
         <div class="path-stats">
-          <div class="stat-pill"><strong>14</strong> <span>goals total</span></div>
-          <div class="stat-pill"><strong>4</strong> <span>conceded</span></div>
-          <div class="stat-pill"><strong>Messi</strong> <span>8 goals</span></div>
-          <div class="stat-pill"><strong>Mac Allister</strong> <span>2 goals</span></div>
-          <div class="stat-pill"><strong>2/2</strong> <span>KO ET used</span></div>
+          <div class="stat-pill"><strong>19</strong> <span>goals total</span></div>
+          <div class="stat-pill"><strong>7</strong> <span>conceded</span></div>
+          <div class="stat-pill"><strong>Messi</strong> <span>8g + 4a (record)</span></div>
+          <div class="stat-pill"><strong>4/4</strong> <span>KO comebacks</span></div>
+          <div class="stat-pill"><strong>3/4</strong> <span>KO rounds went ET</span></div>
         </div>
       </div>
     </div>
@@ -614,6 +655,7 @@
         .rl{font-size:9.5px;fill:#5a5a7a;font-weight:700;letter-spacing:.6px;}
         .tn{font-size:11.5px;fill:#e8e8f0;font-weight:700;}
         .te{font-size:11.5px;fill:#3a3a5a;font-weight:600;}
+        .tw{font-size:11.5px;fill:#4ade80;font-weight:800;}
         .sc{font-size:11.5px;fill:#4ade80;font-weight:800;}
         .sl{font-size:11.5px;fill:#3a3a5a;font-weight:600;}
         .mid{font-size:9px;fill:#7060a0;}
@@ -621,6 +663,7 @@
         .pl{font-size:9px;fill:#a855f7;font-weight:700;}
         .ct{font-size:8.5px;fill:#fbbf24;}
         .cv{font-size:8px;fill:#5a5a7a;}
+        .conf{font-size:9px;fill:#4ade80;font-weight:700;}
         .ln-qf{stroke:#2e2e3e;stroke-width:1.5;fill:none;}
         .ln-sf{stroke:#7c3aed;stroke-width:1.5;fill:none;}
         .ln-sf2{stroke:#d97706;stroke-width:1.5;fill:none;}
@@ -654,27 +697,27 @@
     <path d="M182 64 H215 V228 H228" class="ln-sf"/>
     <path d="M182 392 H215 V228 H228" class="ln-sf"/>
 
-    <!-- SF1 -->
-    <rect x="228" y="182" width="190" height="92" rx="8" fill="#1f103a" stroke="#7c3aed" stroke-width="1.8"/>
-    <text x="236" y="196" class="mid" style="fill:#c084fc;font-weight:700">SF1 M101 · TODAY · 3pm ET · Dallas</text>
-    <rect x="228" y="200" width="190" height="28" fill="rgba(29,78,216,.08)" rx="0"/>
-    <text x="238" y="219" class="tn">🇫🇷 France</text><text x="406" y="219" class="pl" text-anchor="end">~39%</text>
-    <line x1="228" y1="228" x2="418" y2="228" stroke="#3a2a5a" stroke-width="1"/>
-    <text x="238" y="246" class="tn">🇪🇸 Spain</text><text x="406" y="246" class="pl" text-anchor="end">~20%</text>
-    <text x="238" y="262" class="mi2">Opta: FRA 42.1% · D 26.1% · ESP 31.8%</text>
-    <text x="238" y="272" class="ct">H2H: Spain won last 2 competitive</text>
+    <!-- SF1 CONFIRMED Spain 2-0 France -->
+    <rect x="228" y="182" width="190" height="96" rx="8" fill="#1a1a24" stroke="#1d4ed8" stroke-width="1.8"/>
+    <text x="236" y="196" class="conf">SF1 M101 · Jul 14 · Dallas ✅</text>
+    <rect x="228" y="200" width="190" height="26" fill="rgba(22,163,74,.08)" rx="0"/>
+    <text x="238" y="219" class="tw">🇪🇸 Spain</text><text x="406" y="219" class="sc" text-anchor="end">2</text>
+    <line x1="228" y1="226" x2="418" y2="226" stroke="#2e2e3e" stroke-width="1"/>
+    <text x="238" y="244" class="te">🇫🇷 France</text><text x="406" y="244" class="sl" text-anchor="end">0</text>
+    <text x="238" y="259" class="mi2">Oyarzabal 22'p · Porro 58'</text>
+    <text x="238" y="271" class="ct">3rd straight tournament SF win vs France</text>
 
     <path d="M418 228 H468" class="ln-final"/>
 
     <!-- FINAL -->
-    <rect x="468" y="172" width="164" height="116" rx="9" fill="#1a0e2e" stroke="#a855f7" stroke-width="2"/>
-    <text x="550" y="187" class="rl" text-anchor="middle" style="fill:#a855f7">FINAL · M104 · Jul 19</text>
-    <text x="550" y="200" class="cv" text-anchor="middle">MetLife Stadium, NJ</text>
-    <line x1="468" y1="205" x2="632" y2="205" stroke="#3a2a5a" stroke-width="1"/>
-    <text x="550" y="228" text-anchor="middle" style="font-size:20px">🏆</text>
-    <text x="550" y="252" text-anchor="middle" style="font-size:12px;fill:#c084fc;font-weight:800">TBD</text>
-    <text x="550" y="268" text-anchor="middle" style="font-size:10px;fill:#5a5a7a">vs</text>
-    <text x="550" y="284" text-anchor="middle" style="font-size:12px;fill:#c084fc;font-weight:800">TBD</text>
+    <rect x="468" y="168" width="164" height="124" rx="9" fill="#1a0e2e" stroke="#a855f7" stroke-width="2.5"/>
+    <text x="550" y="183" class="rl" text-anchor="middle" style="fill:#a855f7;font-weight:900">FINAL · M104 · Jul 19</text>
+    <text x="550" y="196" class="cv" text-anchor="middle">MetLife Stadium, NJ · 3pm ET</text>
+    <line x1="468" y1="202" x2="632" y2="202" stroke="#3a2a5a" stroke-width="1"/>
+    <text x="550" y="226" text-anchor="middle" style="font-size:20px">🏆</text>
+    <text x="550" y="248" text-anchor="middle" style="font-size:13px;fill:#a855f7;font-weight:800">🇪🇸 Spain</text>
+    <text x="550" y="264" text-anchor="middle" style="font-size:10px;fill:#5a5a7a">vs</text>
+    <text x="550" y="280" text-anchor="middle" style="font-size:13px;fill:#fbbf24;font-weight:800">🇦🇷 Argentina</text>
 
     <path d="M632 228 H682" class="ln-final"/>
 
@@ -699,83 +742,79 @@
     <path d="M918 64 H885 V228 H872" class="ln-sf2"/>
     <path d="M918 392 H885 V228 H872" class="ln-sf2"/>
 
-    <!-- SF2 -->
-    <rect x="682" y="182" width="190" height="92" rx="8" fill="#1f1100" stroke="#d97706" stroke-width="1.8"/>
-    <text x="690" y="196" class="mid" style="fill:#fbbf24;font-weight:700">SF2 M102 · Jul 15 · 3pm ET · Atlanta</text>
-    <rect x="682" y="200" width="190" height="28" fill="rgba(217,119,6,.07)" rx="0"/>
-    <text x="692" y="219" class="tn">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</text><text x="860" y="219" class="pl" text-anchor="end">~22%</text>
-    <line x1="682" y1="228" x2="872" y2="228" stroke="#3a2a10" stroke-width="1"/>
-    <text x="692" y="246" class="tn">🇦🇷 Argentina</text><text x="860" y="246" class="pl" text-anchor="end">~19%</text>
-    <text x="692" y="262" class="mi2">⛔ Quansah BANNED · Konsa in · Messi vs Bellingham</text>
-    <text x="692" y="272" class="ct">Elo: ENG 54% · Draw 18% · ARG 28%</text>
+    <!-- SF2 CONFIRMED Argentina 2-1 England -->
+    <rect x="682" y="182" width="190" height="96" rx="8" fill="#1a1a24" stroke="#d97706" stroke-width="1.8"/>
+    <text x="690" y="196" class="conf" style="fill:#fbbf24">SF2 M102 · Jul 15 · Atlanta ✅</text>
+    <rect x="682" y="200" width="190" height="26" fill="rgba(217,119,6,.08)" rx="0"/>
+    <text x="692" y="219" class="tw">🇦🇷 Argentina</text><text x="860" y="219" class="sc" text-anchor="end">2</text>
+    <line x1="682" y1="226" x2="872" y2="226" stroke="#2e2e3e" stroke-width="1"/>
+    <text x="692" y="244" class="te">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</text><text x="860" y="244" class="sl" text-anchor="end">1</text>
+    <text x="692" y="259" class="mi2">Gordon 55' (ENG) · Fernández 85' · L.Martínez 90+2'</text>
+    <text x="692" y="271" class="ct">Messi ×2 assists · 3rd WC KO comeback</text>
   </svg>
   </div>
 
-  <!-- QF MINI -->
-  <div class="section-title" style="margin-top:4px">⚡ Quarterfinal Results</div>
-  <div class="qf-grid">
-    <div class="qf-mini c-sf1">
-      <div class="qf-hdr"><span>M97 · Jul 9 · Foxborough ✅</span><span style="color:#60a5fa">→ SF1</span></div>
-      <div class="qf-body">
-        <div class="qf-teams">🇫🇷 France 2–0 Morocco 🇲🇦</div>
-        <div class="qf-score">2–0</div>
-        <div class="qf-notes">Mbappé 60' · Dembélé 66' · Mbappé sub 77' ankle (cleared)</div>
+  <!-- SF RESULTS MINI -->
+  <div class="section-title" style="margin-top:4px">⚡ Semifinal Results</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+    <div style="background:var(--card);border:2px solid #7c3aed;border-radius:10px;overflow:hidden">
+      <div style="padding:5px 10px;background:rgba(124,58,237,.15);font-size:9px;color:var(--txt2);display:flex;justify-content:space-between"><span>SF1 M101 · Jul 14 · AT&T Stadium Dallas ✅</span><span style="color:#c084fc">Spain → Final</span></div>
+      <div style="padding:9px 11px">
+        <div style="font-size:14px;font-weight:800">🇪🇸 Spain 2–0 France 🇫🇷</div>
+        <div style="font-size:11px;color:#4ade80;font-weight:700;margin:3px 0">2–0</div>
+        <div style="font-size:10px;color:var(--txt2)">Oyarzabal 22' pen (Yamal drew foul from Digne) · Porro 58' (give-and-go) · Spain's 3rd consecutive SF tournament win vs France (Euro 2024 · NL 2025 · WC 2026)</div>
       </div>
     </div>
-    <div class="qf-mini c-sf1">
-      <div class="qf-hdr"><span>M98 · Jul 10 · SoFi LA ✅</span><span style="color:#60a5fa">→ SF1</span></div>
-      <div class="qf-body">
-        <div class="qf-teams">🇪🇸 Spain 2–1 Belgium 🇧🇪</div>
-        <div class="qf-score">2–1</div>
-        <div class="qf-notes">Fabián Ruiz · De Ketelaere eq · Merino 88' (sub, winner)</div>
-      </div>
-    </div>
-    <div class="qf-mini c-sf2">
-      <div class="qf-hdr"><span>M99 · Jul 11 · Miami aet ✅</span><span style="color:#fbbf24">→ SF2</span></div>
-      <div class="qf-body">
-        <div class="qf-teams">🇳🇴 Norway 1–2 England 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
-        <div class="qf-score">2–1 aet</div>
-        <div class="qf-notes">Schjelderup eq · Bellingham ×2 incl ET 3' · Quansah ban M1 served</div>
-      </div>
-    </div>
-    <div class="qf-mini c-sf2">
-      <div class="qf-hdr"><span>M100 · Jul 11 · KC aet ✅</span><span style="color:#fbbf24">→ SF2</span></div>
-      <div class="qf-body">
-        <div class="qf-teams">🇦🇷 Argentina 3–1 Switzerland 🇨🇭</div>
-        <div class="qf-score">3–1 aet</div>
-        <div class="qf-notes">Mac Allister 10' · Ndoye eq · Embolo red · Álvarez 112' · Lautaro 120+1'</div>
+    <div style="background:var(--card);border:2px solid #d97706;border-radius:10px;overflow:hidden">
+      <div style="padding:5px 10px;background:rgba(217,119,6,.12);font-size:9px;color:var(--txt2);display:flex;justify-content:space-between"><span>SF2 M102 · Jul 15 · Mercedes-Benz Stadium Atlanta ✅</span><span style="color:#fbbf24">Argentina → Final</span></div>
+      <div style="padding:9px 11px">
+        <div style="font-size:14px;font-weight:800">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England 1–2 Argentina 🇦🇷</div>
+        <div style="font-size:11px;color:#fbbf24;font-weight:700;margin:3px 0">2–1 (comeback again)</div>
+        <div style="font-size:10px;color:var(--txt2)">Gordon 55' (ENG) → E.Fernández 85' (Messi assist, 20-yard strike) → L.Martínez 90+2' (Messi assist, header). Messi: 0 goals, 2 assists. Record: 10 KO assists, most in 60+ years.</div>
       </div>
     </div>
   </div>
 
-  <!-- FULL LOG (GS + KO) -->
-  <div class="section-title">📋 Full Results Log — Group Stage through Knockouts</div>
+  <!-- FULL LOG -->
+  <div class="section-title">📋 Full Results Log — All Matches (Group Stage → Semis)</div>
   <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
     <table class="log-table">
-      <thead><tr><th>Match</th><th>Teams</th><th>Score</th><th>Scorers (SF teams only)</th><th>Round</th><th>Source</th></tr></thead>
+      <thead><tr><th>Match</th><th>Teams</th><th>Score</th><th>Scorers (SF teams)</th><th>Round</th><th>Source</th></tr></thead>
       <tbody>
+        <!-- GROUP STAGE -->
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD1</td><td>🇫🇷 France vs 🇸🇳 Senegal</td><td style="color:#4ade80;font-weight:700">3–1</td><td>Mbappé 66' 90+6' · Barcola 82'</td><td>Group I</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289273/400021490" target="_blank">FIFA ↗</a></td></tr>
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD1</td><td>🇦🇷 Argentina vs 🇩🇿 Algeria</td><td style="color:#4ade80;font-weight:700">3–0</td><td>Messi ×3 hat-trick (WC record equalled)</td><td>Group J</td><td><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/argentina-v-algeria-highlights-match-report" target="_blank">FIFA ↗</a></td></tr>
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD1</td><td>🇪🇸 Spain vs 🇨🇻 Cape Verde</td><td style="color:var(--txt2);font-weight:700">0–0</td><td>—</td><td>Group H</td><td><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_H" target="_blank">Wiki ↗</a></td></tr>
-        <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD1</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇭🇷 Croatia</td><td style="color:#4ade80;font-weight:700">4–2</td><td>Kane 12'(p) 42' · Bellingham 47' · Rashford 85'</td><td>Group L</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289273/400021507" target="_blank">FIFA ↗</a></td></tr>
+        <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD1</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇭🇷 Croatia</td><td style="color:#4ade80;font-weight:700">4–2</td><td>Kane 12'p 42' · Bellingham 47' · Rashford 85'</td><td>Group L</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289273/400021507" target="_blank">FIFA ↗</a></td></tr>
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD2</td><td>🇫🇷 France vs 🇮🇶 Iraq</td><td style="color:#4ade80;font-weight:700">3–0</td><td>Mbappé 14' 54' · Dembélé</td><td>Group I</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760457/iraq-france" target="_blank">ESPN ↗</a></td></tr>
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD2</td><td>🇦🇷 Argentina vs 🇦🇹 Austria</td><td style="color:#4ade80;font-weight:700">2–0</td><td>Messi ×2 (WC goals 17 &amp; 18 — new all-time record)</td><td>Group J</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760456/austria-argentina" target="_blank">ESPN ↗</a></td></tr>
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD2</td><td>🇪🇸 Spain vs 🇸🇦 Saudi Arabia</td><td style="color:#4ade80;font-weight:700">4–0</td><td>Yamal · Oyarzabal ×2 · Al-Tambakti OG</td><td>Group H</td><td><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_H" target="_blank">Wiki ↗</a></td></tr>
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD2</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇬🇭 Ghana</td><td style="color:var(--txt2);font-weight:700">0–0</td><td>—</td><td>Group L</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760458/ghana-england" target="_blank">ESPN ↗</a></td></tr>
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD3</td><td>🇫🇷 France vs 🇳🇴 Norway</td><td style="color:#4ade80;font-weight:700">4–1</td><td>Dembélé ×3 hat-trick (7' 20' 32') · Doué 90+'</td><td>Group I</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289273/400021489" target="_blank">FIFA ↗</a></td></tr>
-        <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD3</td><td>🇦🇷 Argentina vs 🇯🇴 Jordan</td><td style="color:#4ade80;font-weight:700">3–1</td><td>Lautaro · Lo Celso · Messi (sub, 7th consec WC game scored)</td><td>Group J</td><td><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_J" target="_blank">Wiki ↗</a></td></tr>
-        <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD3</td><td>🇪🇸 Spain vs 🇺🇾 Uruguay</td><td style="color:#4ade80;font-weight:700">1–0</td><td>Baena 42' (Muslera error)</td><td>Group H</td><td><a href="https://sports.yahoo.com/soccer/breaking-news/article/2026-world-cup-spain-wins-group-h-thanks-to-fernando-musleras-blunder-as-cape-verde-takes-second-over-uruguay-020219723.html" target="_blank">Yahoo ↗</a></td></tr>
+        <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD3</td><td>🇦🇷 Argentina vs 🇯🇴 Jordan</td><td style="color:#4ade80;font-weight:700">3–1</td><td>Lautaro · Lo Celso · Messi (sub)</td><td>Group J</td><td><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_J" target="_blank">Wiki ↗</a></td></tr>
+        <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD3</td><td>🇪🇸 Spain vs 🇺🇾 Uruguay</td><td style="color:#4ade80;font-weight:700">1–0</td><td>Baena 42' (Muslera error)</td><td>Group H</td><td><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_H" target="_blank">Wiki ↗</a></td></tr>
         <tr class="gs-row"><td style="color:var(--txt2);font-size:9px">GS MD3</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇵🇦 Panama</td><td style="color:#4ade80;font-weight:700">2–0</td><td>Bellingham 62' · Kane 78' (record 11th WC goal)</td><td>Group L</td><td><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/panama-england-match-report-highlights" target="_blank">FIFA ↗</a></td></tr>
+        <!-- R32 -->
+        <tr><td>R32 · Jun 30</td><td>🇫🇷 France vs 🇸🇪 Sweden</td><td style="color:#4ade80;font-weight:700">3–0</td><td>Mbappé ×2 (before HT + 74') · Barcola</td><td>R32</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760496/france-sweden" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>R32 · Jul 1</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇨🇩 Congo DR</td><td style="color:#4ade80;font-weight:700">2–1</td><td>Cipenga 7' (CDR) · Kane 75' 86'</td><td>R32</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760499/england-congo-dr" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>R32 · Jul 2</td><td>🇪🇸 Spain vs 🇦🇹 Austria</td><td style="color:#4ade80;font-weight:700">3–0</td><td>Oyarzabal 36' 89' · Porro 66'</td><td>R32</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760501/spain-austria" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>R32 · Jul 3</td><td>🇦🇷 Argentina vs 🇨🇻 Cape Verde</td><td style="color:#fbbf24;font-weight:700">3–2 aet</td><td>Messi 29' · L.Martínez 92'(ET) · Borges OG 111'</td><td>R32</td><td><a href="https://www.fifa.com/en/match-centre" target="_blank">FIFA ↗</a></td></tr>
+        <!-- R16 -->
         <tr><td>M89 · Jul 4</td><td>🇫🇷 France vs 🇵🇾 Paraguay</td><td style="color:#4ade80;font-weight:700">1–0</td><td>Mbappé 69' pen</td><td>R16</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760503" target="_blank">ESPN ↗</a></td></tr>
-        <tr><td>M92 · Jul 5</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇲🇽 Mexico</td><td style="color:#4ade80;font-weight:700">3–2</td><td>Bellingham ×2 · Kane pen</td><td>R16 · Quansah red → ban</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760506" target="_blank">ESPN ↗</a></td></tr>
+        <tr><td>M92 · Jul 5</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇲🇽 Mexico</td><td style="color:#4ade80;font-weight:700">3–2</td><td>Bellingham ×2 · Kane pen (Quansah red)</td><td>R16</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760506" target="_blank">ESPN ↗</a></td></tr>
         <tr><td>M93 · Jul 6</td><td>🇪🇸 Spain vs 🇵🇹 Portugal</td><td style="color:#4ade80;font-weight:700">1–0</td><td>Merino 90+1'</td><td>R16</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760507" target="_blank">ESPN ↗</a></td></tr>
         <tr><td>M95 · Jul 7</td><td>🇦🇷 Argentina vs 🇪🇬 Egypt</td><td style="color:#4ade80;font-weight:700">3–2</td><td>Messi 83' comeback from 0-2</td><td>R16</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289288/400021528" target="_blank">FIFA ↗</a></td></tr>
+        <!-- QF -->
         <tr class="qf-row"><td>M97 · Jul 9</td><td>🇫🇷 France vs 🇲🇦 Morocco</td><td style="color:#4ade80;font-weight:700">2–0</td><td>Mbappé 60' · Dembélé 66'</td><td>QF</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289289/400021536" target="_blank">FIFA ↗</a></td></tr>
         <tr class="qf-row"><td>M98 · Jul 10</td><td>🇪🇸 Spain vs 🇧🇪 Belgium</td><td style="color:#4ade80;font-weight:700">2–1</td><td>Fabián Ruiz · Merino 88'</td><td>QF</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289289/400021538" target="_blank">FIFA ↗</a></td></tr>
         <tr class="qf-row"><td>M99 · Jul 11</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇳🇴 Norway</td><td style="color:#fbbf24;font-weight:700">2–1 aet</td><td>Bellingham ×2 (ET 3')</td><td>QF</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289289/400021539" target="_blank">FIFA ↗</a></td></tr>
         <tr class="qf-row"><td>M100 · Jul 11</td><td>🇦🇷 Argentina vs 🇨🇭 Switzerland</td><td style="color:#fbbf24;font-weight:700">3–1 aet</td><td>Mac Allister · Álvarez 112' · Lautaro 120+1'</td><td>QF</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289290/400021537" target="_blank">FIFA ↗</a></td></tr>
-        <tr class="sf-row"><td>M101 · Jul 14</td><td>🇫🇷 France vs 🇪🇸 Spain</td><td style="color:var(--txt2)">TODAY 3pm ET</td><td>Tchouameni GTD · AT&amp;T Stadium Dallas · FOX</td><td>SF1</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289290/400021541" target="_blank">FIFA ↗</a></td></tr>
-        <tr class="sf2-row"><td>M102 · Jul 15</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇦🇷 Argentina</td><td style="color:var(--txt2)">Jul 15 · 3pm ET</td><td>Quansah BANNED · Mercedes-Benz Stadium Atlanta · CBS</td><td>SF2</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289290/400021540" target="_blank">FIFA ↗</a></td></tr>
+        <!-- SF -->
+        <tr class="sf-row"><td>M101 · Jul 14</td><td>🇪🇸 Spain vs 🇫🇷 France</td><td style="color:#4ade80;font-weight:700">2–0 ✅</td><td>Oyarzabal 22'p · Porro 58' · AT&amp;T Stadium Dallas</td><td>SF1 · Spain → Final</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289290/400021541" target="_blank">FIFA ↗</a></td></tr>
+        <tr class="sf2-row"><td>M102 · Jul 15</td><td>🇦🇷 Argentina vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td style="color:#fbbf24;font-weight:700">2–1 ✅</td><td>Gordon 55' (ENG) · E.Fernández 85' · L.Martínez 90+2' · Messi ×2 ast</td><td>SF2 · Argentina → Final</td><td><a href="https://www.espn.com/soccer/match/_/gameId/760515/argentina-england" target="_blank">ESPN ↗</a></td></tr>
+        <!-- 3RD PLACE + FINAL -->
+        <tr style="background:rgba(180,83,9,.06)"><td>M103 · Jul 18</td><td>🇫🇷 France vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td style="color:#fcd34d;font-weight:700">5pm ET</td><td>Hard Rock Stadium · Miami Gardens FL · FOX</td><td>🥉 3rd Place</td><td><a href="https://worldsoccertalk.com/world-cup/france-vs-england-date-kick-off-time-and-venue-for-the-2026-fifa-world-cup-third-place-match/" target="_blank">WST ↗</a></td></tr>
+        <tr class="final-row"><td>M104 · Jul 19</td><td>🇪🇸 Spain vs 🇦🇷 Argentina</td><td style="color:#c084fc;font-weight:700">3pm ET</td><td>MetLife Stadium · East Rutherford NJ · FOX/ABC</td><td>🏆 FINAL</td><td><a href="https://www.fifa.com/en/match-centre/match/17/285023/289292/400021543" target="_blank">FIFA ↗</a></td></tr>
       </tbody>
     </table>
   </div>
@@ -786,79 +825,51 @@
 
 </div>
 
-<!-- ══ TODAY TAB ══ -->
+<!-- ══ FINAL PREVIEW TAB ══ -->
 <div id="tab-today" class="tab-content">
-  <div style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(168,85,247,.08));border:1px solid rgba(168,85,247,.35);border-radius:10px;padding:13px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
-    <div style="font-size:26px">🔴</div>
-    <div>
-      <div style="font-size:15px;font-weight:700;color:#c084fc">SF1 TODAY — France vs Spain · 3pm ET · AT&amp;T Stadium, Dallas</div>
-      <div style="font-size:11px;color:var(--txt2);margin-top:2px">SF2 England vs Argentina follows TOMORROW Jul 15 · Both 3pm ET · Final Jul 19 MetLife NJ</div>
-    </div>
+  <div class="final-banner">
+    <div style="font-size:11px;font-weight:700;color:#c084fc;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">🏆 WORLD CUP FINAL</div>
+    <div style="font-size:22px;font-weight:900;margin-bottom:4px">🇪🇸 Spain vs Argentina 🇦🇷</div>
+    <div style="font-size:13px;color:#fbbf24;font-weight:700">Sunday July 19, 2026 · 3:00 PM ET · MetLife Stadium, East Rutherford NJ</div>
+    <div style="font-size:11px;color:var(--txt2);margin-top:4px">FOX / ABC · Streaming: Fubo, Peacock · Spain: -164 favourite · Argentina: +134 (DraftKings)</div>
+    <div style="margin-top:8px;background:rgba(180,83,9,.15);border:1px solid rgba(180,83,9,.4);border-radius:8px;padding:7px 12px;font-size:11px;">🥉 <strong style="color:#fcd34d">3rd Place Match TOMORROW:</strong> <span style="color:var(--txt2)">🇫🇷 France vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Jul 18 · 5pm ET · Hard Rock Stadium, Miami · M103 · FOX</span></div>
   </div>
-  <div class="sf-grid">
-    <div class="sfc today">
-      <div class="sfc-hdr today-bg">
-        <div class="sfc-id c1">SF1 · M101 · <a href="https://www.fifa.com/en/match-centre/match/17/285023/289290/400021541" target="_blank" style="color:#c084fc">FIFA ↗</a></div>
-        <div class="sfc-title">🇫🇷 France vs Spain 🇪🇸</div>
-        <div class="sfc-meta">AT&amp;T Stadium · Arlington TX · FOX</div>
-        <div class="sfc-time">⏰ TODAY · 3:00 PM ET</div>
-      </div>
-      <div class="sfc-body">
-        <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Win probability — Opta (regulation time)</div>
-        <div class="prob-bar-outer"><div class="bar-a" style="width:42%"></div><div class="bar-d" style="width:26%"></div><div class="bar-b" style="width:32%"></div></div>
-        <div class="bar-legend"><span>France 42.1%</span><span>Draw 26.1%</span><span>Spain 31.8%</span></div>
-        <div class="bar-src">Opta · <a href="https://www.rotowire.com/soccer/article/france-vs-spain-preview-predicted-lineups-team-news-tactical-analysis-2026-world-cup-semifinal-122319" target="_blank" style="color:var(--accent2)">RotoWire ↗</a></div>
-        <div class="ns">
-          <div class="ns-title">🇫🇷 France (4-2-3-1)</div>
-          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h (2pm ET today)</div>
-          <div class="ni"><div class="nd nd-g"></div><div class="nt">Maignan; Kounde, Upamecano, Saliba, Digne; <strong>Tchouameni (GTD thigh)</strong>/Camavinga, Rabiot; Dembélé, Olise, Doue; Mbappé<span class="nb nb-gtd">GTD</span></div></div>
-          <div class="ni"><div class="nd nd-g"></div><div class="nt">Mbappé fit. 6 goals in 5 games. Golden Boot leader.<span class="nb nb-fit">STARTS</span></div></div>
-          <div class="ni"><div class="nd nd-b"></div><div class="nt">France haven't conceded in KO stage (2 clean sheets, 3-0 agg GS→QF KO).</div></div>
-        </div>
-        <div class="ns">
-          <div class="ns-title">🇪🇸 Spain (4-3-3)</div>
-          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h (2pm ET today)</div>
-          <div class="ni"><div class="nd nd-g"></div><div class="nt">Simón; Porro, Cubarsí, Laporte, Cucurella; Rodri, Pedri; Yamal, Olmo, Baena; Oyarzabal</div></div>
-          <div class="ni"><div class="nd nd-a"></div><div class="nt">Nico Williams — still not in predicted XI · Baena starts LW<span class="nb nb-doubt">TBD</span></div></div>
-          <div class="ni"><div class="nd nd-g"></div><div class="nt">Merino on bench — 2 tournament-winning late goals (vs Portugal 90+1', vs Belgium 88'). A constant threat after the 85th minute.</div></div>
-        </div>
-        <div class="gt-box">
-          <div class="gt-box-title">GT ANGLE · SF1</div>
-          <div style="font-size:11px;color:var(--txt2)">Spain won last 2 competitive meetings but Opta makes France slim favourites. Tchouameni is the swing factor — without him, Spain's press via Yamal and Olmo gains more space in the pivot. France scored in every single match of this tournament. Winner faces England/Argentina at MetLife Jul 19.</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="sfc tmrw">
-      <div class="sfc-hdr tmrw-bg">
-        <div class="sfc-id c2">SF2 · M102 · <a href="https://www.fifa.com/en/match-centre/match/17/285023/289290/400021540" target="_blank" style="color:#fbbf24">FIFA ↗</a></div>
-        <div class="sfc-title">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs Argentina 🇦🇷</div>
-        <div class="sfc-meta">Mercedes-Benz Stadium · Atlanta · CBS</div>
-        <div class="sfc-time">⏰ TOMORROW Jul 15 · 3:00 PM ET</div>
+  <div class="sfc final-card">
+    <div class="sfc-hdr final-bg">
+      <div class="sfc-id c-final">FINAL · M104 · <a href="https://www.fifa.com/en/match-centre/match/17/285023/289292/400021543" target="_blank" style="color:#c084fc">FIFA ↗</a></div>
+      <div class="sfc-title">🇪🇸 Spain vs Argentina 🇦🇷</div>
+      <div class="sfc-meta">MetLife Stadium · East Rutherford, New Jersey · FOX/ABC</div>
+      <div class="sfc-time">⏰ Sunday Jul 19 · 3:00 PM ET</div>
+    </div>
+    <div class="sfc-body">
+      <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Win probability — DraftKings · Full-time (regulation)</div>
+      <div class="prob-bar-outer"><div class="bar-a" style="width:45%"></div><div class="bar-d" style="width:31%"></div><div class="bar-b" style="width:24%"></div></div>
+      <div class="bar-legend"><span>Spain ~45%</span><span>Draw ~31%</span><span>Argentina ~24%</span></div>
+      <div class="bar-src">DraftKings regulation: Spain +115 · Draw +200 · Argentina +285 · <a href="https://dknetwork.draftkings.com/2026/07/15/world-cup-2026-spain-vs-argentina-opening-odds/" target="_blank" style="color:var(--accent2)">DK ↗</a></div>
+
+      <div class="ns">
+        <div class="ns-title">🇪🇸 Spain (4-3-3) — Unbeaten in 37 · 6 CS all tournament</div>
+        <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h (2pm ET Jul 19)</div>
+        <div class="ni"><div class="nd nd-g"></div><div class="nt">Simón; Porro, Cubarsí, Laporte, Cucurella; Rodri, Fabián Ruiz; Yamal, Olmo, Baena; Oyarzabal<br><span style="color:var(--txt2);font-size:10px">Source: <a href="https://www.sportsmole.co.uk/football/spain/world-cup-2026/predicted-lineups/yamal-status-and-pedri-decision-predicted-spain-xi-vs-argentina_601303.html" target="_blank" style="color:var(--accent2)">Sports Mole ↗</a></span></div></div>
+        <div class="ni"><div class="nd nd-a"></div><div class="nt">Lamine Yamal — injury scare in training · expected to start · monitor<span class="nb nb-doubt">MONITOR</span></div></div>
+        <div class="ni"><div class="nd nd-b"></div><div class="nt">Pedri dropped — Fabián Ruiz in double pivot alongside Rodri. Olmo at No.10. Tactical shift vs Argentina's press.</div></div>
+        <div class="ni"><div class="nd nd-g"></div><div class="nt">Merino on bench again — 2 match-winning sub appearances so far. Opponent must plan for the 80-min threat.<span class="nb nb-fit">SUB THREAT</span></div></div>
+        <div class="ni"><div class="nd nd-g"></div><div class="nt">Spain conceded 1 goal in 7 matches (vs Belgium QF). Cubarsí—Laporte elite at cutting out Messi/Álvarez combinations.</div></div>
       </div>
-      <div class="sfc-body">
-        <div style="font-size:10px;color:var(--txt2);margin-bottom:4px">Win probability — Elo model (internal)</div>
-        <div class="prob-bar-outer"><div class="bar-a" style="width:54%"></div><div class="bar-d" style="width:18%"></div><div class="bar-b" style="width:28%"></div></div>
-        <div class="bar-legend"><span>England 54%</span><span>Draw 18%</span><span>Argentina 28%</span></div>
-        <div class="bar-src">Internal Elo · confirm vs Opta T-24h</div>
-        <div class="ns">
-          <div class="ns-title">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England (4-3-3)</div>
-          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 15</div>
-          <div class="ni"><div class="nd nd-g"></div><div class="nt">Pickford; James, Konsa, Guéhi, O'Reilly; Rice, Anderson; Saka, Bellingham, Gordon; Kane. <a href="https://www.sportsmole.co.uk/football/england/world-cup-2026/preview/england-vs-argentina-prediction-team-news-lineups_601122.html" target="_blank" style="color:var(--accent2)">Sports Mole ↗</a></div></div>
-          <div class="ni"><div class="nd nd-r"></div><div class="nt">Quansah BANNED (M2 of 2) · Konsa at CB<span class="nb nb-susp">BANNED</span></div></div>
-          <div class="ni"><div class="nd nd-g"></div><div class="nt">Bellingham — 6 goals in 5 games (2 vs Croatia, 0 vs Ghana, 1 vs Panama, 2 vs Mexico, 2 vs Norway). Tournament's best individual performer alongside Messi.<span class="nb nb-fit">IN FORM</span></div></div>
-        </div>
-        <div class="ns">
-          <div class="ns-title">🇦🇷 Argentina (4-3-3)</div>
-          <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 15</div>
-          <div class="ni"><div class="nd nd-g"></div><div class="nt">E.Martínez; Molina, C.Romero, L.Martínez, Tagliafico; De Paul, Paredes, Mac Allister, E.Fernández; Messi, Álvarez. <a href="https://www.sportsmole.co.uk/football/england/world-cup-2026/preview/england-vs-argentina-prediction-team-news-lineups_601122.html" target="_blank" style="color:var(--accent2)">Sports Mole ↗</a></div></div>
-          <div class="ni"><div class="nd nd-g"></div><div class="nt">Messi — 8 goals in 5 games. New all-time WC scoring record (21 career WC goals). Wants first-ever WC SF win.<span class="nb nb-fit">STARTS</span></div></div>
-          <div class="ni"><div class="nd nd-a"></div><div class="nt">De Paul — provisional (knock M100) · Argentina used ET both KO rounds — fatigue factor vs England.<span class="nb nb-doubt">PROVISIONAL</span></div></div>
-        </div>
-        <div class="gt-box" style="background:rgba(217,119,6,.08);border-color:rgba(217,119,6,.25);">
-          <div class="gt-box-title" style="color:#fbbf24">GT ANGLE · SF2</div>
-          <div style="font-size:11px;color:var(--txt2)">Bellingham vs Messi — two of the most in-form players of any WC in history squaring off. Quansah's absence is England's structural crack on set pieces. Argentina went to ET in both KO rounds; England once — fitness could be decisive in a tight game.</div>
-        </div>
+
+      <div class="ns">
+        <div class="ns-title" style="color:#fbbf24">🇦🇷 Argentina (4-3-3) — W7 KO comebacks · Messi 8g 4a</div>
+        <div class="prov-note">⚠️ PROVISIONAL — confirm FIFA lineup T-1h Jul 19</div>
+        <div class="ni"><div class="nd nd-g"></div><div class="nt">E.Martínez; Montiel, C.Romero, L.Martínez, Tagliafico; De Paul, Paredes, Fernández, Mac Allister; Messi, Álvarez<br><span style="color:var(--txt2);font-size:10px">Source: <a href="https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html" target="_blank" style="color:var(--accent2)">Sports Mole ↗</a></span></div></div>
+        <div class="ni"><div class="nd nd-g"></div><div class="nt">Montiel replaces Molina at RB — Montiel famously scored the WC 2022 Final winning penalty. De Paul returns to XI, replacing Simeone.<span class="nb nb-fit">ROTATIONS</span></div></div>
+        <div class="ni"><div class="nd nd-g"></div><div class="nt">Messi — 8 goals, 4 assists · leads Golden Boot on assists tiebreaker vs Mbappé. 10 KO assists = record (60+ year span). Final chance to win WC again at 39.<span class="nb nb-fit">RECORD RUN</span></div></div>
+        <div class="ni"><div class="nd nd-a"></div><div class="nt">Argentina went ET in 3/4 KO rounds. Fitness question vs Spain's relentless press in a normal-time game. No late escapes may be available.<span class="nb nb-doubt">FATIGUE</span></div></div>
+      </div>
+
+      <div class="gt-box" style="background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.3);">
+        <div class="gt-box-title">GT ANGLE · THE FINAL</div>
+        <div style="font-size:11px;color:var(--txt2)">Spain's defensive record (1 goal conceded all tournament) meets Argentina's comeback machine (0 KO exits without a comeback). The question isn't whether Argentina can score — they always do — it's whether Spain leak early enough to allow Argentina's late-game pressure to bite. If Spain lead at 70', history suggests 60% chance they close it out. If it's 0-0 at 75', the Messi-factor and Argentina's ET experience tilt the balance. Merino off the bench at 75' could be decisive again. Biggest final since 1986.</div>
       </div>
     </div>
   </div>
@@ -866,89 +877,89 @@
 
 <!-- ══ INSIGHTS TAB ══ -->
 <div id="tab-insights" class="tab-content">
-  <div class="section-title" style="margin-top:0">QF Day 2–3 Results · Jul 10–11</div>
+  <div class="section-title" style="margin-top:0">🏆 SF2 Recap · Jul 15 — Argentina 2–1 England</div>
   <div class="ig-grid" style="margin-bottom:16px">
     <div class="ic">
-      <div class="ic-hdr"><span class="ic-match">M98 · Jul 10</span><span class="ic-score win">2–1</span></div>
+      <div class="ic-hdr"><span class="ic-match">SF2 M102 · Jul 15 · Atlanta</span><span class="ic-score drama">ARG 2–1 ENG</span></div>
       <div class="ic-body">
-        <div class="ic-teams">🇪🇸 Spain 2–1 Belgium 🇧🇪</div>
-        <div class="ic-scorers">Fabián Ruiz (opener) · De Ketelaere eq · Merino 88' (sub, 2 mins after coming on)</div>
-        <div class="ic-impact"><span class="imp imp-pos">MERINO MAGIC</span> Second straight match-winning sub goal — Merino also scored 90+1' vs Portugal. Spain's late-game threat is now a tournament motif.</div>
+        <div class="ic-teams">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England 1–2 Argentina 🇦🇷</div>
+        <div class="ic-scorers">Gordon 55' (tap-in, Rogers cross) — then E.Fernández 85' (20-yard curler, Messi through ball) — then L.Martínez 90+2' (header, Messi far-post cross)</div>
+        <div class="ic-impact"><span class="imp imp-drama">LATE DRAMA</span> England led for 35 minutes. Argentina's 3rd straight KO comeback at this WC. Gordon scored England's only goal — Bellingham/Kane blanked. Messi: 0 goals, 2 decisive assists.</div>
       </div>
     </div>
     <div class="ic">
-      <div class="ic-hdr"><span class="ic-match">M99 · Jul 11 aet</span><span class="ic-score aet">2–1 aet</span></div>
+      <div class="ic-hdr"><span class="ic-match">Messi Record · SF2</span><span class="ic-score win">10 KO assists</span></div>
       <div class="ic-body">
-        <div class="ic-teams">🇳🇴 Norway 1–2 England 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
-        <div class="ic-scorers">Schjelderup opener · Bellingham eq · Bellingham ET 3' winner</div>
-        <div class="ic-impact"><span class="imp imp-pos">BELLINGHAM CLUTCH</span> 4th and 5th KO goals. Quansah ban M1 served — M2 (SF2) still to come. Haaland exits with 8 tournament goals but no Final.</div>
+        <div class="ic-teams">🇦🇷 Lionel Messi — WC Record Assist Haul</div>
+        <div class="ic-scorers">2 assists vs England → 10 KO stage assists total — most in at least 60 years. 8 goals + 4 total assists in this tournament.</div>
+        <div class="ic-impact"><span class="imp imp-pos">RECORD</span> Leads Golden Boot on assists tiebreaker over Mbappé (8g, 3a). Could win Golden Boot even without scoring in Final. Final is also Argentina's shot at back-to-back WC titles — first since Brazil 1958/1962.</div>
       </div>
     </div>
     <div class="ic">
-      <div class="ic-hdr"><span class="ic-match">M100 · Jul 11 aet</span><span class="ic-score aet">3–1 aet</span></div>
+      <div class="ic-hdr"><span class="ic-match">SF1 Recap · Jul 14 · Dallas</span><span class="ic-score win">ESP 2–0 FRA</span></div>
       <div class="ic-body">
-        <div class="ic-teams">🇦🇷 Argentina 3–1 Switzerland 🇨🇭</div>
-        <div class="ic-scorers">Mac Allister 10' · Ndoye eq 67' · Embolo red · Álvarez 112' · Lautaro 120+1'</div>
-        <div class="ic-impact"><span class="imp imp-pos">CONTROLLED</span> Embolo red decisive at 10v11. Argentina now 2/2 KO matches requiring ET — significant fitness concern heading into SF2. Mac Allister quietly elite throughout.</div>
+        <div class="ic-teams">🇪🇸 Spain 2–0 France 🇫🇷</div>
+        <div class="ic-scorers">Oyarzabal 22' pen (Yamal drew foul from Digne) · Porro 58' (give-and-go Pedri-Porro)</div>
+        <div class="ic-impact"><span class="imp imp-shock">HISTORY</span> Spain's 3rd consecutive tournament SF win over France: Euro 2024 (2-1), Nations League 2025 (5-4), WC 2026 (2-0). France ELIMINATED. Mbappé finished with 8 goals (tournament over).</div>
       </div>
     </div>
   </div>
 
-  <div class="section-title">📊 Tournament Top Scorers (SF Teams)</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:16px">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
+  <div class="section-title">📊 Golden Boot Race — Final standings (after SF)</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;margin-bottom:16px">
+    <div style="background:var(--card);border:2px solid rgba(168,85,247,.4);border-radius:9px;padding:9px 11px">
       <div style="font-size:12px;font-weight:700">🇦🇷 Messi</div>
-      <div style="font-size:22px;font-weight:900;color:var(--accent2);margin:3px 0">8</div>
-      <div style="font-size:10px;color:var(--txt2)">3+2+1 (GS) + 1 R16 + 0 QF · New all-time WC record (21 career)</div>
+      <div style="font-size:22px;font-weight:900;color:var(--accent2);margin:3px 0">8g 4a</div>
+      <div style="font-size:10px;color:var(--txt2)">ACTIVE · Leads on assists. 1 more Final match.</div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
       <div style="font-size:12px;font-weight:700">🇫🇷 Mbappé</div>
-      <div style="font-size:22px;font-weight:900;color:var(--accent2);margin:3px 0">6</div>
-      <div style="font-size:10px;color:var(--txt2)">2+2+0 (GS) + 1 R16 + 1 QF · Golden Boot race leader</div>
+      <div style="font-size:22px;font-weight:900;color:var(--txt2);margin:3px 0">8g 3a</div>
+      <div style="font-size:10px;color:var(--txt2)">ELIMINATED · GS4 + R32 2 + R16 1 + QF 1</div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
       <div style="font-size:12px;font-weight:700">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Bellingham</div>
-      <div style="font-size:22px;font-weight:900;color:var(--accent2);margin:3px 0">6</div>
-      <div style="font-size:10px;color:var(--txt2)">1+0+1 (GS) + 2 R16 + 2 QF (aet) · Scored in every KO round</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
-      <div style="font-size:12px;font-weight:700">🇫🇷 Dembélé</div>
-      <div style="font-size:22px;font-weight:900;color:var(--accent2);margin:3px 0">5</div>
-      <div style="font-size:10px;color:var(--txt2)">0+1+3 hat-trick (GS) + 0 R16 + 1 QF</div>
+      <div style="font-size:22px;font-weight:900;color:var(--txt2);margin:3px 0">6</div>
+      <div style="font-size:10px;color:var(--txt2)">ELIMINATED · 0 goals SF2 vs Argentina</div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
       <div style="font-size:12px;font-weight:700">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Kane</div>
-      <div style="font-size:22px;font-weight:900;color:var(--accent2);margin:3px 0">5</div>
-      <div style="font-size:10px;color:var(--txt2)">2+0+1 (GS) + 1 R16 + 0 QF · Record 11th WC goal</div>
+      <div style="font-size:22px;font-weight:900;color:var(--txt2);margin:3px 0">6</div>
+      <div style="font-size:10px;color:var(--txt2)">ELIMINATED · GS3 + R32 2 + R16 1</div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
-      <div style="font-size:12px;font-weight:700">🇪🇸 Merino</div>
-      <div style="font-size:22px;font-weight:900;color:#fbbf24;margin:3px 0">2★</div>
-      <div style="font-size:10px;color:var(--txt2)">Both goals were match-winning late sub appearances (R16 + QF)</div>
+      <div style="font-size:12px;font-weight:700">🇫🇷 Dembélé</div>
+      <div style="font-size:22px;font-weight:900;color:var(--txt2);margin:3px 0">5</div>
+      <div style="font-size:10px;color:var(--txt2)">ELIMINATED · GS hat-trick + R16 0 + QF 1</div>
+    </div>
+    <div style="background:var(--card);border:2px solid rgba(168,85,247,.3);border-radius:9px;padding:9px 11px">
+      <div style="font-size:12px;font-weight:700">🇪🇸 Oyarzabal</div>
+      <div style="font-size:22px;font-weight:900;color:var(--accent2);margin:3px 0">5</div>
+      <div style="font-size:10px;color:var(--txt2)">ACTIVE · GS2 + R32 2 + SF1 1 · Final to play</div>
     </div>
   </div>
 
-  <div class="section-title">📊 Post-QF Odds Movers</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px;margin-bottom:12px">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
-      <div style="font-size:12px;font-weight:700">🇫🇷 France</div>
-      <div style="font-size:18px;font-weight:900;color:#4ade80;margin:3px 0">▲+22pp</div>
-      <div style="font-size:10px;color:var(--txt2)">16.7% → ~39% · Biggest mover. Won as expected, Mbappé cleared.</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
-      <div style="font-size:12px;font-weight:700">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div>
-      <div style="font-size:18px;font-weight:900;color:#4ade80;margin:3px 0">▲+11pp</div>
-      <div style="font-size:10px;color:var(--txt2)">11.2% → ~22% · Bellingham ET. ⚠️ Quansah ban still active SF2.</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
-      <div style="font-size:12px;font-weight:700">🇦🇷 Argentina</div>
-      <div style="font-size:18px;font-weight:900;color:#4ade80;margin:3px 0">▲+10pp</div>
-      <div style="font-size:10px;color:var(--txt2)">8.6% → ~19% · Survived ET vs Switzerland. Messi 8-goal record run.</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
+  <div class="section-title">📊 Final Odds Movement</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:12px">
+    <div style="background:var(--card);border:2px solid rgba(168,85,247,.3);border-radius:9px;padding:9px 11px">
       <div style="font-size:12px;font-weight:700">🇪🇸 Spain</div>
-      <div style="font-size:18px;font-weight:900;color:#4ade80;margin:3px 0">▲+3pp</div>
-      <div style="font-size:10px;color:var(--txt2)">17.0% → ~20% · Smallest mover. Won but needed 88' sub. H2H edge vs France.</div>
+      <div style="font-size:18px;font-weight:900;color:#4ade80;margin:3px 0">▲+38pp</div>
+      <div style="font-size:10px;color:var(--txt2)">20% → ~58% · Tournament favourite · -164 DK · 1 goal conceded all tournament</div>
+    </div>
+    <div style="background:var(--card);border:2px solid rgba(217,119,6,.3);border-radius:9px;padding:9px 11px">
+      <div style="font-size:12px;font-weight:700">🇦🇷 Argentina</div>
+      <div style="font-size:18px;font-weight:900;color:#4ade80;margin:3px 0">▲+23pp</div>
+      <div style="font-size:10px;color:var(--txt2)">19% → ~42% · +134 DK · Comeback kings · Messi record run</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px;opacity:.5">
+      <div style="font-size:12px;font-weight:700">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div>
+      <div style="font-size:18px;font-weight:900;color:#f87171;margin:3px 0">▼ ELIM</div>
+      <div style="font-size:10px;color:var(--txt2)">22% → 0% · Gordon goal, two Messi assists ended it 90+2'</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px;opacity:.5">
+      <div style="font-size:12px;font-weight:700">🇫🇷 France</div>
+      <div style="font-size:18px;font-weight:900;color:#f87171;margin:3px 0">▼ ELIM</div>
+      <div style="font-size:10px;color:var(--txt2)">39% → 0% · Oyarzabal pen + Porro ended it 2-0 Jul 14</div>
     </div>
   </div>
 </div>
@@ -957,20 +968,21 @@
 <div id="tab-methodology" class="tab-content">
   <div class="ms">
     <h3>Source Tiers</h3>
-    <p><span class="tier-badge t1">T1</span>FIFA match centre — all group stage and KO results. Wikipedia Group tables for group stage summaries.</p>
-    <p><span class="tier-badge t2">T2</span>Tournament win % — Polymarket + Kalshi. ⚠️ Polymarket page cache stale Jul 14. Search-aggregated figures (launchpoly.com, defirate.com, Kalshi Jul 12–13) used as override.</p>
-    <p><span class="tier-badge t3">T3</span>Team news — Sports Mole, RotoWire, CBS Sports, ESPN · PROVISIONAL until FIFA lineup T-1h.</p>
-    <p><span class="tier-badge t4">T4</span>Win probability — Opta (SF1, via RotoWire) · Internal Elo (SF2). H2H records — Sports Mole, Wikipedia. All editorial Insights-only.</p>
+    <p><span class="tier-badge t1">T1</span>FIFA match centre — all results. ESPN/Al Jazeera/NBC confirmed SF2 score. Wikipedia for group tables.</p>
+    <p><span class="tier-badge t2">T2</span>Tournament win % — Polymarket + Kalshi (Jul 15–16): Spain ~58%, Argentina ~42%. DraftKings match odds for Final preview.</p>
+    <p><span class="tier-badge t3">T3</span>Team news — Sports Mole (Spain + Argentina predicted XIs for Final). All lineups PROVISIONAL until FIFA T-1h Jul 19 2pm ET.</p>
+    <p><span class="tier-badge t4">T4</span>Win probability bar — DraftKings regulation 3-way: Spain +115 · Draw +200 · Argentina +285. Golden Boot: Yahoo Sports / FIFA official tracker.</p>
   </div>
   <div class="ms">
-    <h3>Group Stage Data Sources (v27)</h3>
-    <p><a href="https://www.espn.com/soccer/team/results/_/id/478/league/FIFA.WORLD" target="_blank" style="color:var(--accent2)">ESPN — France 2026 WC Results ↗</a></p>
-    <p><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_H" target="_blank" style="color:var(--accent2)">Wikipedia — Group H (Spain) ↗</a></p>
-    <p><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_L" target="_blank" style="color:var(--accent2)">Wikipedia — Group L (England) ↗</a></p>
-    <p><a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_J" target="_blank" style="color:var(--accent2)">Wikipedia — Group J (Argentina) ↗</a></p>
-    <p><a href="https://www.fifa.com/en/match-centre/match/17/285023/289273/400021490" target="_blank" style="color:var(--accent2)">FIFA — France 3-1 Senegal ↗</a> · <a href="https://www.espn.com/soccer/match/_/gameId/760457/iraq-france" target="_blank" style="color:var(--accent2)">ESPN — France 3-0 Iraq ↗</a> · <a href="https://www.fifa.com/en/match-centre/match/17/285023/289273/400021489" target="_blank" style="color:var(--accent2)">FIFA — Norway 1-4 France ↗</a></p>
-    <p><a href="https://www.fifa.com/en/match-centre/match/17/285023/289273/400021507" target="_blank" style="color:var(--accent2)">FIFA — England 4-2 Croatia ↗</a> · <a href="https://www.espn.com/soccer/match/_/gameId/760458/ghana-england" target="_blank" style="color:var(--accent2)">ESPN — England 0-0 Ghana ↗</a></p>
-    <p style="margin-top:8px;font-size:11px;color:var(--txt2)">v16–v27 · HeavyMetalProduct · v27 Jul 14, 2026</p>
+    <h3>Key Sources — v29</h3>
+    <p><a href="https://www.espn.com/soccer/match/_/gameId/760515/argentina-england" target="_blank" style="color:var(--accent2)">ESPN — Argentina 2-1 England ↗</a></p>
+    <p><a href="https://www.aljazeera.com/sports/2026/7/15/argentina-stun-england-in-2-1-comeback-win-to-reach-2026-world-cup-final" target="_blank" style="color:var(--accent2)">Al Jazeera — Argentina stun England ↗</a></p>
+    <p><a href="https://www.fifa.com/en/match-centre/match/17/285023/289292/400021543" target="_blank" style="color:var(--accent2)">FIFA — Final M104 match centre ↗</a></p>
+    <p><a href="https://dknetwork.draftkings.com/2026/07/15/world-cup-2026-spain-vs-argentina-opening-odds/" target="_blank" style="color:var(--accent2)">DraftKings — Spain vs Argentina opening odds ↗</a></p>
+    <p><a href="https://www.sportsmole.co.uk/football/spain/world-cup-2026/predicted-lineups/yamal-status-and-pedri-decision-predicted-spain-xi-vs-argentina_601303.html" target="_blank" style="color:var(--accent2)">Sports Mole — Spain predicted XI ↗</a></p>
+    <p><a href="https://www.sportsmole.co.uk/football/argentina/world-cup-2026/predicted-lineups/alvarez-or-martinez-de-paul-or-simeone-predicted-argentina-xi-vs-spain_601305.html" target="_blank" style="color:var(--accent2)">Sports Mole — Argentina predicted XI ↗</a></p>
+    <p><a href="https://polymarket.com/event/world-cup-winner" target="_blank" style="color:var(--accent2)">Polymarket — WC 2026 winner ↗</a></p>
+    <p style="margin-top:8px;font-size:11px;color:var(--txt2)">v16–v29 · HeavyMetalProduct · v29 Jul 16, 2026 · Final Jul 19 MetLife NJ</p>
     <button class="dl-btn" onclick="downloadJSON()">⬇ Fixtures JSON</button>
     <button class="dl-btn" onclick="downloadCSV()" style="margin-left:6px">⬇ Fixtures CSV</button>
   </div>
@@ -997,6 +1009,10 @@ const fixtures=[
   {match:"GS-MD3",round:"Group J",date:"2026-06-27",teamA:"Argentina",teamB:"Jordan",scoreA:3,scoreB:1,scorers:"Lautaro, Lo Celso, Messi (sub)"},
   {match:"GS-MD3",round:"Group H",date:"2026-06-26",teamA:"Spain",teamB:"Uruguay",scoreA:1,scoreB:0,scorers:"Baena 42"},
   {match:"GS-MD3",round:"Group L",date:"2026-06-27",teamA:"England",teamB:"Panama",scoreA:2,scoreB:0,scorers:"Bellingham 62, Kane 78"},
+  {match:"R32",round:"R32",date:"2026-06-30",teamA:"France",teamB:"Sweden",scoreA:3,scoreB:0,scorers:"Mbappe x2, Barcola"},
+  {match:"R32",round:"R32",date:"2026-07-01",teamA:"England",teamB:"Congo DR",scoreA:2,scoreB:1,scorers:"Kane 75 86 / Cipenga 7"},
+  {match:"R32",round:"R32",date:"2026-07-02",teamA:"Spain",teamB:"Austria",scoreA:3,scoreB:0,scorers:"Oyarzabal 36 89, Porro 66"},
+  {match:"R32",round:"R32",date:"2026-07-03",teamA:"Argentina",teamB:"Cape Verde",scoreA:3,scoreB:2,extra:"aet",scorers:"Messi 29, L.Martinez 92(ET), Borges OG 111 / Duarte 59, Lopes Cabral 103"},
   {match:"M89",round:"R16",date:"2026-07-04",teamA:"France",teamB:"Paraguay",scoreA:1,scoreB:0,scorers:"Mbappe 69p"},
   {match:"M92",round:"R16",date:"2026-07-05",teamA:"England",teamB:"Mexico",scoreA:3,scoreB:2,scorers:"Bellingham x2, Kane pen",notes:"Quansah red 2-match ban"},
   {match:"M93",round:"R16",date:"2026-07-06",teamA:"Spain",teamB:"Portugal",scoreA:1,scoreB:0,scorers:"Merino 90+1"},
@@ -1005,19 +1021,21 @@ const fixtures=[
   {match:"M98",round:"QF",date:"2026-07-10",teamA:"Spain",teamB:"Belgium",scoreA:2,scoreB:1,scorers:"Fabian Ruiz, Merino 88"},
   {match:"M99",round:"QF",date:"2026-07-11",teamA:"England",teamB:"Norway",scoreA:2,scoreB:1,extra:"aet",scorers:"Bellingham x2 incl ET3"},
   {match:"M100",round:"QF",date:"2026-07-11",teamA:"Argentina",teamB:"Switzerland",scoreA:3,scoreB:1,extra:"aet",scorers:"Mac Allister, Alvarez 112, Lautaro 120+1"},
-  {match:"M101",round:"SF",date:"2026-07-14",teamA:"France",teamB:"Spain",status:"today",kickoff:"3pm ET",venue:"AT&T Stadium Arlington TX"},
-  {match:"M102",round:"SF",date:"2026-07-15",teamA:"England",teamB:"Argentina",status:"upcoming",kickoff:"3pm ET",venue:"Mercedes-Benz Stadium Atlanta",notes:"Quansah BANNED M2"}
+  {match:"M101",round:"SF",date:"2026-07-14",teamA:"Spain",teamB:"France",scoreA:2,scoreB:0,scorers:"Oyarzabal 22p, Porro 58",venue:"AT&T Stadium Dallas TX"},
+  {match:"M102",round:"SF",date:"2026-07-15",teamA:"Argentina",teamB:"England",scoreA:2,scoreB:1,scorers:"Gordon 55 (ENG), E.Fernandez 85, L.Martinez 90+2 (Messi x2 ast)",venue:"Mercedes-Benz Stadium Atlanta"},
+  {match:"M103",round:"3rd Place",date:"2026-07-18",teamA:"France",teamB:"England",status:"upcoming",kickoff:"5pm ET",venue:"Hard Rock Stadium Miami Gardens FL"},
+  {match:"M104",round:"FINAL",date:"2026-07-19",teamA:"Spain",teamB:"Argentina",status:"upcoming",kickoff:"3pm ET",venue:"MetLife Stadium East Rutherford NJ"}
 ];
 
 function downloadJSON(){
-  const blob=new Blob([JSON.stringify({generated:"2026-07-14",version:"v27",odds_note:"Polymarket stale; search-sourced Jul 12-13",fixtures},null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wc2026_fixtures_v27.json';a.click();
+  const blob=new Blob([JSON.stringify({generated:"2026-07-16",version:"v29",odds_note:"Polymarket/Kalshi Jul 15-16: Spain 58% Argentina 42%",final:"Spain vs Argentina Jul 19 MetLife NJ",fixtures},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wc2026_fixtures_v29.json';a.click();
 }
 function downloadCSV(){
   const rows=[['Match','Round','Date','Team A','Team B','Score A','Score B','Extra','Scorers','Venue','Kickoff','Status','Notes']];
   fixtures.forEach(f=>rows.push([f.match,f.round,f.date,f.teamA,f.teamB,f.scoreA??'',f.scoreB??'',f.extra??'',f.scorers??'',f.venue??'',f.kickoff??'',f.status??'completed',f.notes??'']));
   const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wc2026_fixtures_v27.csv';a.click();
+  const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wc2026_fixtures_v29.csv';a.click();
 }
 </script>
 </body>
